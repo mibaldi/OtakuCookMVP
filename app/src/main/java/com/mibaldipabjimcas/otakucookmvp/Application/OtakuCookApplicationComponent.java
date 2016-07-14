@@ -1,0 +1,20 @@
+package com.mibaldipabjimcas.otakucookmvp.Application;
+
+import android.content.Context;
+
+import com.mibaldipabjimcas.otakucookmvp.Base.BaseActivity;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
+
+import dagger.Component;
+
+@Singleton
+@Component(modules = OtakuCookApplicationModule.class)
+public interface OtakuCookApplicationComponent {
+    @Named("ApplicationContext")
+    Context context();
+
+    void inject (BaseActivity baseActivity);
+}
