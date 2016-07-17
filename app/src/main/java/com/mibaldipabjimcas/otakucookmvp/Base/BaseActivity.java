@@ -23,7 +23,7 @@ public class BaseActivity  extends AppCompatActivity{
         //@Inject
         //Navigator navigator;
 
-        //@BindView(R.id.toolbar)
+       // @BindView(R.id.toolbar)
         //Toolbar toolbar;
 
         @Override
@@ -32,14 +32,14 @@ public class BaseActivity  extends AppCompatActivity{
             this.getInjector().inject(this);
         }
 
-        protected void configSupportActionBar() {
+       /* protected void configSupportActionBar() {
 
             ButterKnife.bind(this);
-            //changeSupportActionBar(toolbar);
-        }
+            changeSupportActionBar(toolbar);
+        }*/
 
 
-        public void changeSupportActionBar(Toolbar toolbar){
+       /* public void changeSupportActionBar(Toolbar toolbar){
           //  setSupportActionBar(toolbar);
 
             if (getSupportActionBar() != null){
@@ -47,7 +47,7 @@ public class BaseActivity  extends AppCompatActivity{
                 getSupportActionBar().setDisplayShowHomeEnabled(true);
 
             }
-        }
+        }*/
 
         protected OtakuCookApplicationComponent getInjector(){
             return ((OtakuCookApplication) getApplication()).getInjector();
@@ -63,26 +63,26 @@ public class BaseActivity  extends AppCompatActivity{
             return new BaseActivityModule(this);
         }
 
-        public int getStatusBarHeight() {
+      /*  public int getStatusBarHeight() {
             int result = 0;
             int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
             if (resourceId > 0) {
                 result = getResources().getDimensionPixelSize(resourceId);
             }
             return result;
-        }
+        }*/
 
         @Override
         public void onBackPressed() {
             super.onBackPressed();
         }
 
-        public boolean onOptionsItemSelected(MenuItem item) {
+        /*public boolean onOptionsItemSelected(MenuItem item) {
             if (item.getItemId() == android.R.id.home) {
                 finish();
             }
 
             return super.onOptionsItemSelected(item);
-        }
+        }*/
 
 }
