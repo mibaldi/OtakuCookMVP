@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.mibaldipabjimcas.otakucookmvp.Base.BaseMVPFragment;
 import com.mibaldipabjimcas.otakucookmvp.R;
-import com.mibaldipabjimcas.otakucookmvp.features.Main.MainComponent;
+import com.mibaldipabjimcas.otakucookmvp.features.Drawer.DrawerComponent;
 import com.mibaldipabjimcas.otakucookmvp.features.Main.MainPresenter;
 import com.mibaldipabjimcas.otakucookmvp.ui.Views.MainView;
 
@@ -18,12 +18,17 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  implements MainView{
-    private MainComponent component;
+    private DrawerComponent component;
     private Unbinder unbind;
 
     @Inject
     public MainFragment() {
         setRetainInstance(true);
+    }
+
+    public static MainFragment newInstance() {
+        MainFragment fragment = new MainFragment();
+        return fragment;
     }
 
     @Override
@@ -41,7 +46,7 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        component = getComponent(MainComponent.class);
+        component = getComponent(DrawerComponent.class);
         component.inject(this);
         View view = inflater.inflate(R.layout.fragment_main,container,false);
         unbind = ButterKnife.bind(this,view);
@@ -56,6 +61,6 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
 
     @Override
     public MainPresenter createPresenter() {
-        return component.presenter();
+        return component.mainPresenter();
     }
 }

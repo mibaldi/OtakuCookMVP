@@ -2,6 +2,8 @@ package com.mibaldipabjimcas.otakucookmvp.Base;
 
 import android.content.Context;
 
+import com.mibaldipabjimcas.otakucookmvp.di.PerActivity;
+
 import javax.inject.Named;
 
 import dagger.Module;
@@ -19,4 +21,6 @@ public class BaseActivityModule {
     public Context provideActivityContext(){
         return context;
     }
+
+
 }

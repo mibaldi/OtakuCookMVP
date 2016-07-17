@@ -8,12 +8,9 @@ import android.view.ViewGroup;
 
 import com.mibaldipabjimcas.otakucookmvp.Base.BaseMVPFragment;
 import com.mibaldipabjimcas.otakucookmvp.R;
-import com.mibaldipabjimcas.otakucookmvp.features.RecipeListFavorites.RecipeListFavoritesComponent;
+import com.mibaldipabjimcas.otakucookmvp.features.Drawer.DrawerComponent;
 import com.mibaldipabjimcas.otakucookmvp.features.RecipeListFavorites.RecipeListFavoritesPresenter;
-import com.mibaldipabjimcas.otakucookmvp.features.RecipeTaskList.RecipeTaskListComponent;
-import com.mibaldipabjimcas.otakucookmvp.features.RecipeTaskList.RecipeTaskListPresenter;
 import com.mibaldipabjimcas.otakucookmvp.ui.Views.RecipeListFavoritesView;
-import com.mibaldipabjimcas.otakucookmvp.ui.Views.RecipeTaskListView;
 
 import javax.inject.Inject;
 
@@ -24,7 +21,7 @@ import butterknife.Unbinder;
  * Created by mikelbalducieldiaz on 17/7/16.
  */
 public class RecipeListFavoritesFragment  extends BaseMVPFragment<RecipeListFavoritesPresenter,RecipeListFavoritesView> implements RecipeListFavoritesView{
-    private RecipeListFavoritesComponent component;
+    private DrawerComponent component;
     private Unbinder unbind;
 
     @Inject
@@ -47,7 +44,7 @@ public class RecipeListFavoritesFragment  extends BaseMVPFragment<RecipeListFavo
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        component = getComponent(RecipeListFavoritesComponent.class);
+        component = getComponent(DrawerComponent.class);
         component.inject(this);
         View view = inflater.inflate(R.layout.fragment_recipe_list_favorites,container,false);
         unbind = ButterKnife.bind(this,view);
@@ -62,7 +59,7 @@ public class RecipeListFavoritesFragment  extends BaseMVPFragment<RecipeListFavo
 
     @Override
     public RecipeListFavoritesPresenter createPresenter() {
-        return component.presenter();
+        return component.recipeListFavoritesPresenter();
     }
 
 }
