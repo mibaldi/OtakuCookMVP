@@ -3,6 +3,8 @@ package com.mibaldipabjimcas.otakucookmvp.Application;
 
 import android.content.Context;
 
+import com.mibaldipabjimcas.otakucookmvp.Navigation.Navigator;
+
 import javax.inject.Named;
 import javax.inject.Singleton;
 
@@ -20,5 +22,10 @@ public class OtakuCookApplicationModule {
     @Singleton
     Context providedApplicationContext(){
         return this.context;
+    }
+    @Provides
+    @Singleton
+    Navigator providedNavigator(){
+        return new Navigator(this.context);
     }
 }

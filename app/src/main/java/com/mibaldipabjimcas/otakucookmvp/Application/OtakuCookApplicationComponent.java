@@ -3,6 +3,7 @@ package com.mibaldipabjimcas.otakucookmvp.Application;
 import android.content.Context;
 
 import com.mibaldipabjimcas.otakucookmvp.Base.BaseActivity;
+import com.mibaldipabjimcas.otakucookmvp.Navigation.Navigator;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -17,4 +18,5 @@ public interface OtakuCookApplicationComponent {
     Context context();
 
     void inject (BaseActivity baseActivity);
+    Navigator getNavigator();
 }

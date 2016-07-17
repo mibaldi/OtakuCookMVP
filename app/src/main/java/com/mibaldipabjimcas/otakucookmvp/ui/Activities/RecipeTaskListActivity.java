@@ -2,11 +2,13 @@ package com.mibaldipabjimcas.otakucookmvp.ui.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.mibaldipabjimcas.otakucookmvp.Base.BaseActivity;
 import com.mibaldipabjimcas.otakucookmvp.R;
+import com.mibaldipabjimcas.otakucookmvp.data.Models.Task;
 import com.mibaldipabjimcas.otakucookmvp.di.HasComponent;
 import com.mibaldipabjimcas.otakucookmvp.features.RecipeDescription.DaggerRecipeDescriptionComponent;
 import com.mibaldipabjimcas.otakucookmvp.features.RecipeDescription.RecipeDescriptionComponent;
@@ -15,6 +17,10 @@ import com.mibaldipabjimcas.otakucookmvp.features.RecipeTaskList.DaggerRecipeTas
 import com.mibaldipabjimcas.otakucookmvp.features.RecipeTaskList.RecipeTaskListComponent;
 import com.mibaldipabjimcas.otakucookmvp.features.RecipeTaskList.RecipeTaskListModule;
 import com.mibaldipabjimcas.otakucookmvp.ui.Fragments.MainFragment;
+import com.mibaldipabjimcas.otakucookmvp.ui.Fragments.RecipeTaskListFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecipeTaskListActivity  extends BaseActivity implements HasComponent<RecipeTaskListComponent> {
 
@@ -25,12 +31,13 @@ public class RecipeTaskListActivity  extends BaseActivity implements HasComponen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_task_list);
+        ArrayList<Task> taskList = getIntent().getParcelableArrayListExtra("taskList");
         this.initializeInjector();
-        this.initializeActivity();
+        this.initializeActivity(taskList);
     }
 
-    private void initializeActivity() {
-        addFragment(R.id.content_main,new MainFragment());
+    private void initializeActivity(ArrayList<Task> taskArrayList) {
+        addFragment(R.id.content_main, RecipeTaskListFragment.newInstance(taskArrayList));
     }
 
     private void initializeInjector() {

@@ -2,6 +2,7 @@ package com.mibaldipabjimcas.otakucookmvp.features.RecipeList;
 
 import com.mibaldipabjimcas.otakucookmvp.Application.OtakuCookApplicationComponent;
 import com.mibaldipabjimcas.otakucookmvp.di.PerActivity;
+import com.mibaldipabjimcas.otakucookmvp.ui.Adapters.RecipesListAdapter;
 import com.mibaldipabjimcas.otakucookmvp.ui.Fragments.MainFragment;
 import com.mibaldipabjimcas.otakucookmvp.ui.Fragments.RecipeListFragment;
 
@@ -12,6 +13,6 @@ import dagger.Component;
 public interface RecipeListComponent {
 
     void inject(RecipeListFragment recipeListFragment);
-
-    RecipeListPresenter presenter();
+    void inject (RecipesListAdapter recipesListAdapter);
+    public RecipeListPresenter presenter();
 }

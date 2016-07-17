@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.mibaldipabjimcas.otakucookmvp.Base.BaseActivity;
 import com.mibaldipabjimcas.otakucookmvp.R;
+import com.mibaldipabjimcas.otakucookmvp.data.Models.Recipe;
 import com.mibaldipabjimcas.otakucookmvp.di.HasComponent;
 import com.mibaldipabjimcas.otakucookmvp.features.Main.DaggerMainComponent;
 import com.mibaldipabjimcas.otakucookmvp.features.Main.MainComponent;
@@ -15,6 +16,7 @@ import com.mibaldipabjimcas.otakucookmvp.features.RecipeDescription.DaggerRecipe
 import com.mibaldipabjimcas.otakucookmvp.features.RecipeDescription.RecipeDescriptionComponent;
 import com.mibaldipabjimcas.otakucookmvp.features.RecipeDescription.RecipeDescriptionModule;
 import com.mibaldipabjimcas.otakucookmvp.ui.Fragments.MainFragment;
+import com.mibaldipabjimcas.otakucookmvp.ui.Fragments.RecipeDescriptionFragment;
 
 public class RecipeDescriptionActivity extends BaseActivity implements HasComponent<RecipeDescriptionComponent> {
 
@@ -24,12 +26,13 @@ public class RecipeDescriptionActivity extends BaseActivity implements HasCompon
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_description);
+        Recipe recipe = getIntent().getParcelableExtra("recipe");
         this.initializeInjector();
-        this.initializeActivity();
+        this.initializeActivity(recipe);
     }
 
-    private void initializeActivity() {
-        addFragment(R.id.content_main,new MainFragment());
+    private void initializeActivity(Recipe recipe) {
+        addFragment(R.id.content_main,RecipeDescriptionFragment.newInstance(recipe));
     }
 
     private void initializeInjector() {

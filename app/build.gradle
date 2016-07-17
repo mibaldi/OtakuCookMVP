@@ -9,6 +9,7 @@ buildscript {
 }
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
+apply plugin: 'com.neenbedankt.android-apt'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
@@ -33,7 +34,7 @@ android {
         }
     }
 }
-apply plugin: 'com.neenbedankt.android-apt'
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -64,5 +65,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     apt 'com.google.dagger:dagger-compiler:2.5'
     provided 'javax.annotation:jsr250-api:1.0'
+    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    apt 'com.jakewharton:butterknife-compiler:8.2.1'
 }
 apply plugin: 'com.google.gms.google-services'
