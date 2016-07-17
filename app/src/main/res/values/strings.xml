@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">OtakuCookMVP</string>
     <string name="show_tasks">Ver pasos</string>
+    <string name="recipe_list">Lista de recetas</string>
 </resources>
