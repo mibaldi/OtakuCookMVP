@@ -61,4 +61,14 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
     public RecipeDescriptionPresenter createPresenter() {
         return component.presenter();
     }
+
+    @Override
+    public void showRecipeImage() {
+
+    }
+
+    @Override
+    public void showRecipeName() {
+
+    }
 }

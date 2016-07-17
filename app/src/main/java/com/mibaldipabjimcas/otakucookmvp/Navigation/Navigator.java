@@ -16,9 +16,11 @@ public class Navigator {
     }
 
     public void openRecipeDescription(int id){
-        Intent intent = RecipeDescriptionActivity.getCallingIntent(context);
-        intent.putExtra("recipeId",id);
-        context.startActivity(intent);
+        if (context != null) {
+            Intent intent = RecipeDescriptionActivity.getCallingIntent(context);
+            intent.putExtra("recipeId",id);
+            context.startActivity(intent);
+        }
     }
 
 }
