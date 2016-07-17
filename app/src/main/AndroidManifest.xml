@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mibaldipabjimcas.otakucookmvp">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -13,11 +14,17 @@
         <activity android:name=".ui.Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="ff1c2189b92aa493cd60d97569bcd6baf9715047" />
+
+        <activity android:name=".ui.Activities.RecipeDescriptionActivity" />
+        <activity android:name=".ui.Activities.RecipeTaskListActivity"></activity>
     </application>
+
 </manifest>

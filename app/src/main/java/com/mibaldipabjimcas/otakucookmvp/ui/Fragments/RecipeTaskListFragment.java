@@ -8,21 +8,24 @@ import android.view.ViewGroup;
 
 import com.mibaldipabjimcas.otakucookmvp.Base.BaseMVPFragment;
 import com.mibaldipabjimcas.otakucookmvp.R;
-import com.mibaldipabjimcas.otakucookmvp.features.Main.MainComponent;
-import com.mibaldipabjimcas.otakucookmvp.features.Main.MainPresenter;
-import com.mibaldipabjimcas.otakucookmvp.ui.Views.MainView;
+import com.mibaldipabjimcas.otakucookmvp.features.RecipeDescription.RecipeDescriptionComponent;
+import com.mibaldipabjimcas.otakucookmvp.features.RecipeDescription.RecipeDescriptionPresenter;
+import com.mibaldipabjimcas.otakucookmvp.features.RecipeTaskList.RecipeTaskListComponent;
+import com.mibaldipabjimcas.otakucookmvp.features.RecipeTaskList.RecipeTaskListPresenter;
+import com.mibaldipabjimcas.otakucookmvp.ui.Views.RecipeDescriptionView;
+import com.mibaldipabjimcas.otakucookmvp.ui.Views.RecipeTaskListView;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  implements MainView{
-    private MainComponent component;
+public class RecipeTaskListFragment extends BaseMVPFragment<RecipeTaskListPresenter,RecipeTaskListView>  implements RecipeTaskListView{
+    private RecipeTaskListComponent component;
     private Unbinder unbind;
 
     @Inject
-    public MainFragment() {
+    public RecipeTaskListFragment() {
         setRetainInstance(true);
     }
 
@@ -41,9 +44,9 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        component = getComponent(MainComponent.class);
+        component = getComponent(RecipeTaskListComponent.class);
         component.inject(this);
-        View view = inflater.inflate(R.layout.fragment_main,container,false);
+        View view = inflater.inflate(R.layout.fragment_recipe_task_list,container,false);
         unbind = ButterKnife.bind(this,view);
         return view;
     }
@@ -55,7 +58,7 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
     }
 
     @Override
-    public MainPresenter createPresenter() {
+    public RecipeTaskListPresenter createPresenter() {
         return component.presenter();
     }
 }

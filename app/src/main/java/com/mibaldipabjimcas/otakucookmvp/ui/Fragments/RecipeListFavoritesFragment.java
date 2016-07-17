@@ -8,21 +8,27 @@ import android.view.ViewGroup;
 
 import com.mibaldipabjimcas.otakucookmvp.Base.BaseMVPFragment;
 import com.mibaldipabjimcas.otakucookmvp.R;
-import com.mibaldipabjimcas.otakucookmvp.features.Main.MainComponent;
-import com.mibaldipabjimcas.otakucookmvp.features.Main.MainPresenter;
-import com.mibaldipabjimcas.otakucookmvp.ui.Views.MainView;
+import com.mibaldipabjimcas.otakucookmvp.features.RecipeListFavorites.RecipeListFavoritesComponent;
+import com.mibaldipabjimcas.otakucookmvp.features.RecipeListFavorites.RecipeListFavoritesPresenter;
+import com.mibaldipabjimcas.otakucookmvp.features.RecipeTaskList.RecipeTaskListComponent;
+import com.mibaldipabjimcas.otakucookmvp.features.RecipeTaskList.RecipeTaskListPresenter;
+import com.mibaldipabjimcas.otakucookmvp.ui.Views.RecipeListFavoritesView;
+import com.mibaldipabjimcas.otakucookmvp.ui.Views.RecipeTaskListView;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  implements MainView{
-    private MainComponent component;
+/**
+ * Created by mikelbalducieldiaz on 17/7/16.
+ */
+public class RecipeListFavoritesFragment  extends BaseMVPFragment<RecipeListFavoritesPresenter,RecipeListFavoritesView> implements RecipeListFavoritesView{
+    private RecipeListFavoritesComponent component;
     private Unbinder unbind;
 
     @Inject
-    public MainFragment() {
+    public RecipeListFavoritesFragment() {
         setRetainInstance(true);
     }
 
@@ -41,9 +47,9 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        component = getComponent(MainComponent.class);
+        component = getComponent(RecipeListFavoritesComponent.class);
         component.inject(this);
-        View view = inflater.inflate(R.layout.fragment_main,container,false);
+        View view = inflater.inflate(R.layout.fragment_recipe_list_favorites,container,false);
         unbind = ButterKnife.bind(this,view);
         return view;
     }
@@ -55,7 +61,8 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
     }
 
     @Override
-    public MainPresenter createPresenter() {
+    public RecipeListFavoritesPresenter createPresenter() {
         return component.presenter();
     }
+
 }
