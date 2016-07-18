@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.mibaldipabjimcas.otakucookmvp.Base.BaseActivity;
 import com.mibaldipabjimcas.otakucookmvp.Navigation.Navigator;
+import com.mibaldipabjimcas.otakucookmvp.features.LoginFirebase.ApiClientRepository;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -19,4 +20,5 @@ public interface OtakuCookApplicationComponent {
 
     void inject (BaseActivity baseActivity);
     Navigator getNavigator();
+    ApiClientRepository apiClientRepository();
 }

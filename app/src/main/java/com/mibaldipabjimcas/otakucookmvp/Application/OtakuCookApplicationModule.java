@@ -4,6 +4,7 @@ package com.mibaldipabjimcas.otakucookmvp.Application;
 import android.content.Context;
 
 import com.mibaldipabjimcas.otakucookmvp.Navigation.Navigator;
+import com.mibaldipabjimcas.otakucookmvp.features.LoginFirebase.ApiClientRepository;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -28,5 +29,9 @@ public class OtakuCookApplicationModule {
     Navigator providedNavigator(){
         return new Navigator(this.context);
     }
+
+    @Provides
+    @Singleton
+    ApiClientRepository providedApiClientRepository(){return new ApiClientRepository();}
 
 }

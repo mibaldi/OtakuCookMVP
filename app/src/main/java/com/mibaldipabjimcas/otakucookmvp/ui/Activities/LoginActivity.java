@@ -90,7 +90,7 @@ public class LoginActivity extends BaseMVPActivity<LoginFirebasePresenter,LoginF
 
     @OnClick(R.id.disconnect_button)
     public void disconnect(){
-        presenter.revokeAccess();
+        presenter.disconnect();
     }
 
     private void initializeInjector() {

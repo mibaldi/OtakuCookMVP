@@ -49,9 +49,12 @@ public class LoginFirebasePresenter extends BasePresenter<LoginFirebaseView> imp
     @Inject
     LoginWithGoogleInteractor loginWithGoogleInteractor;
 
+    @Inject
+    ApiClientRepository apiClientRepository;
+
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseDatabase database;
-    private GoogleApiClient mGoogleApiClient;
+
     private FragmentActivity fragmentActivity;
     private FirebaseAuth mAuth;
 
@@ -66,43 +69,20 @@ public class LoginFirebasePresenter extends BasePresenter<LoginFirebaseView> imp
         initGoogle(fragmentActivity);
     }
 
-    public void signIn() {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        fragmentActivity.startActivityForResult(signInIntent, FirebaseConstants.RC_SIGN_IN);
-    }
-
-    public void signOut() {
-        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
-                new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(Status status) {
-                        // [START_EXCLUDE]
-                        //updateUI(false);
-                        // [END_EXCLUDE]
-                    }
-                });
-    }
 
     private void initGoogle(FragmentActivity fragment) {
 
         database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(fragment.getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        mGoogleApiClient = new GoogleApiClient.Builder(fragment)
-                .enableAutoManage(fragment , this /* OnConnectionFailedListener */)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
+       apiClientRepository.init(fragment,this);
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
+                    navigator.openMain();
                     // User is signed in
                     //Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
@@ -114,6 +94,27 @@ public class LoginFirebasePresenter extends BasePresenter<LoginFirebaseView> imp
 
         loginWithGoogleInteractor.execute(mAuth,mAuthListener);
 
+    }
+
+    public void signIn(){
+        apiClientRepository.signIn();
+    }
+    public void signOut(){
+        apiClientRepository.signOut(new ResultCallback<Status>() {
+            @Override
+            public void onResult(@NonNull Status status) {
+
+            }
+        });
+    }
+
+    public void disconnect(){
+        apiClientRepository.revokeAccess(new ResultCallback<Status>() {
+            @Override
+            public void onResult(@NonNull Status status) {
+
+            }
+        });
     }
 
     public void onActivityResult(int requestCode,Intent data){
@@ -157,7 +158,7 @@ public class LoginFirebasePresenter extends BasePresenter<LoginFirebaseView> imp
 
     public void onStart(){
         mAuth.addAuthStateListener(mAuthListener);
-        loginWithGoogleInteractor.onStart(mGoogleApiClient);
+        loginWithGoogleInteractor.onStart(apiClientRepository.getGoogleApiClient());
     }
 
     public void onStop(){
@@ -167,7 +168,7 @@ public class LoginFirebasePresenter extends BasePresenter<LoginFirebaseView> imp
     }
 
     public void revokeAccess() {
-        Auth.GoogleSignInApi.revokeAccess(mGoogleApiClient).setResultCallback(
+        Auth.GoogleSignInApi.revokeAccess(apiClientRepository.getGoogleApiClient()).setResultCallback(
                 new ResultCallback<Status>() {
                     @Override
                     public void onResult(Status status) {

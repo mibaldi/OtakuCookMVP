@@ -39,5 +39,13 @@ public class Navigator {
         }
     }
 
+    public void openMain(){
+        if (context != null) {
+            Intent intent = MainActivity.getCallingIntent(context);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        }
+    }
+
 
 }
