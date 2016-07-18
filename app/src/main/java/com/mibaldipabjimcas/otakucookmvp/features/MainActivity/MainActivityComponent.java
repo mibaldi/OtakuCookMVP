@@ -1,4 +1,4 @@
-package com.mibaldipabjimcas.otakucookmvp.features.Drawer;
+package com.mibaldipabjimcas.otakucookmvp.features.MainActivity;
 
 import com.mibaldipabjimcas.otakucookmvp.Application.OtakuCookApplicationComponent;
 import com.mibaldipabjimcas.otakucookmvp.di.PerActivity;
@@ -17,8 +17,8 @@ import com.mibaldipabjimcas.otakucookmvp.ui.Fragments.RecipeListFragment;
 import dagger.Component;
 
 @PerActivity
-@Component(dependencies = OtakuCookApplicationComponent.class,modules = {DrawerModule.class, MainModule.class, RecipeListModule.class, RecipeListFavoritesModule.class})
-public interface DrawerComponent {
+@Component(dependencies = OtakuCookApplicationComponent.class,modules = {MainActivityModule.class, MainModule.class, RecipeListModule.class, RecipeListFavoritesModule.class})
+public interface MainActivityComponent {
 
     void inject(MainActivity drawerActivity);
     void inject(MainFragment mainFragment);
@@ -26,7 +26,7 @@ public interface DrawerComponent {
     void inject(RecipeListFavoritesFragment recipeListFavoritesFragment);
     void inject(RecipesListAdapter recipesListAdapter);
 
-    DrawerPresenter drawerPresenter();
+    MainActivityPresenter drawerPresenter();
     MainPresenter mainPresenter();
     RecipeListPresenter recipeListPresenter();
     RecipeListFavoritesPresenter recipeListFavoritesPresenter();

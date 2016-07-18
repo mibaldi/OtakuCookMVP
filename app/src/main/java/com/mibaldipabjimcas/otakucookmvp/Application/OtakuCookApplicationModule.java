@@ -3,6 +3,8 @@ package com.mibaldipabjimcas.otakucookmvp.Application;
 
 import android.content.Context;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.mibaldipabjimcas.otakucookmvp.Navigation.Navigator;
 import com.mibaldipabjimcas.otakucookmvp.features.LoginFirebase.ApiClientRepository;
 

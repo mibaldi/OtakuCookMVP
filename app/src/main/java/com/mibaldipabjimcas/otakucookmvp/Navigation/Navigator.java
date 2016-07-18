@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.mibaldipabjimcas.otakucookmvp.data.Models.Recipe;
 import com.mibaldipabjimcas.otakucookmvp.data.Models.Task;
+import com.mibaldipabjimcas.otakucookmvp.ui.Activities.LoginActivity;
 import com.mibaldipabjimcas.otakucookmvp.ui.Activities.MainActivity;
 import com.mibaldipabjimcas.otakucookmvp.ui.Activities.RecipeDescriptionActivity;
 import com.mibaldipabjimcas.otakucookmvp.ui.Activities.RecipeTaskListActivity;
@@ -43,6 +44,13 @@ public class Navigator {
         if (context != null) {
             Intent intent = MainActivity.getCallingIntent(context);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        }
+    }
+    public  void finish(){
+        if (context != null) {
+            Intent intent = LoginActivity.getCallingIntent(context);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             context.startActivity(intent);
         }
     }

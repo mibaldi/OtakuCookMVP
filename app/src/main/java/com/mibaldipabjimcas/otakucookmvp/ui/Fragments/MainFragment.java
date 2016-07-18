@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.mibaldipabjimcas.otakucookmvp.Base.BaseMVPFragment;
 import com.mibaldipabjimcas.otakucookmvp.R;
-import com.mibaldipabjimcas.otakucookmvp.features.Drawer.DrawerComponent;
+import com.mibaldipabjimcas.otakucookmvp.features.MainActivity.MainActivityComponent;
 import com.mibaldipabjimcas.otakucookmvp.features.Main.MainPresenter;
 import com.mibaldipabjimcas.otakucookmvp.ui.Views.MainView;
 
@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  implements MainView{
-    private DrawerComponent component;
+    private MainActivityComponent component;
     private Unbinder unbind;
 
     @Inject
@@ -46,7 +46,7 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        component = getComponent(DrawerComponent.class);
+        component = getComponent(MainActivityComponent.class);
         component.inject(this);
         View view = inflater.inflate(R.layout.fragment_main,container,false);
         unbind = ButterKnife.bind(this,view);

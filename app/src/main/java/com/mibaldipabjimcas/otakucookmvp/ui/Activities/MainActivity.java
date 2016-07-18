@@ -11,32 +11,38 @@ import android.os.Bundle;
 import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.mibaldipabjimcas.otakucookmvp.Base.BaseMVPActivity;
 import com.mibaldipabjimcas.otakucookmvp.R;
 import com.mibaldipabjimcas.otakucookmvp.di.HasComponent;
-import com.mibaldipabjimcas.otakucookmvp.features.Drawer.DaggerDrawerComponent;
-import com.mibaldipabjimcas.otakucookmvp.features.Drawer.DrawerComponent;
-import com.mibaldipabjimcas.otakucookmvp.features.Drawer.DrawerPresenter;
+import com.mibaldipabjimcas.otakucookmvp.features.MainActivity.DaggerMainActivityComponent;
+import com.mibaldipabjimcas.otakucookmvp.features.MainActivity.MainActivityComponent;
+import com.mibaldipabjimcas.otakucookmvp.features.MainActivity.MainActivityPresenter;
 import com.mibaldipabjimcas.otakucookmvp.ui.Fragments.MainFragment;
 import com.mibaldipabjimcas.otakucookmvp.ui.Fragments.RecipeListFragment;
-import com.mibaldipabjimcas.otakucookmvp.ui.Views.DrawerView;
+import com.mibaldipabjimcas.otakucookmvp.ui.Views.MainActivityView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import timber.log.Timber;
 
-public class MainActivity extends BaseMVPActivity<DrawerPresenter,DrawerView> implements DrawerView, HasComponent<DrawerComponent> {
+public class MainActivity extends BaseMVPActivity<MainActivityPresenter,MainActivityView> implements MainActivityView, HasComponent<MainActivityComponent> {
 
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    private DrawerComponent drawerComponent;
+    private MainActivityComponent mainActivityComponent;
 
     private Unbinder unbind;
+    private NavigationView navigationView;
+    private View navigationViewHeaderView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +51,17 @@ public class MainActivity extends BaseMVPActivity<DrawerPresenter,DrawerView> im
         setContentView(R.layout.activity_main);
         unbind = ButterKnife.bind(this);
         this.initializeActivity();
+
         setupViews();
+
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.init(this);
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -55,8 +70,8 @@ public class MainActivity extends BaseMVPActivity<DrawerPresenter,DrawerView> im
 
     @NonNull
     @Override
-    public DrawerPresenter createPresenter() {
-        return drawerComponent.drawerPresenter();
+    public MainActivityPresenter createPresenter() {
+        return mainActivityComponent.drawerPresenter();
     }
 
 
@@ -65,13 +80,13 @@ public class MainActivity extends BaseMVPActivity<DrawerPresenter,DrawerView> im
     }
 
     private void initializeInjector() {
-       this.drawerComponent = DaggerDrawerComponent.builder()
+       this.mainActivityComponent = DaggerMainActivityComponent.builder()
                 .otakuCookApplicationComponent(getInjector())
                 .build();
     }
 
-    public DrawerComponent getComponent(){
-        return drawerComponent;
+    public MainActivityComponent getComponent(){
+        return mainActivityComponent;
     }
 
     public static Intent getCallingIntent(Context context){
@@ -84,8 +99,7 @@ public class MainActivity extends BaseMVPActivity<DrawerPresenter,DrawerView> im
             getSupportActionBar().setTitle("");
             getSupportActionBar().setHomeAsUpIndicator(new DrawerArrowDrawable(toolbar.getContext()));
         }
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
-
+        navigationView = (NavigationView) findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
@@ -101,6 +115,9 @@ public class MainActivity extends BaseMVPActivity<DrawerPresenter,DrawerView> im
                 return true;
             case R.id.item1:
                 Timber.d("item1");
+
+                presenter.signOut();
+
                 selectFragment(MainFragment.newInstance());
                 return true;
             case R.id.item2:
@@ -115,5 +132,18 @@ public class MainActivity extends BaseMVPActivity<DrawerPresenter,DrawerView> im
     public void selectFragment(Fragment fragment){
         addFragment(R.id.content_main,fragment);
         drawerLayout.closeDrawer(GravityCompat.START);
+    }
+
+    @Override
+    public void showUserName(String name) {
+        navigationViewHeaderView=navigationView.getHeaderView(0);
+        TextView textView=(TextView)navigationViewHeaderView.findViewById(R.id.login_status);
+        textView.setText(name);
+    }
+
+    @Override
+    public void showUserAvatar(String photo) {
+        ImageView imageView=(ImageView) navigationViewHeaderView.findViewById(R.id.user_image);
+        Glide.with(this).load(photo).placeholder(R.mipmap.ic_launcher).into(imageView);
     }
 }

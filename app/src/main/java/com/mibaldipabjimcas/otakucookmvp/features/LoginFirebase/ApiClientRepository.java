@@ -1,6 +1,8 @@
 package com.mibaldipabjimcas.otakucookmvp.features.LoginFirebase;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 
 import com.google.android.gms.auth.api.Auth;
@@ -15,6 +17,8 @@ import com.mibaldipabjimcas.otakucookmvp.Services.ApiClient;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import timber.log.Timber;
 
 
 /**
@@ -42,6 +46,8 @@ public class ApiClientRepository {
                 .enableAutoManage(fragmentActivity , listener)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+
+
     }
 
     public GoogleApiClient getGoogleApiClient(){
@@ -54,12 +60,15 @@ public class ApiClientRepository {
     }
 
     public void signOut(ResultCallback<Status> callback) {
-        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(callback);
+        if (mGoogleApiClient.isConnected()) {
+            Timber.d("conectado se puede desconectar");
+            Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(callback);
+        }else {
+            Timber.d("sin conectar");
+        }
     }
 
     public void revokeAccess(ResultCallback<Status> callback) {
         Auth.GoogleSignInApi.revokeAccess(mGoogleApiClient).setResultCallback(callback);
     }
-
-
 }

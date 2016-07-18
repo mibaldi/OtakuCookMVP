@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.mibaldipabjimcas.otakucookmvp.Base.BaseMVPFragment;
 import com.mibaldipabjimcas.otakucookmvp.R;
 import com.mibaldipabjimcas.otakucookmvp.data.Models.Recipe;
-import com.mibaldipabjimcas.otakucookmvp.features.Drawer.DrawerComponent;
+import com.mibaldipabjimcas.otakucookmvp.features.MainActivity.MainActivityComponent;
 import com.mibaldipabjimcas.otakucookmvp.features.RecipeList.RecipeListPresenter;
 import com.mibaldipabjimcas.otakucookmvp.ui.Adapters.RecipesListAdapter;
 import com.mibaldipabjimcas.otakucookmvp.ui.Views.RecipeListView;
@@ -28,7 +28,7 @@ import butterknife.Unbinder;
  * Created by mikelbalducieldiaz on 17/7/16.
  */
 public class RecipeListFragment extends BaseMVPFragment<RecipeListPresenter,RecipeListView> implements RecipeListView{
-    private DrawerComponent component;
+    private MainActivityComponent component;
     private Unbinder unbind;
     @BindView(R.id.recipe_recyclerView)
     RecyclerView recipe_recyclerView;
@@ -54,7 +54,7 @@ public class RecipeListFragment extends BaseMVPFragment<RecipeListPresenter,Reci
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        component = getComponent(DrawerComponent.class);
+        component = getComponent(MainActivityComponent.class);
         component.inject(this);
         View view = inflater.inflate(R.layout.fragment_recipe_list,container,false);
         unbind = ButterKnife.bind(this,view);
