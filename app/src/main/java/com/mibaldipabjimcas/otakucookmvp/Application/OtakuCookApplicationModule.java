@@ -28,4 +28,5 @@ public class OtakuCookApplicationModule {
     Navigator providedNavigator(){
         return new Navigator(this.context);
     }
+
 }

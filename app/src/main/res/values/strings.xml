@@ -3,4 +3,7 @@
     <string name="show_tasks">Ver pasos</string>
     <string name="recipe_list">Lista de recetas</string>
     <string name="main_title">Principal</string>
+    <string name="signed_out">Signed out</string>
+    <string name="sign_out">Sign out</string>
+    <string name="disconnect">Disconnect</string>
 </resources>
