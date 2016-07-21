@@ -40,9 +40,13 @@ captures/
 *.iml
 .idea/workspace.xml
 .idea/libraries
+.idea/*
 
 # Keystore files
 *.jks
 
 ### Android Patch ###
 gen-external-apklibs
+.idea/modules.xml
+app/libs/
+app/src/main/java/com/mibaldipabjimcas/otakucookmvp/data/FirebaseModels/
