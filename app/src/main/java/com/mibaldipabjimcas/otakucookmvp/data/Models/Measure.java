@@ -3,6 +3,8 @@ package com.mibaldipabjimcas.otakucookmvp.data.Models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.mibaldipabjimcas.otakucookmvp.data.FirebaseModels.MeasureFB;
+
 /**
  * Created by mikelbalducieldiaz on 9/4/16.
  */
@@ -52,4 +54,14 @@ public class Measure implements Parcelable {
             return new Measure[size];
         }
     };
+    public static MeasureFB Measure2FB(Measure measure,long ingredientId){
+        return new MeasureFB(measure,ingredientId);
+    }
+    public static  Measure FB2Measure(MeasureFB measureFB,Ingredient ingredient){
+        Measure measure = new Measure();
+        measure.ingredient = ingredient;
+        measure.measure = measureFB.measure;
+        measure.quantity = measureFB.quantity;
+        return measure;
+    }
 }

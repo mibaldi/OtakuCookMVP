@@ -13,13 +13,17 @@ import javax.inject.Inject;
 
 @PerActivity
 public class RecipeTaskListPresenter extends BasePresenter<RecipeTaskListView> {
-    private ArrayList<Task> taskArrayList;
+    private Task task;
 
     @Inject
     public RecipeTaskListPresenter() {
     }
-    public void init(ArrayList<Task> taskArrayList){
-        this.taskArrayList = taskArrayList;
+    public void init(Task task){
+        this.task = task;
+        getView().showTaskImage(task.photo);
+        getView().showTaskName(task.name);
+        getView().showTaskDescription(task.description);
+        getView().showTaskSeconds(task.seconds);
         //getView().showRecipeImage(recipe.photo);
         //getView().showRecipeName(recipe.name);
     }

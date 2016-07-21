@@ -3,6 +3,8 @@ package com.mibaldipabjimcas.otakucookmvp.data.Models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.mibaldipabjimcas.otakucookmvp.data.FirebaseModels.RecipeFB;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,6 @@ public class Recipe implements Parcelable{
     public long idServer;
     public  String name;
     public int portions;
-    public Boolean favorite;
     public String author;
     public int score;
     public String photo;
@@ -53,7 +54,6 @@ public class Recipe implements Parcelable{
         dest.writeLong(this.idServer);
         dest.writeString(this.name);
         dest.writeInt(this.portions);
-        dest.writeValue(this.favorite);
         dest.writeString(this.author);
         dest.writeInt(this.score);
         dest.writeString(this.photo);
@@ -67,7 +67,6 @@ public class Recipe implements Parcelable{
         this.idServer = in.readLong();
         this.name = in.readString();
         this.portions = in.readInt();
-        this.favorite = (Boolean) in.readValue(Boolean.class.getClassLoader());
         this.author = in.readString();
         this.score = in.readInt();
         this.photo = in.readString();
@@ -87,4 +86,17 @@ public class Recipe implements Parcelable{
             return new Recipe[size];
         }
     };
+
+    public static RecipeFB Recipe2FB(Recipe recipe){
+        return new RecipeFB(recipe);
+    }
+    public static Recipe FB2Recipe(RecipeFB recipeFB){
+        Recipe recipe = new Recipe();
+        recipe.name = recipeFB.name;
+        recipe.portions = recipeFB.portions;
+        recipe.author = recipeFB.author;
+        recipe.score = recipeFB.score;
+        recipe.photo = recipeFB.photo;
+        return recipe;
+    }
 }

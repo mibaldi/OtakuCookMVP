@@ -5,7 +5,10 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.mibaldipabjimcas.otakucookmvp.Base.BaseMVPFragment;
 import com.mibaldipabjimcas.otakucookmvp.R;
 import com.mibaldipabjimcas.otakucookmvp.data.Models.Recipe;
@@ -22,21 +25,26 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class RecipeTaskListFragment extends BaseMVPFragment<RecipeTaskListPresenter,RecipeTaskListView>  implements RecipeTaskListView{
     private RecipeTaskListComponent component;
     private Unbinder unbind;
-
+    @BindView(R.id.taskImage)
+    ImageView taskImage;
+    @BindViews({ R.id.taskName, R.id.taskDescription, R.id.taskSeconds })
+    List<TextView> taskFields;
     @Inject
     public RecipeTaskListFragment() {
         setRetainInstance(true);
     }
-    public static RecipeTaskListFragment newInstance(ArrayList<Task> taskList) {
+    public static RecipeTaskListFragment newInstance(Task task) {
         RecipeTaskListFragment fragment = new RecipeTaskListFragment();
         Bundle args = new Bundle();
-        args.putParcelableArrayList("taskList",taskList);
+        args.putParcelable("task",task);
         fragment.setArguments(args);
         return fragment;
     }
@@ -48,8 +56,8 @@ public class RecipeTaskListFragment extends BaseMVPFragment<RecipeTaskListPresen
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ArrayList<Task> taskList =getArguments().getParcelableArrayList("taskList");
-        presenter.init(taskList);
+        Task task=getArguments().getParcelable("task");
+        presenter.init(task);
     }
 
     @Nullable
@@ -73,5 +81,25 @@ public class RecipeTaskListFragment extends BaseMVPFragment<RecipeTaskListPresen
     @Override
     public RecipeTaskListPresenter createPresenter() {
         return component.presenter();
+    }
+
+    @Override
+    public void showTaskImage(String photo) {
+        Glide.with(getActivity()).load(photo).placeholder(R.mipmap.ic_launcher).into(taskImage);
+    }
+
+    @Override
+    public void showTaskName(String name) {
+        taskFields.get(0).setText(name);
+    }
+
+    @Override
+    public void showTaskSeconds(int seconds) {
+        taskFields.get(2).setText(String.valueOf(seconds));
+    }
+
+    @Override
+    public void showTaskDescription(String description) {
+        taskFields.get(1).setText(description);
     }
 }
