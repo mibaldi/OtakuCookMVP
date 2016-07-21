@@ -8,5 +8,6 @@
     <string name="sign_out">Sign out</string>
     <string name="disconnect">Disconnect</string>
     <string name="random">Random</string>
+    <string name="ingredients">Ingredientes</string>
 
 </resources>

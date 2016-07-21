@@ -21,7 +21,7 @@ android {
         config {
             keyAlias 'android'
             keyPassword 'android'
-            storeFile file('/Users/mikelbalducieldiaz/ANDROIDMIMO/FIRMA/otakucookmvp.jks')
+            storeFile file('C:/Android/keys/otakucookmvp.jks')
             storePassword 'android'
         }
     }

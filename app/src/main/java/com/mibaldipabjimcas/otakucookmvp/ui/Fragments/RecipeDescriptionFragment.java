@@ -2,11 +2,14 @@ package com.mibaldipabjimcas.otakucookmvp.ui.Fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.mibaldipabjimcas.otakucookmvp.Base.BaseMVPFragment;
@@ -28,8 +31,22 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
     private RecipeDescriptionComponent component;
     @BindView(R.id.recipePhoto)
     ImageView imageView;
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
     @BindView(R.id.recipeName)
-    TextView tv_recipeName;
+    TextView recipeName;
+
+    @BindView(R.id.recipeAuthor)
+    TextView recipeAuthor;
+
+    @BindView(R.id.ratingBar)
+    RatingBar ratingBar;
+
+    @BindView(R.id.fab)
+    FloatingActionButton favorite;
+
     private Unbinder unbind;
 
     @Inject
@@ -88,8 +105,37 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
 
     @Override
     public void showRecipeName(String name) {
-        tv_recipeName.setText(name);
+        recipeName.setText(name);
     }
+
+    @Override
+    public void showRecipeRating(int score) {
+        ratingBar.setRating(score);
+    }
+
+    @Override
+    public void showRecipeAuthor(String author) {
+        recipeAuthor.setText(author);
+    }
+
+    @OnClick(R.id.bt_ingredients)
+    @Override
+    public void showRecipeIngredients() {
+        presenter.showRecipeIngredientList();
+    }
+
+    @OnClick(R.id.bt_time)
+    @Override
+    public void showRecipeTime() {
+        presenter.recipeTime();
+    }
+
+    @OnClick(R.id.fab)
+    @Override
+    public void recipeFavorite() {
+        presenter.setRecipeFavorite();
+    }
+
     @OnClick(R.id.btn_tasklist)
     @Override
     public void showRecipeTaskList() {
