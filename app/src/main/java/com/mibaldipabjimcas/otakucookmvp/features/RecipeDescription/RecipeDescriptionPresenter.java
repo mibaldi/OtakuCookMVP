@@ -5,6 +5,7 @@ import com.mibaldipabjimcas.otakucookmvp.Navigation.Navigator;
 import com.mibaldipabjimcas.otakucookmvp.Services.ApiClient;
 import com.mibaldipabjimcas.otakucookmvp.Services.ApiEndPointInterface;
 import com.mibaldipabjimcas.otakucookmvp.data.Models.Recipe;
+import com.mibaldipabjimcas.otakucookmvp.data.Models.Task;
 import com.mibaldipabjimcas.otakucookmvp.di.PerActivity;
 import com.mibaldipabjimcas.otakucookmvp.ui.Views.MainView;
 import com.mibaldipabjimcas.otakucookmvp.ui.Views.RecipeDescriptionView;
@@ -33,6 +34,14 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
         this.recipe = recipe;
         getView().showRecipeImage(recipe.photo);
         getView().showRecipeName(recipe.name);
+    }
+    private int calculateTime(){
+        List<Task> recipeTasks =this.recipe.getTasks();
+        int finalTime = 300;
+        for (Task t : recipeTasks){
+            finalTime = finalTime + t.seconds;
+        }
+        return finalTime;
     }
 
     public void showRecipeTaskList(){
