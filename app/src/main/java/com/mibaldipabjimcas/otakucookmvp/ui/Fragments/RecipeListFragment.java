@@ -77,9 +77,9 @@ public class RecipeListFragment extends BaseMVPFragment<RecipeListPresenter,Reci
     public void showRecipeList(List<Recipe> recipeList) {
         recipesListAdapter.setDataAndListener(recipeList, new RecipesListAdapter.OnItemClickListener() {
             @Override
-            public void onItemClickListener(View view, long id) {
+            public void onItemClickListener(View view, Recipe recipe) {
 
-                presenter.loadRecipe(id);
+                presenter.loadRecipe(recipe);
             }
         });
         recipe_recyclerView.setAdapter(recipesListAdapter);

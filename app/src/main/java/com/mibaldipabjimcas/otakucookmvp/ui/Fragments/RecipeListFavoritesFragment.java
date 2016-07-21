@@ -2,18 +2,27 @@ package com.mibaldipabjimcas.otakucookmvp.ui.Fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.mibaldipabjimcas.otakucookmvp.Base.BaseMVPFragment;
 import com.mibaldipabjimcas.otakucookmvp.R;
+import com.mibaldipabjimcas.otakucookmvp.data.Models.Recipe;
 import com.mibaldipabjimcas.otakucookmvp.features.MainActivity.MainActivityComponent;
 import com.mibaldipabjimcas.otakucookmvp.features.RecipeListFavorites.RecipeListFavoritesPresenter;
+import com.mibaldipabjimcas.otakucookmvp.ui.Adapters.RecipesListAdapter;
 import com.mibaldipabjimcas.otakucookmvp.ui.Views.RecipeListFavoritesView;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -24,20 +33,34 @@ public class RecipeListFavoritesFragment  extends BaseMVPFragment<RecipeListFavo
     private MainActivityComponent component;
     private Unbinder unbind;
 
+    @BindView(R.id.recipe_recyclerView)
+    RecyclerView recipe_recyclerView;
+    @Inject
+    RecipesListAdapter recipesListAdapter;
+
     @Inject
     public RecipeListFavoritesFragment() {
         setRetainInstance(true);
     }
 
+    public static RecipeListFavoritesFragment newInstance() {
+        RecipeListFavoritesFragment fragment = new RecipeListFavoritesFragment();
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+
+        myRef.setValue("Hello, World!");
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        presenter.init();
     }
 
     @Nullable
@@ -48,6 +71,7 @@ public class RecipeListFavoritesFragment  extends BaseMVPFragment<RecipeListFavo
         component.inject(this);
         View view = inflater.inflate(R.layout.fragment_recipe_list_favorites,container,false);
         unbind = ButterKnife.bind(this,view);
+        recipe_recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return view;
     }
 
@@ -62,4 +86,15 @@ public class RecipeListFavoritesFragment  extends BaseMVPFragment<RecipeListFavo
         return component.recipeListFavoritesPresenter();
     }
 
+    @Override
+    public void showRecipeFavoriteList(List<Recipe> recipes) {
+        recipesListAdapter.setDataAndListener(recipes, new RecipesListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClickListener(View view, Recipe recipe) {
+                presenter.loadRecipe(recipe);
+            }
+        });
+        recipe_recyclerView.setAdapter(recipesListAdapter);
+
+    }
 }

@@ -23,6 +23,7 @@ import com.mibaldipabjimcas.otakucookmvp.features.MainActivity.DaggerMainActivit
 import com.mibaldipabjimcas.otakucookmvp.features.MainActivity.MainActivityComponent;
 import com.mibaldipabjimcas.otakucookmvp.features.MainActivity.MainActivityPresenter;
 import com.mibaldipabjimcas.otakucookmvp.ui.Fragments.MainFragment;
+import com.mibaldipabjimcas.otakucookmvp.ui.Fragments.RecipeListFavoritesFragment;
 import com.mibaldipabjimcas.otakucookmvp.ui.Fragments.RecipeListFragment;
 import com.mibaldipabjimcas.otakucookmvp.ui.Views.MainActivityView;
 
@@ -53,13 +54,14 @@ public class MainActivity extends BaseMVPActivity<MainActivityPresenter,MainActi
         this.initializeActivity();
 
         setupViews();
+        presenter.init(this);
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.init(this);
+
     }
 
     @Override
@@ -115,14 +117,15 @@ public class MainActivity extends BaseMVPActivity<MainActivityPresenter,MainActi
                 return true;
             case R.id.item1:
                 Timber.d("item1");
-
-                presenter.signOut();
-
                 selectFragment(MainFragment.newInstance());
                 return true;
             case R.id.item2:
                 Timber.d("item2");
                 selectFragment(RecipeListFragment.newInstance());
+                return true;
+            case R.id.item3:
+                Timber.d("item3");
+                selectFragment(RecipeListFavoritesFragment.newInstance());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

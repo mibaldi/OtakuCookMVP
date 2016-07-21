@@ -5,7 +5,12 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.mibaldipabjimcas.otakucookmvp.Base.BaseMVPFragment;
 import com.mibaldipabjimcas.otakucookmvp.R;
 import com.mibaldipabjimcas.otakucookmvp.features.MainActivity.MainActivityComponent;
@@ -14,12 +19,29 @@ import com.mibaldipabjimcas.otakucookmvp.ui.Views.MainView;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  implements MainView{
     private MainActivityComponent component;
     private Unbinder unbind;
+
+    @BindView(R.id.mainImage)
+    ImageView mainImage;
+
+    @BindView(R.id.ratingBar)
+    RatingBar ratingBar;
+
+    @BindView(R.id.mainRecipeName)
+    TextView mainRecipeName;
+
+    @BindView(R.id.mainRecipeAuthor)
+    TextView mainRecipeAuthor;
+
+    @BindView(R.id.random)
+    Button randomButton;
+
 
     @Inject
     public MainFragment() {
@@ -62,5 +84,30 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
     @Override
     public MainPresenter createPresenter() {
         return component.mainPresenter();
+    }
+
+    @Override
+    public void showRecipeImage(String photo) {
+        Glide.with(getActivity()).load(photo).placeholder(R.mipmap.ic_launcher).into(mainImage);
+    }
+
+    @Override
+    public void showRatingBar(int score) {
+        ratingBar.setRating(score);
+    }
+
+    @Override
+    public void showRecipeName(String name) {
+        mainRecipeName.setText(name);
+    }
+
+    @Override
+    public void showRecipeAuthor(String author) {
+        mainRecipeAuthor.setText(author);
+    }
+
+    @Override
+    public void showRandomButton(int visible) {
+        randomButton.setVisibility(visible);
     }
 }

@@ -10,12 +10,12 @@ import android.widget.TextView;
 import com.mibaldipabjimcas.otakucookmvp.R;
 import com.mibaldipabjimcas.otakucookmvp.data.Models.Recipe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -28,7 +28,7 @@ public class RecipesListAdapter extends RecyclerView.Adapter<RecipesListAdapter.
     private OnItemClickListener listener;
 
     public interface OnItemClickListener {
-        void onItemClickListener(View view, long id);
+        void onItemClickListener(View view, Recipe recipe);
     }
 
     @Inject
@@ -37,7 +37,7 @@ public class RecipesListAdapter extends RecyclerView.Adapter<RecipesListAdapter.
 
     @Override
     public RecipeListHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recipe_list, parent, false);
         return new RecipeListHolder(view,listener);
     }
 
@@ -79,7 +79,7 @@ public class RecipesListAdapter extends RecyclerView.Adapter<RecipesListAdapter.
 
         @OnClick(R.id.recipeItem)
         public void onClickItem() {
-            this.listener.onItemClickListener(itemView,recipe.id);
+            this.listener.onItemClickListener(itemView,recipe);
         }
     }
 

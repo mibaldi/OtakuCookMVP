@@ -42,9 +42,9 @@ public class RecipeListPresenter extends BasePresenter<RecipeListView> {
             }
         });
     }
-    public void loadRecipe(long id){
+    public void loadRecipe(Recipe recipe){
 
-        Call<Recipe> recipeList = service.getRecipe(id);
+        Call<Recipe> recipeList = service.getRecipe(recipe.id);
         recipeList.enqueue(new Callback<Recipe>() {
 
 
