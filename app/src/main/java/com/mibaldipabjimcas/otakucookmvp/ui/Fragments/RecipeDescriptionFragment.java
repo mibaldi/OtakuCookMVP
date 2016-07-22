@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
@@ -29,11 +30,11 @@ import butterknife.Unbinder;
 
 public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescriptionPresenter,RecipeDescriptionView>  implements RecipeDescriptionView{
     private RecipeDescriptionComponent component;
-    @BindView(R.id.recipePhoto)
+    /*@BindView(R.id.recipePhoto)
     ImageView imageView;
 
     @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    Toolbar toolbar;*/
 
     @BindView(R.id.recipeName)
     TextView recipeName;
@@ -100,7 +101,7 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
 
     @Override
     public void showRecipeImage(String photo) {
-        Glide.with(getActivity()).load(photo).placeholder(R.mipmap.ic_launcher).into(imageView);
+        //Glide.with(getActivity()).load(photo).placeholder(R.mipmap.ic_launcher).into(imageView);
     }
 
     @Override
@@ -136,9 +137,23 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
         presenter.setRecipeFavorite();
     }
 
-    @OnClick(R.id.btn_tasklist)
+    @OnClick(R.id.bt_tasks)
     @Override
     public void showRecipeTaskList() {
         presenter.showRecipeTaskList();
+    }
+
+    @Override
+    public void changeFavoriteIcon(boolean b) {
+        if(b){
+            Toast.makeText(getActivity(),"Favorito",Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(getActivity(),"No Favorito",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void showRecipePortions(int portions) {
+
     }
 }

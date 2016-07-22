@@ -9,9 +9,9 @@ import com.mibaldipabjimcas.otakucookmvp.data.Models.Measure;
 public class MeasureFB {
     public String measure;
     public  float quantity;
-    public long ingredientId;
+    public String ingredientId;
 
-    public MeasureFB (Measure measure,long ingredientId){
+    public MeasureFB (Measure measure,String ingredientId){
         this.measure = measure.measure;
         this.quantity = measure.quantity;
         this.ingredientId = ingredientId;

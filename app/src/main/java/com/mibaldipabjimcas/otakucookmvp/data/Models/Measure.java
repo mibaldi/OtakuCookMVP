@@ -54,7 +54,7 @@ public class Measure implements Parcelable {
             return new Measure[size];
         }
     };
-    public static MeasureFB Measure2FB(Measure measure,long ingredientId){
+    /*public static MeasureFB Measure2FB(Measure measure,long ingredientId){
         return new MeasureFB(measure,ingredientId);
     }
     public static  Measure FB2Measure(MeasureFB measureFB,Ingredient ingredient){
@@ -63,5 +63,5 @@ public class Measure implements Parcelable {
         measure.measure = measureFB.measure;
         measure.quantity = measureFB.quantity;
         return measure;
-    }
+    }*/
 }

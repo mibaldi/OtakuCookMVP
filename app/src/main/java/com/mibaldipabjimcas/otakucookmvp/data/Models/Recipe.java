@@ -6,7 +6,9 @@ import android.os.Parcelable;
 import com.mibaldipabjimcas.otakucookmvp.data.FirebaseModels.RecipeFB;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by mikelbalducieldiaz on 17/7/16.
@@ -87,16 +89,21 @@ public class Recipe implements Parcelable{
         }
     };
 
-    public static RecipeFB Recipe2FB(Recipe recipe){
-        return new RecipeFB(recipe);
-    }
-    public static Recipe FB2Recipe(RecipeFB recipeFB){
-        Recipe recipe = new Recipe();
-        recipe.name = recipeFB.name;
-        recipe.portions = recipeFB.portions;
-        recipe.author = recipeFB.author;
-        recipe.score = recipeFB.score;
-        recipe.photo = recipeFB.photo;
-        return recipe;
+   public Map<String,Boolean> getTaskListId(){
+       Map<String,Boolean> map = new HashMap<>();
+       for(Task task:tasks){
+           String taskId = String.valueOf(task.id);
+           map.put(taskId,true);
+       }
+       return map;
+   }
+
+    public Map<String,Boolean> getMeasureListId(){
+        Map<String,Boolean> map = new HashMap<>();
+        for(Measure measure:measureIngredients){
+            String measureId = String.valueOf(measure.id);
+            map.put(measureId,true);
+        }
+        return map;
     }
 }
