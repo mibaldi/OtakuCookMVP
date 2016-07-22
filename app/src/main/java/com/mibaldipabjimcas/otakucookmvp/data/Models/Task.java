@@ -59,13 +59,18 @@ public class Task implements Parcelable,Comparable<Task> {
             return new Task[size];
         }
     };
+<<<<<<< HEAD
     /*public static TaskFB Task2FB(Task task,long recipeId){
         return new TaskFB(task,recipeId);
+=======
+    public static TaskFB Task2FB(Task task){
+        return new TaskFB(task);
+>>>>>>> 27a828e10ea5e1e0d79e238a14bc592bd9e76c58
     }
     public static List<TaskFB> TaskList2FB(List<Task>taskList,long recipeId){
         List<TaskFB> taskFBList = new ArrayList<>();
         for (Task t: taskList){
-            taskFBList.add(Task.Task2FB(t,recipeId));
+            taskFBList.add(Task.Task2FB(t));
         }
         return taskFBList;
     }

@@ -49,4 +49,3 @@ captures/
 gen-external-apklibs
 .idea/modules.xml
 app/libs/
-app/src/main/java/com/mibaldipabjimcas/otakucookmvp/data/FirebaseModels/
