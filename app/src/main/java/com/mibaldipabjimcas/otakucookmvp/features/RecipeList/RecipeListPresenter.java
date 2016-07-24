@@ -8,6 +8,7 @@ import com.mibaldipabjimcas.otakucookmvp.data.Models.Recipe;
 import com.mibaldipabjimcas.otakucookmvp.di.PerActivity;
 import com.mibaldipabjimcas.otakucookmvp.ui.Views.RecipeListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -62,5 +63,15 @@ public class RecipeListPresenter extends BasePresenter<RecipeListView> {
     }
 
 
-
+    public List<Recipe> filter(List<Recipe> recipeList, String newText) {
+        List<Recipe> filteredRecipes = new ArrayList<>();
+        newText = newText.toLowerCase();
+        for (Recipe recipe : recipeList) {
+            final String name = recipe.name.toLowerCase();
+            if (name.contains(newText)) {
+                filteredRecipes.add(recipe);
+            }
+        }
+        return filteredRecipes;
+    }
 }

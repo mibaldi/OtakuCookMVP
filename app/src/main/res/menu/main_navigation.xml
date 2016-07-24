@@ -4,15 +4,15 @@
         <item
             android:id="@+id/item1"
             android:icon="@android:drawable/ic_dialog_dialer"
-            android:title="@string/main_title"/>
+            android:title="Principal"/>
         <item
             android:id="@+id/item2"
             android:icon="@android:drawable/ic_dialog_dialer"
-            android:title="@string/recipe_list"/>
+            android:title="Lista de recetas"/>
         <item
             android:id="@+id/item3"
             android:icon="@android:drawable/ic_dialog_dialer"
-            android:title="@string/recipe_list_favorites"/>
+            android:title="Lista de favoritos"/>
 
     </group>
 
