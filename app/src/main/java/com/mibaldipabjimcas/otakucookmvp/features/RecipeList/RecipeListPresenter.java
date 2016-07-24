@@ -1,6 +1,7 @@
 package com.mibaldipabjimcas.otakucookmvp.features.RecipeList;
 
 import com.mibaldipabjimcas.otakucookmvp.Base.BasePresenter;
+import com.mibaldipabjimcas.otakucookmvp.Constants.ErrorConstants;
 import com.mibaldipabjimcas.otakucookmvp.Navigation.Navigator;
 import com.mibaldipabjimcas.otakucookmvp.Services.Retrofit2.ApiClient;
 import com.mibaldipabjimcas.otakucookmvp.Services.Retrofit2.ApiEndPointInterface;
@@ -37,7 +38,7 @@ public class RecipeListPresenter extends BasePresenter<RecipeListView> {
 
             @Override
             public void onFailure(Call<List<Recipe>> call, Throwable t) {
-                //send an error
+                getView().showError(ErrorConstants.SERVER_ERROR);
             }
         });
     }
@@ -46,12 +47,9 @@ public class RecipeListPresenter extends BasePresenter<RecipeListView> {
         Call<Recipe> recipeList = service.getRecipe(recipe.id);
         recipeList.enqueue(new Callback<Recipe>() {
 
-
             @Override
             public void onResponse(Call<Recipe> call, Response<Recipe> response) {
-
                 navigator.openRecipeDescription(response.body());
-
             }
 
             @Override

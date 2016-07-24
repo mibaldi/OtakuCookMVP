@@ -44,7 +44,6 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
 
     Navigator navigator;
     private Recipe recipe;
-    private FirebaseDatabase database;
     private DatabaseReference refRecipes;
     private DatabaseReference refMeasures;
     private DatabaseReference refTasks;
@@ -74,9 +73,9 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
     }
 
     private void initRef() {
-        database = FirebaseDatabase.getInstance();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
-        refUserRecipe  = database.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("recipes");
+        refUserRecipe  = database.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("favorites");
         refRecipes  = database.getReference("Recipes");
         refMeasures  = database.getReference("Measures");
         refTasks  = database.getReference("Tasks");
@@ -111,16 +110,43 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
         int time = calculateTime();
     }
 
+    public void setRecipeFavorite() {
+        refUserRecipe.child(recipeId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    deleteRecipeFavorite();
+                }else{
+                    saveRecipeFavorite();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void deleteRecipeFavorite() {
+
+        if (mAuth != null) {
+            refUserRecipe.child(recipeId).removeValue();
+            getView().changeFavoriteIcon(false);
+        }
+    }
+
     public void saveRecipeFavorite() {
 
         if (mAuth != null) {
-            refRecipes.child(recipeId).addListenerForSingleValueEvent(new ValueEventListener() {
+            refRecipes.child(recipeId).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if(dataSnapshot.exists()){
                         saveRecipeInUser();
                     }else{
                         saveTasksFB(recipeTasks.get(0),0);
+                        saveIngredientsFB(measures.get(0),0);
                     }
                 }
                 @Override
@@ -140,7 +166,7 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
                 if(newIndex < taskNumber) {
                     saveTasksFB(recipeTasks.get(newIndex), newIndex);
                 }else{
-                    saveIngredientsFB(measures.get(0),0);
+                    saveRecipeFB();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -163,6 +189,7 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
                 getView().showError(ErrorConstants.FIREBASE_ERROR);
             }
         });
+
     }
 
     private void saveMeasureFB(Measure measure, long id, final int index) {
@@ -186,6 +213,22 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
     }
 
     private void saveRecipeFB() {
+        refRecipes.child(recipeId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()){
+                    createRecipeInFB();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                getView().showError(ErrorConstants.FIREBASE_ERROR);
+            }
+        });
+    }
+
+    private void createRecipeInFB() {
         RecipeFB recipeFB = new RecipeFB(recipe);
         refRecipes.child(recipeId).setValue(recipeFB).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -234,31 +277,6 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
         });
     }
 
-    public void deleteRecipeFavorite() {
-
-        if (mAuth != null) {
-            refUserRecipe.child(recipeId).removeValue();
-            getView().changeFavoriteIcon(false);
-        }
-    }
-
-    public void setRecipeFavorite() {
-        refUserRecipe.child(recipeId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    deleteRecipeFavorite();
-                }else{
-                    saveRecipeFavorite();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
     public void generateAlarm(Context context,long time){
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         int type = AlarmManager.RTC;
