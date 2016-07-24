@@ -1,5 +1,6 @@
 package com.mibaldipabjimcas.otakucookmvp.ui.Fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.MenuItemCompat;
@@ -57,6 +58,7 @@ public class RecipeListFragment extends BaseMVPFragment<RecipeListPresenter, Rec
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setHasOptionsMenu(true);
         presenter.init();
     }
 
@@ -101,16 +103,16 @@ public class RecipeListFragment extends BaseMVPFragment<RecipeListPresenter, Rec
         RecipeListFragment fragment = new RecipeListFragment();
         return fragment;
     }
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
+
 
         inflater.inflate(R.menu.menu_search, menu);
 
         myActionMenuItem = menu.findItem(R.id.action_search);
         searchView = (SearchView) myActionMenuItem.getActionView();
         searchView.setOnQueryTextListener(this);
+        //searchView.setBackgroundColor(Color.WHITE);
 
         MenuItemCompat.setOnActionExpandListener(myActionMenuItem, new MenuItemCompat.OnActionExpandListener() {
             @Override
@@ -123,6 +125,7 @@ public class RecipeListFragment extends BaseMVPFragment<RecipeListPresenter, Rec
                 return true;
             }
         });
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
