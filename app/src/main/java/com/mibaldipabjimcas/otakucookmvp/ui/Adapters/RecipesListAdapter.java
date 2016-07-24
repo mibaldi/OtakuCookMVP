@@ -57,7 +57,6 @@ public class RecipesListAdapter extends RecyclerView.Adapter<RecipesListAdapter.
         this.notifyDataSetChanged();
     }
 
-
     public class RecipeListHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.recipeItemName)

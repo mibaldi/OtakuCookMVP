@@ -1,4 +1,4 @@
-package com.mibaldipabjimcas.otakucookmvp.Services;
+package com.mibaldipabjimcas.otakucookmvp.Services.Retrofit2;
 
 import java.util.concurrent.TimeUnit;
 

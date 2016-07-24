@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mibaldipabjimcas.otakucookmvp.Base.BaseMVPActivity;
+import com.mibaldipabjimcas.otakucookmvp.BuildConfig;
 import com.mibaldipabjimcas.otakucookmvp.R;
 import com.mibaldipabjimcas.otakucookmvp.di.HasComponent;
 import com.mibaldipabjimcas.otakucookmvp.features.MainActivity.DaggerMainActivityComponent;
@@ -102,6 +103,12 @@ public class MainActivity extends BaseMVPActivity<MainActivityPresenter,MainActi
             getSupportActionBar().setHomeAsUpIndicator(new DrawerArrowDrawable(toolbar.getContext()));
         }
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        if(BuildConfig.SHOW_PREMIUM_ACTIONS){
+            navigationView.inflateMenu(R.menu.main_navigation);
+        }else{
+            navigationView.inflateMenu(R.menu.main_navigation_free);
+        }
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {

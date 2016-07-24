@@ -28,6 +28,7 @@
 
         <activity android:name=".ui.Activities.RecipeDescriptionActivity" />
         <activity android:name=".ui.Activities.RecipeTaskListActivity"></activity>
+        <receiver android:name=".Services.Broadcast.MyAlarmReceiver"/>
     </application>
 
 </manifest>
