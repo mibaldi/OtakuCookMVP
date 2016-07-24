@@ -25,6 +25,17 @@ public class Recipe implements Parcelable{
     public ArrayList<Task> tasks;
     public List<Ingredient> ingredients;
 
+    public Recipe(String key, RecipeFB recipe) {
+        this.name = recipe.name;
+        this.portions = recipe.portions;
+        this.author = recipe.author;
+        this.score = recipe.score;
+        this.photo = recipe.photo;
+        this.id = Long.valueOf(key);
+        measureIngredients = new ArrayList<Measure>();
+        tasks = new ArrayList<Task>();
+    }
+
     public List<Measure> getMeasures() {
         return measureIngredients;
     }

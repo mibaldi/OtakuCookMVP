@@ -13,6 +13,8 @@ public class RecipeFB {
     public int score;
     public String photo;
 
+    public RecipeFB(){}
+
     public RecipeFB (Recipe recipe){
         this.name = recipe.name;
         this.portions = recipe.portions;
@@ -20,4 +22,5 @@ public class RecipeFB {
         this.score = recipe.score;
         this.photo = recipe.photo;
     }
+
 }
