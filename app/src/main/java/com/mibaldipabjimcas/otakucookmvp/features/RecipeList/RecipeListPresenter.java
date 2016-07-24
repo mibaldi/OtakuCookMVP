@@ -2,11 +2,10 @@ package com.mibaldipabjimcas.otakucookmvp.features.RecipeList;
 
 import com.mibaldipabjimcas.otakucookmvp.Base.BasePresenter;
 import com.mibaldipabjimcas.otakucookmvp.Navigation.Navigator;
-import com.mibaldipabjimcas.otakucookmvp.Services.ApiClient;
-import com.mibaldipabjimcas.otakucookmvp.Services.ApiEndPointInterface;
+import com.mibaldipabjimcas.otakucookmvp.Services.Retrofit2.ApiClient;
+import com.mibaldipabjimcas.otakucookmvp.Services.Retrofit2.ApiEndPointInterface;
 import com.mibaldipabjimcas.otakucookmvp.data.Models.Recipe;
 import com.mibaldipabjimcas.otakucookmvp.di.PerActivity;
-import com.mibaldipabjimcas.otakucookmvp.ui.Views.MainView;
 import com.mibaldipabjimcas.otakucookmvp.ui.Views.RecipeListView;
 
 import java.util.List;

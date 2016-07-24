@@ -1,8 +1,6 @@
 package com.mibaldipabjimcas.otakucookmvp.features.LoginFirebase;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 
 import com.google.android.gms.auth.api.Auth;
@@ -10,10 +8,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
-import com.google.firebase.auth.FirebaseAuth;
 import com.mibaldipabjimcas.otakucookmvp.Constants.FirebaseConstants;
 import com.mibaldipabjimcas.otakucookmvp.R;
-import com.mibaldipabjimcas.otakucookmvp.Services.ApiClient;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

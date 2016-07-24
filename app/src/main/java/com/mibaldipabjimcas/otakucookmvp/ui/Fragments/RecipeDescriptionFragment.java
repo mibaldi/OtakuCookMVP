@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -20,6 +21,9 @@ import com.mibaldipabjimcas.otakucookmvp.features.RecipeDescription.RecipeDescri
 import com.mibaldipabjimcas.otakucookmvp.features.RecipeDescription.RecipeDescriptionPresenter;
 import com.mibaldipabjimcas.otakucookmvp.ui.Views.RecipeDescriptionView;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -27,6 +31,7 @@ import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import timber.log.Timber;
 
 public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescriptionPresenter,RecipeDescriptionView>  implements RecipeDescriptionView{
     private RecipeDescriptionComponent component;
@@ -74,6 +79,10 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
         super.onViewCreated(view, savedInstanceState);
         Recipe recipe=getArguments().getParcelable("recipe");
         presenter.init(recipe);
+        /*int time = presenter.calculateTime() * 1000;
+        presenter.generateAlarm(getActivity(),new Long(time));
+        Timber.d("tiempo de la receta: "+ time);
+        Timber.d("tiempo de lanzamiento "+Calendar.getInstance().getTime().toString());*/
 
     }
 
@@ -127,8 +136,10 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
 
     @OnClick(R.id.bt_time)
     @Override
-    public void showRecipeTime() {
+    public void showRecipeTime(Button button) {
         presenter.recipeTime();
+        button.setVisibility(View.INVISIBLE);
+        presenter.generateAlarm(getActivity(),presenter.calculateTime()*1000);
     }
 
     @OnClick(R.id.fab)

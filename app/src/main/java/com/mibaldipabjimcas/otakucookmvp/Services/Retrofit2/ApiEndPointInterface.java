@@ -1,4 +1,4 @@
-package com.mibaldipabjimcas.otakucookmvp.Services;
+package com.mibaldipabjimcas.otakucookmvp.Services.Retrofit2;
 
 
 import com.mibaldipabjimcas.otakucookmvp.data.Models.Ingredient;

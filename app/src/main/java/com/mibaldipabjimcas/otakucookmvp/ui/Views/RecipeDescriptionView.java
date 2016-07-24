@@ -1,5 +1,7 @@
 package com.mibaldipabjimcas.otakucookmvp.ui.Views;
 
+import android.widget.Button;
+
 import com.mibaldipabjimcas.otakucookmvp.Base.BaseView;
 
 public interface RecipeDescriptionView extends BaseView {
@@ -13,7 +15,7 @@ public interface RecipeDescriptionView extends BaseView {
 
     void showRecipeIngredients();
 
-    void showRecipeTime();
+    void showRecipeTime(Button button);
 
     void recipeFavorite();
 

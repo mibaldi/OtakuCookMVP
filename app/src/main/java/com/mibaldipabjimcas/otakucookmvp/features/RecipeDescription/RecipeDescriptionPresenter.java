@@ -1,5 +1,9 @@
 package com.mibaldipabjimcas.otakucookmvp.features.RecipeDescription;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -13,28 +17,24 @@ import com.google.firebase.database.ValueEventListener;
 import com.mibaldipabjimcas.otakucookmvp.Base.BasePresenter;
 import com.mibaldipabjimcas.otakucookmvp.Constants.ErrorConstants;
 import com.mibaldipabjimcas.otakucookmvp.Navigation.Navigator;
-import com.mibaldipabjimcas.otakucookmvp.Services.ApiClient;
-import com.mibaldipabjimcas.otakucookmvp.Services.ApiEndPointInterface;
+import com.mibaldipabjimcas.otakucookmvp.Services.Broadcast.MyAlarmReceiver;
 import com.mibaldipabjimcas.otakucookmvp.data.FirebaseModels.MeasureFB;
 import com.mibaldipabjimcas.otakucookmvp.data.FirebaseModels.RecipeFB;
 import com.mibaldipabjimcas.otakucookmvp.data.FirebaseModels.TaskFB;
-import com.mibaldipabjimcas.otakucookmvp.data.Models.Ingredient;
 import com.mibaldipabjimcas.otakucookmvp.data.Models.Measure;
 import com.mibaldipabjimcas.otakucookmvp.data.Models.Recipe;
 import com.mibaldipabjimcas.otakucookmvp.data.Models.Task;
 import com.mibaldipabjimcas.otakucookmvp.di.PerActivity;
-import com.mibaldipabjimcas.otakucookmvp.ui.Views.MainView;
+import com.mibaldipabjimcas.otakucookmvp.ui.Activities.RecipeDescriptionActivity;
 import com.mibaldipabjimcas.otakucookmvp.ui.Views.RecipeDescriptionView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import timber.log.Timber;
+import static android.content.Context.ALARM_SERVICE;
 
 @PerActivity
 public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionView> {
@@ -70,6 +70,7 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
         getView().showRecipeRating(recipe.score);
         getView().showRecipePortions(recipe.portions);
         initRef();
+
     }
 
     private void initRef() {
@@ -90,7 +91,7 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
         measuresNumber = measures.size();
     }
 
-    private int calculateTime(){
+    public int calculateTime(){
         List<Task> recipeTasks =this.recipe.getTasks();
         int finalTime = 300;
         for (Task t : recipeTasks){
@@ -257,5 +258,14 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
 
             }
         });
+    }
+    public void generateAlarm(Context context,long time){
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+        int type = AlarmManager.RTC;
+        Calendar calendar = Calendar.getInstance();
+        long when = calendar.getTimeInMillis() + time;
+        Intent myIntent = new Intent(context, MyAlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, myIntent, 0);
+        alarmManager.set(type,when,pendingIntent);
     }
 }

@@ -19,10 +19,10 @@ repositories {
 android {
     signingConfigs {
         config {
-            keyAlias 'android'
-            keyPassword 'android'
-            storeFile file('C:/Android/keys/otakucookmvp.jks')
-            storePassword 'android'
+            keyAlias myKeyAlias
+            keyPassword myKeyPassword
+            storeFile file(myStoreFile)
+            storePassword myStorePassword
         }
     }
     compileSdkVersion 24
@@ -46,6 +46,14 @@ android {
         }
     }
     productFlavors {
+        free {
+            buildConfigField "boolean", "SHOW_PREMIUM_ACTIONS", "false"
+            signingConfig signingConfigs.debug
+        }
+        premium {
+            buildConfigField "boolean", "SHOW_PREMIUM_ACTIONS", "true"
+            signingConfig signingConfigs.debug
+        }
     }
 }
 
