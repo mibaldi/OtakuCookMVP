@@ -9,13 +9,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mibaldipabjimcas.otakucookmvp.Base.BasePresenter;
+import com.mibaldipabjimcas.otakucookmvp.BuildConfig;
 import com.mibaldipabjimcas.otakucookmvp.Constants.ErrorConstants;
 import com.mibaldipabjimcas.otakucookmvp.Navigation.Navigator;
+import com.mibaldipabjimcas.otakucookmvp.data.FirebaseModels.RecipeFB;
 import com.mibaldipabjimcas.otakucookmvp.data.Models.Recipe;
 import com.mibaldipabjimcas.otakucookmvp.di.PerActivity;
 import com.mibaldipabjimcas.otakucookmvp.ui.Views.MainView;
 
 import javax.inject.Inject;
+
+import timber.log.Timber;
 
 @PerActivity
 public class MainPresenter extends BasePresenter<MainView> {
@@ -26,6 +30,9 @@ public class MainPresenter extends BasePresenter<MainView> {
     Navigator navigator;
     private String currentRecipe;
     private String previousRecipe;
+    private DatabaseReference refRecipes;
+    private Iterable<DataSnapshot> recipes;
+    private int numberRecipes;
 
     @Inject
     public MainPresenter(Navigator navigator) {
@@ -34,41 +41,51 @@ public class MainPresenter extends BasePresenter<MainView> {
 
     public void init(){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference refRoot  = database.getReference("users");
+        DatabaseReference refRoot  = database.getReference("Users");
+        refRecipes = database.getReference("Recipes");
         mAuth = FirebaseAuth.getInstance();
 
         if (mAuth != null) {
-            mRef = refRoot.child(mAuth.getCurrentUser().getUid()).child("favorites");
-            mRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    int numberChilds = (int) dataSnapshot.getChildrenCount();
-                    if (numberChilds != 0) {
-                        if (numberChilds > 1) {
-                            getView().showRandomButton(View.VISIBLE);
+            if(BuildConfig.SHOW_PREMIUM_ACTIONS){
+                mRef = refRoot.child(mAuth.getCurrentUser().getUid()).child("favorites");
+                mRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        recipes = dataSnapshot.getChildren();
+                        numberRecipes = (int) dataSnapshot.getChildrenCount();
+                        if (numberRecipes != 0) {
+                            if (numberRecipes > 1) {
+                                getView().showRandomButton(View.VISIBLE);
+                            }
+                            randomRecipe();
                         }
-                        randomRecipe(dataSnapshot.getChildren(),numberChilds);
                     }
-                }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    getView().showError(ErrorConstants.RECIPE_LIST_FAVORITE_ERROR);
-                }
-            });
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        getView().showError(ErrorConstants.RECIPE_LIST_FAVORITE_ERROR);
+                    }
+                });
+        }else{
+                //TODO
+                //Caso no premium
+                getView().showRecipeName("No premium");
+            }
         }
     }
 
-    public void randomRecipe(Iterable<DataSnapshot> iterable,int numberChilds){
-        int x = (int) (Math.random() * numberChilds);
+    public void randomRecipe(){
+        Timber.d("Random");
+        //TODO
+        int x = (int) (Math.random() * numberRecipes);
         int count = 0;
 
-        for (DataSnapshot child : iterable) {
+        for (DataSnapshot child : recipes) {
             if (x == count) {
                 currentRecipe = child.getKey();
                 if (currentRecipe.equals(previousRecipe)){
-                    randomRecipe(iterable,numberChilds);
+                    randomRecipe();
                 }else {
                     printRecipe(child.getKey());
                 }
@@ -81,10 +98,10 @@ public class MainPresenter extends BasePresenter<MainView> {
     private void printRecipe(String key) {
         previousRecipe = key;
 
-        mRef.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+        refRecipes.child(key).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Recipe r = dataSnapshot.getValue(Recipe.class);
+                RecipeFB r = dataSnapshot.getValue(RecipeFB.class);
                 getView().showRecipeName(r.name);
                 getView().showRecipeImage(r.photo);
                 getView().showRatingBar(r.score);

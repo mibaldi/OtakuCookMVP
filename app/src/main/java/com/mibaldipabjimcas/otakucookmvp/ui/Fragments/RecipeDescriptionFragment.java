@@ -1,8 +1,14 @@
 package com.mibaldipabjimcas.otakucookmvp.ui.Fragments;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.mibaldipabjimcas.otakucookmvp.Base.BaseMVPFragment;
@@ -35,11 +40,14 @@ import timber.log.Timber;
 
 public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescriptionPresenter,RecipeDescriptionView>  implements RecipeDescriptionView{
     private RecipeDescriptionComponent component;
-    /*@BindView(R.id.recipePhoto)
+    @BindView(R.id.recipePhoto)
     ImageView imageView;
 
+    @BindView(R.id.app_bar_layout)
+    AppBarLayout appBarLayout;
+
     @BindView(R.id.toolbar)
-    Toolbar toolbar;*/
+    Toolbar toolbar;
 
     @BindView(R.id.recipeName)
     TextView recipeName;
@@ -73,12 +81,13 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
         return fragment;
     }
 
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Recipe recipe=getArguments().getParcelable("recipe");
         presenter.init(recipe);
+        setSizeAppBarLayout();
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         /*int time = presenter.calculateTime() * 1000;
         presenter.generateAlarm(getActivity(),new Long(time));
         Timber.d("tiempo de la receta: "+ time);
@@ -108,9 +117,19 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
         return component.presenter();
     }
 
+    public void setSizeAppBarLayout(){
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams)appBarLayout.getLayoutParams();
+            params.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, getResources().getDisplayMetrics());
+            params.width = params.MATCH_PARENT;
+            appBarLayout.setLayoutParams(params);
+        }
+    }
+
+
     @Override
     public void showRecipeImage(String photo) {
-        //Glide.with(getActivity()).load(photo).placeholder(R.mipmap.ic_launcher).into(imageView);
+        Glide.with(getActivity()).load(photo).placeholder(R.mipmap.ic_launcher).into(imageView);
     }
 
     @Override

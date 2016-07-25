@@ -21,6 +21,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  implements MainView{
@@ -61,7 +62,7 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        presenter.init();
     }
 
     @Nullable
@@ -89,6 +90,11 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
     @Override
     public void showRecipeImage(String photo) {
         Glide.with(getActivity()).load(photo).placeholder(R.mipmap.ic_launcher).into(mainImage);
+    }
+
+    @OnClick(R.id.random)
+    public void randomRecipe(){
+        presenter.randomRecipe();
     }
 
     @Override
