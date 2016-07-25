@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
@@ -176,9 +177,9 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
     @Override
     public void changeFavoriteIcon(boolean b) {
         if(b){
-            Toast.makeText(getActivity(),"Favorito",Toast.LENGTH_SHORT).show();
+            Snackbar.make(getView(),"Receta guardada como favorita",Snackbar.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(getActivity(),"No Favorito",Toast.LENGTH_SHORT).show();
+            Snackbar.make(getView(),"Receta eliminada de favoritos",Snackbar.LENGTH_SHORT).show();
         }
     }
 

@@ -79,6 +79,7 @@ public class RecipeListFavoritesPresenter extends BasePresenter<RecipeListFavori
             refUserRecipe.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
+                    recipes.clear();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         getRecipeFirebase(snapshot.getKey(), dataSnapshot.getChildrenCount());
                     }
