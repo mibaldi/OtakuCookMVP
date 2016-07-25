@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,6 +28,8 @@ import com.mibaldipabjimcas.otakucookmvp.ui.Fragments.MainFragment;
 import com.mibaldipabjimcas.otakucookmvp.ui.Fragments.RecipeListFavoritesFragment;
 import com.mibaldipabjimcas.otakucookmvp.ui.Fragments.RecipeListFragment;
 import com.mibaldipabjimcas.otakucookmvp.ui.Views.MainActivityView;
+
+import java.util.zip.Inflater;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -69,6 +72,13 @@ public class MainActivity extends BaseMVPActivity<MainActivityPresenter,MainActi
     public void onDestroy() {
         super.onDestroy();
         unbind.unbind();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main,menu);
+        return true;
+
     }
 
     @NonNull
