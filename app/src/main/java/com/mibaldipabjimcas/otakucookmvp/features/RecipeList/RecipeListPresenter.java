@@ -28,14 +28,18 @@ public class RecipeListPresenter extends BasePresenter<RecipeListView> {
         this.navigator = navigator;
     }
     public void init(){
-        getView().showProgressBar(true);
+       loadServerService();
+    }
+
+    public void loadServerService(){
         service = ApiClient.createService(ApiEndPointInterface.class);
+        getView().swipeRefresh(true);
         Call<List<Recipe>> recipeList = service.recipes();
         recipeList.enqueue(new Callback<List<Recipe>>() {
             @Override
             public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
-                getView().showProgressBar(false);
                 getView().showRecipeList(response.body());
+                getView().swipeRefresh(false);
             }
 
             @Override
@@ -45,6 +49,7 @@ public class RecipeListPresenter extends BasePresenter<RecipeListView> {
             }
         });
     }
+
     public void loadRecipe(Recipe recipe){
         getView().showProgressBar(true);
         Call<Recipe> recipeList = service.getRecipe(recipe.id);

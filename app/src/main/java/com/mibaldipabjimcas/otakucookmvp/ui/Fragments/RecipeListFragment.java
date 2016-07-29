@@ -3,7 +3,9 @@ package com.mibaldipabjimcas.otakucookmvp.ui.Fragments;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -17,6 +19,7 @@ import android.widget.ProgressBar;
 
 import com.mibaldipabjimcas.otakucookmvp.Base.BaseMVPFragment;
 import com.mibaldipabjimcas.otakucookmvp.R;
+import com.mibaldipabjimcas.otakucookmvp.Services.Connectivity.Connectivity;
 import com.mibaldipabjimcas.otakucookmvp.data.Models.Recipe;
 import com.mibaldipabjimcas.otakucookmvp.features.MainActivity.MainActivityComponent;
 import com.mibaldipabjimcas.otakucookmvp.features.RecipeList.RecipeListPresenter;
@@ -44,6 +47,9 @@ public class RecipeListFragment extends BaseMVPFragment<RecipeListPresenter, Rec
 
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
+
+    @BindView(R.id.activity_main_swipe_refresh_layout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Inject
     RecipesListAdapter recipesListAdapter;
@@ -76,7 +82,23 @@ public class RecipeListFragment extends BaseMVPFragment<RecipeListPresenter, Rec
         View view = inflater.inflate(R.layout.fragment_recipe_list, container, false);
         unbind = ButterKnife.bind(this, view);
         recipe_recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        loadSwipeRefreshLayout();
+
         return view;
+    }
+
+    private void loadSwipeRefreshLayout() {
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (Connectivity.isNetworkAvailable(getView().getContext())) {
+                    presenter.loadServerService();
+                } else {
+                    Snackbar.make(getView(), R.string.no_connectivity, Snackbar.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     @Override
@@ -102,6 +124,11 @@ public class RecipeListFragment extends BaseMVPFragment<RecipeListPresenter, Rec
         });
         recipe_recyclerView.setAdapter(recipesListAdapter);
 
+    }
+
+    @Override
+    public void swipeRefresh(Boolean b) {
+        mSwipeRefreshLayout.setRefreshing(b);
     }
 
     @Override
