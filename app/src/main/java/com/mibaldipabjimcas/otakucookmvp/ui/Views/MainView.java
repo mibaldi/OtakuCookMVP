@@ -8,6 +8,8 @@ public interface MainView extends BaseView {
 
     void showRecipeImage(String photo);
 
+    void showDefaultImage();
+
     void showRatingBar(int score);
     
     void showRecipeName(String name);

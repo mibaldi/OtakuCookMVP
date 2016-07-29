@@ -16,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mibaldipabjimcas.otakucookmvp.Base.BasePresenter;
 import com.mibaldipabjimcas.otakucookmvp.Base.DataListener;
+import com.mibaldipabjimcas.otakucookmvp.BuildConfig;
 import com.mibaldipabjimcas.otakucookmvp.Constants.ErrorConstants;
 import com.mibaldipabjimcas.otakucookmvp.Navigation.Navigator;
 import com.mibaldipabjimcas.otakucookmvp.Services.Broadcast.MyAlarmReceiver;
@@ -46,12 +47,6 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
 
     Navigator navigator;
     private Recipe recipe;
-    private ArrayList<Task> recipeTasks;
-    private int taskNumber;
-    private List<Measure> measures;
-    private int measuresNumber;
-    private String recipeId;
-
 
     @Inject
     public RecipeDescriptionPresenter(Navigator navigator) {
@@ -60,6 +55,11 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
 
     public void init(Recipe recipe){
         this.recipe = recipe;
+
+        if(!BuildConfig.SHOW_PREMIUM_ACTIONS){
+            getView().hideFavoriteIcon();
+        }
+
         getView().showRecipeImage(recipe.photo);
         getView().showRecipeName(recipe.name);
         getView().showRecipeAuthor(recipe.author);

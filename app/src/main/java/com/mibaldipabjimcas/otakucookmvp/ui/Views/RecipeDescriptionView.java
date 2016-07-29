@@ -24,4 +24,6 @@ public interface RecipeDescriptionView extends BaseView {
     void changeFavoriteIcon(boolean b);
 
     void showRecipePortions(int portions);
+
+    void hideFavoriteIcon();
 }

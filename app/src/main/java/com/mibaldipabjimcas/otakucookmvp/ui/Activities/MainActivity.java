@@ -55,7 +55,8 @@ public class MainActivity extends BaseMVPActivity<MainActivityPresenter,MainActi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         unbind = ButterKnife.bind(this);
-        this.initializeActivity();
+        if(savedInstanceState == null)
+            this.initializeActivity();
 
         setupViews();
         presenter.init(this);

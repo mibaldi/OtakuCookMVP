@@ -97,6 +97,11 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
         Glide.with(getActivity()).load(photo).placeholder(R.mipmap.ic_launcher).into(mainImage);
     }
 
+    @Override
+    public void showDefaultImage() {
+        Glide.with(getActivity()).load(R.mipmap.ic_launcher).into(mainImage);
+    }
+
     @OnClick(R.id.random)
     public void randomRecipe(){
         presenter.randomRecipe();

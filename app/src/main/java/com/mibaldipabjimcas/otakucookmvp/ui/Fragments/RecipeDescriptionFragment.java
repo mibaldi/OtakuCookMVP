@@ -193,6 +193,11 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
     }
 
     @Override
+    public void hideFavoriteIcon() {
+        favorite.setVisibility(View.GONE);
+    }
+
+    @Override
     public void showProgressBar(Boolean b) {
         if(b){
             progressBar.setVisibility(View.VISIBLE);

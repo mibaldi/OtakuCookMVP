@@ -31,6 +31,7 @@ public class MainPresenter extends BasePresenter<MainView> {
     private String previousRecipe;
     private Iterable<DataSnapshot> recipes;
     private int numberRecipes;
+    private boolean existRandomButtom;
 
     @Inject
     public MainPresenter(Navigator navigator) {
@@ -42,30 +43,38 @@ public class MainPresenter extends BasePresenter<MainView> {
         if (firebaseRepository.getAuth() != null) {
 
             if(BuildConfig.SHOW_PREMIUM_ACTIONS){
-                firebaseRepository.getFavorites(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        recipes = dataSnapshot.getChildren();
-                        numberRecipes = (int) dataSnapshot.getChildrenCount();
-                        if (numberRecipes != 0) {
-                            if (numberRecipes > 1) {
-                                getView().showRandomButton(View.VISIBLE);
-                            }
-                            randomRecipe();
-                        }
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        getView().showError(ErrorConstants.RECIPE_LIST_FAVORITE_ERROR);
-                    }
-                });
+                if(previousRecipe != null){
+                    printRecipe(previousRecipe);
+                }else{
+                    getRandomRecipe();
+                }
+
         }else{
-                //TODO
-                //Caso no premium
-                getView().showRecipeName("No premium");
+                noPremium();
             }
         }
+    }
+
+    public void getRandomRecipe(){
+        firebaseRepository.getFavorites(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                recipes = dataSnapshot.getChildren();
+                numberRecipes = (int) dataSnapshot.getChildrenCount();
+                if (numberRecipes != 0) {
+                    if (numberRecipes > 1) {
+                        existRandomButtom = true;
+                    }
+                    randomRecipe();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                getView().showError(ErrorConstants.RECIPE_LIST_FAVORITE_ERROR);
+            }
+        });
     }
 
     public void randomRecipe(){
@@ -99,6 +108,8 @@ public class MainPresenter extends BasePresenter<MainView> {
                 getView().showRecipeImage(r.photo);
                 getView().showRatingBar(r.score);
                 getView().showRecipeAuthor(r.author);
+                if(existRandomButtom)
+                    getView().showRandomButton(View.VISIBLE);
             }
 
             @Override
@@ -106,6 +117,11 @@ public class MainPresenter extends BasePresenter<MainView> {
                 getView().showError(ErrorConstants.FIREBASE_ERROR);
             }
         });
+    }
+
+    public void noPremium(){
+        getView().showRecipeName("No premium");
+        getView().showDefaultImage();
     }
 
     public void openRecipeDescription(){
