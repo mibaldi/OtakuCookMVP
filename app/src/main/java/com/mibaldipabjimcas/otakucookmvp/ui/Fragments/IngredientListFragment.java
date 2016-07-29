@@ -50,9 +50,6 @@ public class IngredientListFragment extends BaseMVPFragment<IngredientListPresen
     @BindView(R.id.recipe_recyclerView)
     RecyclerView ingredient_recyclerView;
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
 
@@ -83,7 +80,6 @@ public class IngredientListFragment extends BaseMVPFragment<IngredientListPresen
         component = getComponent(IngredientListComponent.class);
         component.inject(this);
         View view = inflater.inflate(R.layout.fragment_ingredient_list, container, false);
-        ((IngredientListActivity)getActivity()).changeSupportActionBar(toolbar);
         unbind = ButterKnife.bind(this, view);
         ingredient_recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return view;

@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.ViewGroup;
 
 import com.mibaldipabjimcas.otakucookmvp.Base.BaseActivity;
@@ -34,6 +35,7 @@ public class RecipeTaskListActivity  extends BaseActivity implements HasComponen
     private RecipeTaskListComponent recipeTaskListComponent;
     @BindView(R.id.view_pager)
     ViewPager viewPager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

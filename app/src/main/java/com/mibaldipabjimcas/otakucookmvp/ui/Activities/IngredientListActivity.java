@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 
 import com.mibaldipabjimcas.otakucookmvp.Base.BaseActivity;
 import com.mibaldipabjimcas.otakucookmvp.R;
@@ -25,18 +26,23 @@ import butterknife.ButterKnife;
 
 public class IngredientListActivity extends BaseActivity implements HasComponent<IngredientListComponent> {
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
     private IngredientListComponent ingredientListComponent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredient_list);
         ButterKnife.bind(this);
+        changeSupportActionBar(toolbar);
         ArrayList<Measure> ingredients = getIntent().getParcelableArrayListExtra("measures");
         this.initializeInjector();
         this.initializeActivity(ingredients);
     }
 
     private void initializeActivity(ArrayList<Measure> ingredients) {
+        setTitle("Ingredients");
        addFragment(R.id.content, IngredientListFragment.newInstance(ingredients));
     }
 

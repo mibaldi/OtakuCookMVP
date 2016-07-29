@@ -57,6 +57,9 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
         @BindView(R.id.quantityMeasure)
         TextView quantityMeasure;
 
+        @BindView(R.id.categoryName)
+        TextView category;
+
         public IngredientListHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -68,6 +71,7 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
             if(!measure.measure.equals("-")){
                 ingredientMeasure = measure.measure;
             }
+            category.setText(measure.ingredient.category);
             quantityMeasure.setText(measure.quantity+" "+ingredientMeasure);
         }
 

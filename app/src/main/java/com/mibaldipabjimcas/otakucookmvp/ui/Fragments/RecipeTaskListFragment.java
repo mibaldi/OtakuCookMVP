@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -37,6 +38,10 @@ public class RecipeTaskListFragment extends BaseMVPFragment<RecipeTaskListPresen
     ImageView taskImage;
     @BindViews({ R.id.taskName, R.id.taskDescription, R.id.taskSeconds })
     List<TextView> taskFields;
+
+    @BindView(R.id.layout_time)
+    LinearLayout layoutTime;
+
     @Inject
     public RecipeTaskListFragment() {
         setRetainInstance(true);
@@ -90,17 +95,22 @@ public class RecipeTaskListFragment extends BaseMVPFragment<RecipeTaskListPresen
 
     @Override
     public void showTaskName(String name) {
-        taskFields.get(0).setText(name);
+        taskFields.get(0).setText(getString(R.string.taskName, name));
     }
 
     @Override
-    public void showTaskSeconds(int seconds) {
-        taskFields.get(2).setText(String.valueOf(seconds));
+    public void showTaskTime(int minutes) {
+        taskFields.get(2).setText(getString(R.string.minutesInTask, minutes));
     }
 
     @Override
     public void showTaskDescription(String description) {
         taskFields.get(1).setText(description);
+    }
+
+    @Override
+    public void hideTime() {
+        layoutTime.setVisibility(View.GONE);
     }
 
     @Override

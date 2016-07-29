@@ -8,6 +8,10 @@
     <string name="historical">Histórico de Ingredientes</string>
 
     <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="minutesInTask">%1$d minutes</string>
+    <string name="taskName">Task %1$s</string>
+
     <string name="_00_00_00">00:00:00</string>
     <string name="comprar">Buy</string>
     <string name="eliminar">Delete</string>

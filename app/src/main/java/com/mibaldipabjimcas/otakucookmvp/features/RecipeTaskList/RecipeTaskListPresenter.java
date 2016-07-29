@@ -23,8 +23,16 @@ public class RecipeTaskListPresenter extends BasePresenter<RecipeTaskListView> {
         getView().showTaskImage(task.photo);
         getView().showTaskName(task.name);
         getView().showTaskDescription(task.description);
-        getView().showTaskSeconds(task.seconds);
+        if(task.seconds > 0) {
+            getView().showTaskTime(parseSecondsToMinutes(task.seconds));
+        }else{
+            getView().hideTime();
+        }
         //getView().showRecipeImage(recipe.photo);
         //getView().showRecipeName(recipe.name);
+    }
+
+    public int parseSecondsToMinutes(int seconds){
+        return seconds/60;
     }
 }
