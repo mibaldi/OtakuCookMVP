@@ -140,13 +140,12 @@ public class FirebaseRepository {
         }
     }
 
-    private void getIngredientFB(MeasureFB measureFB, final Iterator<DataSnapshot> iterator) {
+    private void getIngredientFB(final MeasureFB measureFB, final Iterator<DataSnapshot> iterator) {
         refIngredients.child(measureFB.ingredientId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Ingredient ingredient = dataSnapshot.getValue(Ingredient.class);
-                Measure measure = new Measure();
-                measure.ingredient = ingredient;
+                Measure measure = new Measure(measureFB,ingredient);
                 recipe.measureIngredients.add(measure);
                 getMeasureFirebase(iterator);
             }
