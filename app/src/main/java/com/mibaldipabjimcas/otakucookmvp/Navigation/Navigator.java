@@ -47,7 +47,7 @@ public class Navigator {
     public void openMain(){
         if (context != null) {
             Intent intent = MainActivity.getCallingIntent(context);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             context.startActivity(intent);
         }
     }

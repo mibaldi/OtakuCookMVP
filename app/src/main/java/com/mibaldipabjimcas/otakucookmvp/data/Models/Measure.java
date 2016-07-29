@@ -16,7 +16,11 @@ public class Measure implements Parcelable {
     public Ingredient ingredient;
     public long ingredientId;
 
-    public Measure() {
+    public Measure(MeasureFB measureFB,Ingredient ingredient) {
+
+        this.ingredient = ingredient;
+        this.measure = measureFB.measure;
+        this.quantity = measureFB.quantity;
     }
 
     @Override
