@@ -52,7 +52,7 @@ public class MainActivityPresenter extends BasePresenter<MainActivityView> {
             @Override
             public void onResult(@NonNull Status status) {
                 FirebaseAuth.getInstance().signOut();
-                navigator.finish();
+                navigator.goToLogin();
             }
         });
     }

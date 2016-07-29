@@ -77,12 +77,11 @@ public class BaseActivity  extends AppCompatActivity{
             super.onBackPressed();
         }
 
-        /*public boolean onOptionsItemSelected(MenuItem item) {
+        public boolean onOptionsItemSelected(MenuItem item) {
             if (item.getItemId() == android.R.id.home) {
                 finish();
             }
-
             return super.onOptionsItemSelected(item);
-        }*/
+        }
 
 }

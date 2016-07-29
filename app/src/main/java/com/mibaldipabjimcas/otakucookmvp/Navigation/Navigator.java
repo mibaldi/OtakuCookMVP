@@ -49,7 +49,7 @@ public class Navigator {
             context.startActivity(intent);
         }
     }
-    public  void finish(){
+    public void goToLogin(){
         if (context != null) {
             Intent intent = LoginActivity.getCallingIntent(context);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

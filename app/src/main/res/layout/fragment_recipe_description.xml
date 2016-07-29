@@ -99,8 +99,6 @@
         android:layout_height="wrap_content"
         >
 
-
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -114,25 +112,35 @@
                 android:layout_height="wrap_content"
                 android:text="ingredients"
                 android:layout_alignParentLeft="true"
-                android:layout_margin="6dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="6dp"
+                android:padding="10dp"
                 android:background="@drawable/round_button"/>
-            <Button
-                android:id="@+id/bt_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Time"
-                android:layout_centerHorizontal="true"
-                android:layout_margin="6dp"
-                android:background="@drawable/round_button"/>
+
             <Button
                 android:id="@+id/bt_tasks"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="6dp"
                 android:text="show tasks"
-                android:layout_margin="6dp"
+                android:padding="10dp"
                 android:background="@drawable/round_button"/>
         </RelativeLayout>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ic_launcher"
+            android:layout_above="@id/buttonsLayout"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/bt_time"
+            />
+        
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_centerInParent="true"

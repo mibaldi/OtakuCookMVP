@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -26,6 +27,7 @@ import com.mibaldipabjimcas.otakucookmvp.R;
 import com.mibaldipabjimcas.otakucookmvp.data.Models.Recipe;
 import com.mibaldipabjimcas.otakucookmvp.features.RecipeDescription.RecipeDescriptionComponent;
 import com.mibaldipabjimcas.otakucookmvp.features.RecipeDescription.RecipeDescriptionPresenter;
+import com.mibaldipabjimcas.otakucookmvp.ui.Activities.RecipeDescriptionActivity;
 import com.mibaldipabjimcas.otakucookmvp.ui.Views.RecipeDescriptionView;
 
 import java.util.Calendar;
@@ -92,7 +94,7 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
         Recipe recipe=getArguments().getParcelable("recipe");
         presenter.init(recipe);
         setSizeAppBarLayout();
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        changeSupportActionBar(toolbar);
         /*int time = presenter.calculateTime() * 1000;
         presenter.generateAlarm(getActivity(),new Long(time));
         Timber.d("tiempo de la receta: "+ time);
@@ -203,6 +205,17 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
             progressBar.setVisibility(View.VISIBLE);
         }else{
             progressBar.setVisibility(View.GONE);
+        }
+    }
+
+    public void changeSupportActionBar(Toolbar toolbar){
+        RecipeDescriptionActivity activity = ((RecipeDescriptionActivity) getActivity());
+        activity.setSupportActionBar(toolbar);
+
+        if (activity.getSupportActionBar() != null){
+            activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            activity.getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         }
     }
 }
