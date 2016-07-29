@@ -94,7 +94,7 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
         Recipe recipe=getArguments().getParcelable("recipe");
         presenter.init(recipe);
         setSizeAppBarLayout();
-        changeSupportActionBar(toolbar);
+        ((RecipeDescriptionActivity)getActivity()).changeSupportActionBar(toolbar);
         /*int time = presenter.calculateTime() * 1000;
         presenter.generateAlarm(getActivity(),new Long(time));
         Timber.d("tiempo de la receta: "+ time);
@@ -208,14 +208,4 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
         }
     }
 
-    public void changeSupportActionBar(Toolbar toolbar){
-        RecipeDescriptionActivity activity = ((RecipeDescriptionActivity) getActivity());
-        activity.setSupportActionBar(toolbar);
-
-        if (activity.getSupportActionBar() != null){
-            activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            activity.getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        }
-    }
 }

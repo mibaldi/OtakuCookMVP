@@ -3,8 +3,10 @@ package com.mibaldipabjimcas.otakucookmvp.Navigation;
 import android.content.Context;
 import android.content.Intent;
 
+import com.mibaldipabjimcas.otakucookmvp.data.Models.Measure;
 import com.mibaldipabjimcas.otakucookmvp.data.Models.Recipe;
 import com.mibaldipabjimcas.otakucookmvp.data.Models.Task;
+import com.mibaldipabjimcas.otakucookmvp.ui.Activities.IngredientListActivity;
 import com.mibaldipabjimcas.otakucookmvp.ui.Activities.LoginActivity;
 import com.mibaldipabjimcas.otakucookmvp.ui.Activities.MainActivity;
 import com.mibaldipabjimcas.otakucookmvp.ui.Activities.RecipeDescriptionActivity;
@@ -58,4 +60,12 @@ public class Navigator {
     }
 
 
+    public void openRecipeIngredientList(ArrayList<Measure> measures) {
+        if (context != null) {
+            Intent intent = IngredientListActivity.getCallingIntent(context);
+            intent.putParcelableArrayListExtra("measures",measures);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        }
+    }
 }

@@ -21,7 +21,7 @@ public class Recipe implements Parcelable{
     public String author;
     public int score;
     public String photo;
-    public List<Measure> measureIngredients;
+    public ArrayList<Measure> measureIngredients;
     public ArrayList<Task> tasks;
     public List<Ingredient> ingredients;
 
@@ -36,11 +36,11 @@ public class Recipe implements Parcelable{
         tasks = new ArrayList<Task>();
     }
 
-    public List<Measure> getMeasures() {
+    public ArrayList<Measure> getMeasures() {
         return measureIngredients;
     }
 
-    public void setMeasures(List<Measure> measures) {
+    public void setMeasures(ArrayList<Measure> measures) {
         this.measureIngredients = measures;
     }
 

@@ -81,6 +81,7 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
     }
 
     public void showRecipeIngredientList() {
+        navigator.openRecipeIngredientList(recipe.getMeasures());
     }
 
     public void recipeTime() {

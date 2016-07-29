@@ -5,12 +5,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.Toolbar;
 
 import com.mibaldipabjimcas.otakucookmvp.Application.OtakuCookApplication;
 import com.mibaldipabjimcas.otakucookmvp.Application.OtakuCookApplicationComponent;
 import com.mibaldipabjimcas.otakucookmvp.R;
+import com.mibaldipabjimcas.otakucookmvp.ui.Activities.RecipeDescriptionActivity;
 
 import javax.inject.Inject;
 
@@ -39,15 +40,15 @@ public class BaseActivity  extends AppCompatActivity{
         }*/
 
 
-       /* public void changeSupportActionBar(Toolbar toolbar){
-          //  setSupportActionBar(toolbar);
+       public void changeSupportActionBar(Toolbar toolbar){
+           setSupportActionBar(toolbar);
 
             if (getSupportActionBar() != null){
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 getSupportActionBar().setDisplayShowHomeEnabled(true);
 
             }
-        }*/
+        }
 
         protected OtakuCookApplicationComponent getInjector(){
             return ((OtakuCookApplication) getApplication()).getInjector();
