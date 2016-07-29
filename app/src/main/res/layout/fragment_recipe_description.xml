@@ -75,9 +75,15 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
         <TextView
+            android:id="@+id/portions"
+            android:text="portions"
+            android:layout_below="@id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
             android:id="@+id/recipeAuthor"
             android:text="Author"
-            android:layout_below="@id/ratingBar"
+            android:layout_below="@id/portions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -132,14 +138,26 @@
                 android:padding="10dp"
                 android:background="@drawable/round_button"/>
         </RelativeLayout>
-        <ImageButton
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@mipmap/ic_launcher"
             android:layout_above="@id/buttonsLayout"
             android:layout_centerHorizontal="true"
-            android:id="@+id/bt_time"
-            />
+            android:orientation="vertical"
+            android:id="@+id/layout_time"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/ic_launcher"
+                android:id="@+id/image_time"
+                />
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
         
         <ProgressBar
             android:id="@+id/progressBar"

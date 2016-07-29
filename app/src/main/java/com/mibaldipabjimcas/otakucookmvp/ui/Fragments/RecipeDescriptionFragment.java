@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
@@ -42,16 +43,25 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import timber.log.Timber;
 
-public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescriptionPresenter,RecipeDescriptionView>  implements RecipeDescriptionView{
+public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescriptionPresenter, RecipeDescriptionView> implements RecipeDescriptionView {
     private RecipeDescriptionComponent component;
     @BindView(R.id.recipePhoto)
     ImageView imageView;
+
+    @BindView(R.id.image_time)
+    ImageView imageTime;
 
     @BindView(R.id.app_bar_layout)
     AppBarLayout appBarLayout;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+
+    @BindView(R.id.time)
+    TextView time;
+
+    @BindView(R.id.portions)
+    TextView portions;
 
     @BindView(R.id.recipeName)
     TextView recipeName;
@@ -83,7 +93,7 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
     public static RecipeDescriptionFragment newInstance(Recipe recipe) {
         RecipeDescriptionFragment fragment = new RecipeDescriptionFragment();
         Bundle args = new Bundle();
-        args.putParcelable("recipe",recipe);
+        args.putParcelable("recipe", recipe);
         fragment.setArguments(args);
         return fragment;
     }
@@ -91,14 +101,11 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Recipe recipe=getArguments().getParcelable("recipe");
+        Recipe recipe = getArguments().getParcelable("recipe");
         presenter.init(recipe);
         setSizeAppBarLayout();
         changeSupportActionBar(toolbar);
-        /*int time = presenter.calculateTime() * 1000;
-        presenter.generateAlarm(getActivity(),new Long(time));
-        Timber.d("tiempo de la receta: "+ time);
-        Timber.d("tiempo de lanzamiento "+Calendar.getInstance().getTime().toString());*/
+        getActivity().setTitle("");
 
     }
 
@@ -108,8 +115,8 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
 
         component = getComponent(RecipeDescriptionComponent.class);
         component.inject(this);
-        View view = inflater.inflate(R.layout.fragment_recipe_description,container,false);
-        unbind = ButterKnife.bind(this,view);
+        View view = inflater.inflate(R.layout.fragment_recipe_description, container, false);
+        unbind = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -124,9 +131,9 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
         return component.presenter();
     }
 
-    public void setSizeAppBarLayout(){
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams)appBarLayout.getLayoutParams();
+    public void setSizeAppBarLayout() {
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
             params.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, getResources().getDisplayMetrics());
             params.width = params.MATCH_PARENT;
             appBarLayout.setLayoutParams(params);
@@ -160,12 +167,19 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
         presenter.showRecipeIngredientList();
     }
 
-    @OnClick(R.id.bt_time)
+
     @Override
-    public void showRecipeTime(Button button) {
-        presenter.recipeTime();
-        button.setVisibility(View.INVISIBLE);
-        presenter.generateAlarm(getActivity(),presenter.calculateTime()*1000);
+    public void showRecipeTime(String timeString) {
+        time.setText(timeString);
+    }
+
+    @OnClick(R.id.layout_time)
+    @Override
+    public void startRecipeTime(View view) {
+        int time=presenter.calculateTime();
+        view.setEnabled(false);
+        imageTime.setImageResource(R.drawable.congelado);
+        presenter.generateAlarm(getActivity(), time);
     }
 
     @OnClick(R.id.fab)
@@ -182,16 +196,16 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
 
     @Override
     public void changeFavoriteIcon(boolean b) {
-        if(b){
-            Snackbar.make(getView(),"Receta guardada como favorita",Snackbar.LENGTH_SHORT).show();
-        }else{
-            Snackbar.make(getView(),"Receta eliminada de favoritos",Snackbar.LENGTH_SHORT).show();
+        if (b) {
+            Snackbar.make(getView(), "Receta guardada como favorita", Snackbar.LENGTH_SHORT).show();
+        } else {
+            Snackbar.make(getView(), "Receta eliminada de favoritos", Snackbar.LENGTH_SHORT).show();
         }
     }
 
     @Override
-    public void showRecipePortions(int portions) {
-
+    public void showRecipePortions(int number) {
+        portions.setText(String.format("Receta para %d personas",number));
     }
 
     @Override
@@ -201,18 +215,18 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
 
     @Override
     public void showProgressBar(Boolean b) {
-        if(b){
+        if (b) {
             progressBar.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             progressBar.setVisibility(View.GONE);
         }
     }
 
-    public void changeSupportActionBar(Toolbar toolbar){
+    public void changeSupportActionBar(Toolbar toolbar) {
         RecipeDescriptionActivity activity = ((RecipeDescriptionActivity) getActivity());
         activity.setSupportActionBar(toolbar);
 
-        if (activity.getSupportActionBar() != null){
+        if (activity.getSupportActionBar() != null) {
             activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             activity.getSupportActionBar().setDisplayShowHomeEnabled(true);
 

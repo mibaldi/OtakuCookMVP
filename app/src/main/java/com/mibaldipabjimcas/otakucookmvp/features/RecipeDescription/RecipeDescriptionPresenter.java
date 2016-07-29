@@ -31,8 +31,11 @@ import com.mibaldipabjimcas.otakucookmvp.di.PerActivity;
 import com.mibaldipabjimcas.otakucookmvp.ui.Activities.RecipeDescriptionActivity;
 import com.mibaldipabjimcas.otakucookmvp.ui.Views.RecipeDescriptionView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -53,10 +56,10 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
         this.navigator = navigator;
     }
 
-    public void init(Recipe recipe){
+    public void init(Recipe recipe) {
         this.recipe = recipe;
 
-        if(!BuildConfig.SHOW_PREMIUM_ACTIONS){
+        if (!BuildConfig.SHOW_PREMIUM_ACTIONS) {
             getView().hideFavoriteIcon();
         }
 
@@ -65,31 +68,34 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
         getView().showRecipeAuthor(recipe.author);
         getView().showRecipeRating(recipe.score);
         getView().showRecipePortions(recipe.portions);
+        getView().showRecipeTime(formatTime());
     }
 
-    public int calculateTime(){
-        List<Task> recipeTasks =this.recipe.getTasks();
+    public int calculateTime() {
+        List<Task> recipeTasks = this.recipe.getTasks();
         int finalTime = 300;
-        for (Task t : recipeTasks){
+        for (Task t : recipeTasks) {
             finalTime = finalTime + t.seconds;
         }
-        return finalTime;
+        return finalTime * 1000;
     }
 
-    public void showRecipeTaskList(){
+    public String formatTime() {
+        int seconds = this.calculateTime()/1000;
+        return String.format("%02d:%02d:%02d", seconds / 3600,
+                (seconds % 3600) / 60, (seconds % 60));
+    }
+
+    public void showRecipeTaskList() {
         navigator.openRecipeTaskList(recipe.getTasks());
     }
 
     public void showRecipeIngredientList() {
     }
 
-    public void recipeTime() {
-        int time = calculateTime();
-    }
-
     public void setRecipeFavorite() {
         getView().showProgressBar(true);
-        if(firebaseRepository.getAuth()!= null) {
+        if (firebaseRepository.getAuth() != null) {
             firebaseRepository.setFirebaseFavorite(recipe, new DataListener<Boolean>() {
                 @Override
                 public void onSuccess(Boolean data) {
@@ -104,18 +110,18 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
                 }
             });
 
-        }else{
+        } else {
             getView().showError(ErrorConstants.FIREBASE_ERROR);
         }
     }
 
-    public void generateAlarm(Context context,long time){
+    public void generateAlarm(Context context, long time) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         int type = AlarmManager.RTC;
         Calendar calendar = Calendar.getInstance();
         long when = calendar.getTimeInMillis() + time;
         Intent myIntent = new Intent(context, MyAlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, myIntent, 0);
-        alarmManager.set(type,when,pendingIntent);
+        alarmManager.set(type, when, pendingIntent);
     }
 }

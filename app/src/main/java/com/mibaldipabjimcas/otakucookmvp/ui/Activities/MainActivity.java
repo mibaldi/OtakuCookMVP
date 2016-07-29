@@ -145,10 +145,19 @@ public class MainActivity extends BaseMVPActivity<MainActivityPresenter,MainActi
                 Timber.d("item3");
                 selectFragment(RecipeListFavoritesFragment.newInstance());
                 return true;
+            case R.id.action_logout:
+                presenter.signOut();
+                return true;
+            case R.id.action_settings:
+                
+                return true;
+            case R.id.action_suggestion:
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
 
     public void selectFragment(Fragment fragment){
         addFragment(R.id.content_main,fragment);
