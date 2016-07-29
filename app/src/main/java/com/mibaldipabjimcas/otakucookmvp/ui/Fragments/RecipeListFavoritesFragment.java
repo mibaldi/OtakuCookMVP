@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -35,6 +36,10 @@ public class RecipeListFavoritesFragment  extends BaseMVPFragment<RecipeListFavo
 
     @BindView(R.id.recipe_recyclerView)
     RecyclerView recipe_recyclerView;
+
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
+
     @Inject
     RecipesListAdapter recipesListAdapter;
 
@@ -96,5 +101,14 @@ public class RecipeListFavoritesFragment  extends BaseMVPFragment<RecipeListFavo
         });
         recipe_recyclerView.setAdapter(recipesListAdapter);
 
+    }
+
+    @Override
+    public void showProgressBar(Boolean b) {
+        if(b){
+            progressBar.setVisibility(View.VISIBLE);
+        }else{
+            progressBar.setVisibility(View.GONE);
+        }
     }
 }

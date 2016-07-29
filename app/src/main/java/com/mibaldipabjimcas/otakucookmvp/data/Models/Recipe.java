@@ -117,4 +117,11 @@ public class Recipe implements Parcelable{
         }
         return map;
     }
+
+    public Boolean isCreated() {
+        if(tasks.size()>0 && measureIngredients.size() > 0){
+            return true;
+        }
+        return false;
+    }
 }

@@ -8,8 +8,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mibaldipabjimcas.otakucookmvp.Base.BasePresenter;
+import com.mibaldipabjimcas.otakucookmvp.Base.DataListener;
 import com.mibaldipabjimcas.otakucookmvp.Constants.ErrorConstants;
 import com.mibaldipabjimcas.otakucookmvp.Navigation.Navigator;
+import com.mibaldipabjimcas.otakucookmvp.Services.Firebase.FirebaseRepository;
 import com.mibaldipabjimcas.otakucookmvp.data.FirebaseModels.RecipeFB;
 import com.mibaldipabjimcas.otakucookmvp.data.Models.Recipe;
 import com.mibaldipabjimcas.otakucookmvp.data.Models.Task;
@@ -33,40 +35,20 @@ import timber.log.Timber;
 @PerActivity
 public class RecipeListFavoritesPresenter extends BasePresenter<RecipeListFavoritesView> {
 
-
-    private FirebaseAuth mAuth;
+    @Inject
+    FirebaseRepository firebaseRepository;
 
     private List<Recipe> recipes = new ArrayList<>();
     Navigator navigator;
-    private DatabaseReference refUserRecipe;
-    private DatabaseReference refRecipes;
-    /*private DatabaseReference refMeasures;
-    private DatabaseReference refTasks;
-    private DatabaseReference refIngredients;
-
-    private Recipe recipe;*/
 
     @Inject
     public RecipeListFavoritesPresenter(Navigator navigator) {
         this.navigator = navigator;
     }
 
-    private void initRef() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        mAuth = FirebaseAuth.getInstance();
-        refUserRecipe  = database.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("favorites");
-        refRecipes  = database.getReference("Recipes");
-        //refMeasures  = database.getReference("Measures");
-        //refTasks  = database.getReference("Tasks");
-        //refIngredients  = database.getReference("Ingredients");
-    }
-
-
     public void init(){
 
-        initRef();
-
-        if (mAuth != null) {
+        if (firebaseRepository.getAuth() != null) {
             getRecipeListFB();
         }
     }
@@ -76,72 +58,36 @@ public class RecipeListFavoritesPresenter extends BasePresenter<RecipeListFavori
             getView().showRecipeFavoriteList(recipes);
         }else {
             recipes.clear();
-            refUserRecipe.addValueEventListener(new ValueEventListener() {
+            getView().showProgressBar(true);
+            firebaseRepository.getRecipeFavorites(new DataListener<List<Recipe>>() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    recipes.clear();
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        getRecipeFirebase(snapshot.getKey(), dataSnapshot.getChildrenCount());
-                    }
+                public void onSuccess(List<Recipe> data) {
+                    getView().showRecipeFavoriteList(data);
+                    getView().showProgressBar(false);
                 }
 
                 @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    getView().showError(ErrorConstants.FIREBASE_ERROR);
+                public void onError(int error) {
+                    getView().showError(error);
+                    getView().showProgressBar(false);
                 }
             });
         }
     }
 
-    private void getRecipeFirebase(final String key, final long childrenCount) {
-        refRecipes.child(key).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                RecipeFB recipe = dataSnapshot.getValue(RecipeFB.class);
-                recipes.add(new Recipe(key,recipe));
-                if(recipes.size() == childrenCount)
-                    getView().showRecipeFavoriteList(recipes);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                getView().showError(ErrorConstants.FIREBASE_ERROR);
-            }
-        });
-    }
-
     public void loadRecipe(final Recipe recipe){
-        this.navigator.openRecipeDescription(recipe);
-        /*this.recipe = recipe;
-
-        refRecipes.child(String.valueOf(recipe.id)).child("tasks").addValueEventListener(new ValueEventListener() {
+        getView().showProgressBar(true);
+        firebaseRepository.getRecipeComplete(String.valueOf(recipe.id), new DataListener<Recipe>() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                /*for(DataSnapshot snapshot: dataSnapshot.getChildren()){
-                    getTaskFirebase(snapshot.getKey(),dataSnapshot.getChildrenCount());
-                }
+            public void onSuccess(Recipe data) {
+                getView().showProgressBar(false);
+                navigator.openRecipeDescription(data);
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                getView().showError(ErrorConstants.FIREBASE_ERROR);
-            }
-        });*/
-    }
-
-    /*private void getTaskFirebase(String key, long childrenCount) {
-        refTasks.child(key).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Task task = dataSnapshot.getValue(Task.class);
-                recipe.tasks.add(task);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                getView().showError(ErrorConstants.FIREBASE_ERROR);
+            public void onError(int error) {
+                getView().showError(error);
             }
         });
-    }*/
-
+    }
 }

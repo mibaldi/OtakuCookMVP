@@ -2,16 +2,15 @@ package com.mibaldipabjimcas.otakucookmvp.features.Main;
 
 import android.view.View;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mibaldipabjimcas.otakucookmvp.Base.BasePresenter;
+import com.mibaldipabjimcas.otakucookmvp.Base.DataListener;
 import com.mibaldipabjimcas.otakucookmvp.BuildConfig;
 import com.mibaldipabjimcas.otakucookmvp.Constants.ErrorConstants;
 import com.mibaldipabjimcas.otakucookmvp.Navigation.Navigator;
+import com.mibaldipabjimcas.otakucookmvp.Services.Firebase.FirebaseRepository;
 import com.mibaldipabjimcas.otakucookmvp.data.FirebaseModels.RecipeFB;
 import com.mibaldipabjimcas.otakucookmvp.data.Models.Recipe;
 import com.mibaldipabjimcas.otakucookmvp.di.PerActivity;
@@ -24,13 +23,12 @@ import timber.log.Timber;
 @PerActivity
 public class MainPresenter extends BasePresenter<MainView> {
 
-    private FirebaseAuth mAuth;
-    private DatabaseReference mRef;
+    @Inject
+    FirebaseRepository firebaseRepository;
 
     Navigator navigator;
     private String currentRecipe;
     private String previousRecipe;
-    private DatabaseReference refRecipes;
     private Iterable<DataSnapshot> recipes;
     private int numberRecipes;
 
@@ -40,16 +38,11 @@ public class MainPresenter extends BasePresenter<MainView> {
     }
 
     public void init(){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference refRoot  = database.getReference("Users");
-        refRecipes = database.getReference("Recipes");
-        mAuth = FirebaseAuth.getInstance();
 
-        if (mAuth != null) {
+        if (firebaseRepository.getAuth() != null) {
 
             if(BuildConfig.SHOW_PREMIUM_ACTIONS){
-                mRef = refRoot.child(mAuth.getCurrentUser().getUid()).child("favorites");
-                mRef.addValueEventListener(new ValueEventListener() {
+                firebaseRepository.getFavorites(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         recipes = dataSnapshot.getChildren();
@@ -95,10 +88,10 @@ public class MainPresenter extends BasePresenter<MainView> {
         }
     }
 
-    private void printRecipe(String key) {
+    private void printRecipe(final String key) {
         previousRecipe = key;
 
-        refRecipes.child(key).addValueEventListener(new ValueEventListener() {
+        firebaseRepository.getRecipeBasic(key, new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 RecipeFB r = dataSnapshot.getValue(RecipeFB.class);
@@ -106,13 +99,28 @@ public class MainPresenter extends BasePresenter<MainView> {
                 getView().showRecipeImage(r.photo);
                 getView().showRatingBar(r.score);
                 getView().showRecipeAuthor(r.author);
-
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                getView().showError(ErrorConstants.RECIPE_FAVORITE_ERROR);
+                getView().showError(ErrorConstants.FIREBASE_ERROR);
+            }
+        });
+    }
+
+    public void openRecipeDescription(){
+
+        firebaseRepository.getRecipeComplete(previousRecipe, new DataListener<Recipe>() {
+            @Override
+            public void onSuccess(Recipe data) {
+                navigator.openRecipeDescription(data);
+            }
+
+            @Override
+            public void onError(int error) {
+                getView().showError(error);
             }
         });
     }
 }
+

@@ -102,4 +102,9 @@ public class RecipeTaskListFragment extends BaseMVPFragment<RecipeTaskListPresen
     public void showTaskDescription(String description) {
         taskFields.get(1).setText(description);
     }
+
+    @Override
+    public void showProgressBar(Boolean b) {
+
+    }
 }

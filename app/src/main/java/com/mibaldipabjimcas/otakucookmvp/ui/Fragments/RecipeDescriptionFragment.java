@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,6 +62,9 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
 
     @BindView(R.id.fab)
     FloatingActionButton favorite;
+
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
 
     private Unbinder unbind;
 
@@ -186,5 +190,14 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
     @Override
     public void showRecipePortions(int portions) {
 
+    }
+
+    @Override
+    public void showProgressBar(Boolean b) {
+        if(b){
+            progressBar.setVisibility(View.VISIBLE);
+        }else{
+            progressBar.setVisibility(View.GONE);
+        }
     }
 }

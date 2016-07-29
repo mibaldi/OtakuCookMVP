@@ -43,7 +43,6 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
     @BindView(R.id.random)
     Button randomButton;
 
-
     @Inject
     public MainFragment() {
         setRetainInstance(true);
@@ -87,6 +86,12 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
         return component.mainPresenter();
     }
 
+    @OnClick(R.id.mainLinearLayout)
+    @Override
+    public void openMainRecipe() {
+        presenter.openRecipeDescription();
+    }
+
     @Override
     public void showRecipeImage(String photo) {
         Glide.with(getActivity()).load(photo).placeholder(R.mipmap.ic_launcher).into(mainImage);
@@ -115,5 +120,10 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
     @Override
     public void showRandomButton(int visible) {
         randomButton.setVisibility(visible);
+    }
+
+    @Override
+    public void showProgressBar(Boolean b) {
+
     }
 }

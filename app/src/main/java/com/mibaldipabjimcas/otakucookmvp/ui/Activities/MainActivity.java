@@ -166,4 +166,9 @@ public class MainActivity extends BaseMVPActivity<MainActivityPresenter,MainActi
         ImageView imageView=(ImageView) navigationViewHeaderView.findViewById(R.id.user_image);
         Glide.with(this).load(photo).placeholder(R.mipmap.ic_launcher).into(imageView);
     }
+
+    @Override
+    public void showProgressBar(Boolean b) {
+
+    }
 }

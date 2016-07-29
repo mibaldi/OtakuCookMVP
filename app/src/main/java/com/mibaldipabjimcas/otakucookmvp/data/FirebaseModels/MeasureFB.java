@@ -11,6 +11,8 @@ public class MeasureFB {
     public  float quantity;
     public String ingredientId;
 
+    public MeasureFB(){}
+
     public MeasureFB (Measure measure,String ingredientId){
         this.measure = measure.measure;
         this.quantity = measure.quantity;

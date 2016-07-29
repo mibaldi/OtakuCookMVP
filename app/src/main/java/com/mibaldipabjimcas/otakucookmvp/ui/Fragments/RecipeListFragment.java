@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.mibaldipabjimcas.otakucookmvp.Base.BaseMVPFragment;
 import com.mibaldipabjimcas.otakucookmvp.R;
@@ -40,6 +41,10 @@ public class RecipeListFragment extends BaseMVPFragment<RecipeListPresenter, Rec
     private List<Recipe> recipeList = new ArrayList<>();
     @BindView(R.id.recipe_recyclerView)
     RecyclerView recipe_recyclerView;
+
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
+
     @Inject
     RecipesListAdapter recipesListAdapter;
     private MenuItem myActionMenuItem;
@@ -97,6 +102,15 @@ public class RecipeListFragment extends BaseMVPFragment<RecipeListPresenter, Rec
         });
         recipe_recyclerView.setAdapter(recipesListAdapter);
 
+    }
+
+    @Override
+    public void showProgressBar(Boolean b) {
+        if(b){
+            progressBar.setVisibility(View.VISIBLE);
+        }else{
+            progressBar.setVisibility(View.GONE);
+        }
     }
 
     public static RecipeListFragment newInstance() {

@@ -92,4 +92,8 @@ public class LoginActivity extends BaseMVPActivity<LoginFirebasePresenter,LoginF
         return new Intent(context,LoginActivity.class);
     }
 
+    @Override
+    public void showProgressBar(Boolean b) {
+
+    }
 }

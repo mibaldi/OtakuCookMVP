@@ -6,6 +6,7 @@ import android.content.Context;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mibaldipabjimcas.otakucookmvp.Navigation.Navigator;
+import com.mibaldipabjimcas.otakucookmvp.Services.Firebase.FirebaseRepository;
 import com.mibaldipabjimcas.otakucookmvp.features.LoginFirebase.ApiClientRepository;
 
 import javax.inject.Named;
@@ -29,11 +30,15 @@ public class OtakuCookApplicationModule {
     @Provides
     @Singleton
     Navigator providedNavigator(){
-        return new Navigator(this.context);
+        return new Navigator(context);
     }
 
     @Provides
     @Singleton
     ApiClientRepository providedApiClientRepository(){return new ApiClientRepository();}
+
+    @Provides
+    @Singleton
+    FirebaseRepository providedFirebaseRepository(){return new FirebaseRepository();}
 
 }
