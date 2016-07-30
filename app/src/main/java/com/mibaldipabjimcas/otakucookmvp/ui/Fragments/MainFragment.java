@@ -54,7 +54,6 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
     }
 
     public static MainFragment newInstance() {
-        Timber.d("LLEGO");
         MainFragment fragment = new MainFragment();
         return fragment;
     }
