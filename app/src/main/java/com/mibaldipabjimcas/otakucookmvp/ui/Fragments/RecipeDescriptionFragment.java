@@ -9,9 +9,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -20,17 +18,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.mibaldipabjimcas.otakucookmvp.Base.BaseMVPFragment;
-import com.mibaldipabjimcas.otakucookmvp.BuildConfig;
 import com.mibaldipabjimcas.otakucookmvp.R;
 import com.mibaldipabjimcas.otakucookmvp.data.Models.Recipe;
 import com.mibaldipabjimcas.otakucookmvp.features.RecipeDescription.RecipeDescriptionComponent;
@@ -38,17 +32,12 @@ import com.mibaldipabjimcas.otakucookmvp.features.RecipeDescription.RecipeDescri
 import com.mibaldipabjimcas.otakucookmvp.ui.Activities.RecipeDescriptionActivity;
 import com.mibaldipabjimcas.otakucookmvp.ui.Views.RecipeDescriptionView;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import timber.log.Timber;
 
 public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescriptionPresenter, RecipeDescriptionView> implements RecipeDescriptionView {
     private RecipeDescriptionComponent component;
@@ -152,7 +141,7 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
 
     @Override
     public void showRecipeImage(String photo) {
-        Glide.with(getActivity()).load(photo).into(imageView);
+        Glide.with(getActivity()).load(photo).placeholder(R.drawable.default_recipe).into(imageView);
     }
 
     @Override
@@ -187,7 +176,7 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
     public void startRecipeTime(View view) {
         int time=presenter.calculateTime();
         view.setEnabled(false);
-        imageTime.setImageResource(R.drawable.congelado);
+        imageTime.setImageResource(R.drawable.timeon);
         presenter.generateAlarm(getActivity(), 30000);
     }
 
@@ -203,12 +192,13 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
         presenter.showRecipeTaskList();
     }
 
+
     @Override
     public void changeFavoriteIcon(boolean b) {
         if (b) {
-            Snackbar.make(getView(), "Receta guardada como favorita", Snackbar.LENGTH_SHORT).show();
+            favorite.setImageDrawable(ResourcesCompat.getDrawable(getResources(),android.R.drawable.star_big_on,null));
         } else {
-            Snackbar.make(getView(), "Receta eliminada de favoritos", Snackbar.LENGTH_SHORT).show();
+            favorite.setImageDrawable(ResourcesCompat.getDrawable(getResources(),android.R.drawable.star_big_off,null));
         }
     }
 
@@ -227,6 +217,16 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
 
         Drawable drawable=imageView.getDrawable();
         return drawable;
+    }
+
+    @Override
+    public void setFavorite(Boolean b) {
+        changeFavoriteIcon(b);
+        if(b){
+            Snackbar.make(getView(), "Receta guardada como favorita", Snackbar.LENGTH_SHORT).show();
+        }else{
+            Snackbar.make(getView(), "Receta eliminada de favoritos", Snackbar.LENGTH_SHORT).show();
+        }
     }
 
     @Override

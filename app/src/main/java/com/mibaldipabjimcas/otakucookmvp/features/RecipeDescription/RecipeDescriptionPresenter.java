@@ -83,6 +83,7 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
                 @Override
                 public void onSuccess(Boolean data) {
                     favorite = data;
+                    getView().changeFavoriteIcon(data);
                 }
 
                 @Override
@@ -131,7 +132,7 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
                 public void onSuccess(Boolean data) {
                     favorite = data;
                     getView().showProgressBar(false);
-                    getView().changeFavoriteIcon(data);
+                    getView().setFavorite(data);
                 }
 
                 @Override
