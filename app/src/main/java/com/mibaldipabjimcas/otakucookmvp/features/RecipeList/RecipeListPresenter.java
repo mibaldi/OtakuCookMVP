@@ -45,7 +45,7 @@ public class RecipeListPresenter extends BasePresenter<RecipeListView> {
             @Override
             public void onFailure(Call<List<Recipe>> call, Throwable t) {
                 getView().showError(ErrorConstants.SERVER_ERROR);
-                getView().showProgressBar(false);
+                getView().swipeRefresh(false);
             }
         });
     }
