@@ -70,7 +70,7 @@ public class RecipeListFragment extends BaseMVPFragment<RecipeListPresenter, Rec
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
-        presenter.init();
+        presenter.init(getActivity());
     }
 
     @Nullable
@@ -138,6 +138,11 @@ public class RecipeListFragment extends BaseMVPFragment<RecipeListPresenter, Rec
         }else{
             progressBar.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void showNoConnectivity() {
+        Snackbar.make(getView(), "No tienes conexión", Snackbar.LENGTH_SHORT).show();
     }
 
     public static RecipeListFragment newInstance() {

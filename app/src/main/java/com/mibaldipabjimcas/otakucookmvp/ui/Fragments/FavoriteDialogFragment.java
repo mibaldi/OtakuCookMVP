@@ -18,9 +18,10 @@ import com.mibaldipabjimcas.otakucookmvp.R;
 
 public class FavoriteDialogFragment extends DialogFragment {
 
-    public static  FavoriteDialogFragment newInstance() {
+    public static  FavoriteDialogFragment newInstance(Boolean favorite) {
         FavoriteDialogFragment frag = new  FavoriteDialogFragment();
         Bundle args = new Bundle();
+        args.putBoolean("favorite",favorite);
         frag.setArguments(args);
         return frag;
     }
@@ -30,7 +31,7 @@ public class FavoriteDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         return  new AlertDialog.Builder(getActivity()).setIcon(R.mipmap.ic_launcher)
-                .setTitle(R.string.dialog_suggestion_question)
+                .setTitle(getTitle())
                 .setNegativeButton(android.R.string.no, null)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
@@ -41,6 +42,13 @@ public class FavoriteDialogFragment extends DialogFragment {
                 }).setIcon(android.R.drawable.ic_dialog_alert)
                 .create();
 
+    }
+
+    public String getTitle(){
+        if(getArguments().getBoolean("favorite")){
+            return "¿Quieres eliminar la receta de favoritas?";
+        }
+        return "¿Quieres guardar la receta como favorita?";
     }
 }
 

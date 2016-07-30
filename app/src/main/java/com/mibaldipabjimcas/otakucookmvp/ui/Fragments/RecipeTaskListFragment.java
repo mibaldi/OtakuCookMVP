@@ -117,4 +117,9 @@ public class RecipeTaskListFragment extends BaseMVPFragment<RecipeTaskListPresen
     public void showProgressBar(Boolean b) {
 
     }
+
+    @Override
+    public void showNoConnectivity() {
+
+    }
 }

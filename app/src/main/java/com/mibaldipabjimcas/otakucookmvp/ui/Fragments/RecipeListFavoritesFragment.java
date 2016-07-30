@@ -2,11 +2,15 @@ package com.mibaldipabjimcas.otakucookmvp.ui.Fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
 import com.google.firebase.database.DatabaseReference;
@@ -65,7 +69,7 @@ public class RecipeListFavoritesFragment  extends BaseMVPFragment<RecipeListFavo
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter.init();
+        presenter.init(getActivity());
     }
 
     @Nullable
@@ -110,5 +114,10 @@ public class RecipeListFavoritesFragment  extends BaseMVPFragment<RecipeListFavo
         }else{
             progressBar.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void showNoConnectivity() {
+        Snackbar.make(getView(), "No tienes conexión", Snackbar.LENGTH_SHORT).show();
     }
 }

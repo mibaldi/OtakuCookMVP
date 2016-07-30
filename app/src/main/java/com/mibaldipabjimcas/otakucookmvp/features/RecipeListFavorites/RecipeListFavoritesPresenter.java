@@ -1,5 +1,7 @@
 package com.mibaldipabjimcas.otakucookmvp.features.RecipeListFavorites;
 
+import android.content.Context;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -11,6 +13,7 @@ import com.mibaldipabjimcas.otakucookmvp.Base.BasePresenter;
 import com.mibaldipabjimcas.otakucookmvp.Base.DataListener;
 import com.mibaldipabjimcas.otakucookmvp.Constants.ErrorConstants;
 import com.mibaldipabjimcas.otakucookmvp.Navigation.Navigator;
+import com.mibaldipabjimcas.otakucookmvp.Services.Connectivity.Connectivity;
 import com.mibaldipabjimcas.otakucookmvp.Services.Firebase.FirebaseRepository;
 import com.mibaldipabjimcas.otakucookmvp.data.FirebaseModels.RecipeFB;
 import com.mibaldipabjimcas.otakucookmvp.data.Models.Recipe;
@@ -18,6 +21,7 @@ import com.mibaldipabjimcas.otakucookmvp.data.Models.Task;
 import com.mibaldipabjimcas.otakucookmvp.di.PerActivity;
 import com.mibaldipabjimcas.otakucookmvp.features.LoginFirebase.ApiClientRepository;
 import com.mibaldipabjimcas.otakucookmvp.ui.Activities.LoginActivity;
+import com.mibaldipabjimcas.otakucookmvp.ui.Fragments.RecipeListFavoritesFragment;
 import com.mibaldipabjimcas.otakucookmvp.ui.Views.MainView;
 import com.mibaldipabjimcas.otakucookmvp.ui.Views.RecipeListFavoritesView;
 
@@ -40,16 +44,21 @@ public class RecipeListFavoritesPresenter extends BasePresenter<RecipeListFavori
 
     private List<Recipe> recipes = new ArrayList<>();
     Navigator navigator;
+    private Context context;
 
     @Inject
     public RecipeListFavoritesPresenter(Navigator navigator) {
         this.navigator = navigator;
     }
 
-    public void init(){
-
-        if (firebaseRepository.getAuth() != null) {
-            getRecipeListFB();
+    public void init(Context context){
+        this.context = context;
+        if(Connectivity.isNetworkAvailable(context)) {
+            if (firebaseRepository.getAuth() != null) {
+                getRecipeListFB();
+            }
+        }else{
+            getView().showNoConnectivity();
         }
     }
 
@@ -75,19 +84,23 @@ public class RecipeListFavoritesPresenter extends BasePresenter<RecipeListFavori
         }
     }
 
-    public void loadRecipe(final Recipe recipe){
-        getView().showProgressBar(true);
-        firebaseRepository.getRecipeComplete(String.valueOf(recipe.id), new DataListener<Recipe>() {
-            @Override
-            public void onSuccess(Recipe data) {
-                getView().showProgressBar(false);
-                navigator.openRecipeDescription(data);
-            }
+    public void loadRecipe(final Recipe recipe) {
+        if (Connectivity.isNetworkAvailable(context)) {
+            getView().showProgressBar(true);
+            firebaseRepository.getRecipeComplete(String.valueOf(recipe.id), new DataListener<Recipe>() {
+                @Override
+                public void onSuccess(Recipe data) {
+                    getView().showProgressBar(false);
+                    navigator.openRecipeDescription(data);
+                }
 
-            @Override
-            public void onError(int error) {
-                getView().showError(error);
-            }
-        });
+                @Override
+                public void onError(int error) {
+                    getView().showError(error);
+                }
+            });
+        } else {
+            getView().showNoConnectivity();
+        }
     }
 }

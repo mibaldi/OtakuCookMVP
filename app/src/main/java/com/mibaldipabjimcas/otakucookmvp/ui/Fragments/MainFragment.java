@@ -131,4 +131,9 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
     public void showProgressBar(Boolean b) {
 
     }
+
+    @Override
+    public void showNoConnectivity() {
+
+    }
 }

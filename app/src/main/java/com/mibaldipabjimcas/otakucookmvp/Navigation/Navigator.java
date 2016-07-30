@@ -71,8 +71,8 @@ public class Navigator {
         }
     }
 
-    public void openFavoriteDialog(Fragment fragment){
-        FavoriteDialogFragment dialogFragment = FavoriteDialogFragment.newInstance();
+    public void openFavoriteDialog(Fragment fragment, Boolean favorite){
+        FavoriteDialogFragment dialogFragment = FavoriteDialogFragment.newInstance(favorite);
         dialogFragment.setTargetFragment(fragment,1);
         dialogFragment.show(fragment.getFragmentManager(), "dialog");
     }

@@ -181,4 +181,9 @@ public class MainActivity extends BaseMVPActivity<MainActivityPresenter,MainActi
     public void showProgressBar(Boolean b) {
 
     }
+
+    @Override
+    public void showNoConnectivity() {
+
+    }
 }

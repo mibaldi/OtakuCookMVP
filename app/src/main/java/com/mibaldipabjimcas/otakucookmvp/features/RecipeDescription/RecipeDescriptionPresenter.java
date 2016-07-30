@@ -117,6 +117,7 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
             firebaseRepository.setFirebaseFavorite(favorite,new DataListener<Boolean>() {
                 @Override
                 public void onSuccess(Boolean data) {
+                    favorite = data;
                     getView().showProgressBar(false);
                     getView().changeFavoriteIcon(data);
                 }
@@ -151,6 +152,6 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
     }
 
     public void openFavoriteDialog(Fragment fragment) {
-        navigator.openFavoriteDialog(fragment);
+        navigator.openFavoriteDialog(fragment,favorite);
     }
 }
