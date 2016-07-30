@@ -57,6 +57,7 @@ public class LoginFirebasePresenter extends BasePresenter<LoginFirebaseView> imp
 
     private FragmentActivity fragmentActivity;
     private FirebaseAuth mAuth;
+    public Boolean hasEnter = false;
 
     @Inject
     public LoginFirebasePresenter(Navigator navigator) {
@@ -81,8 +82,9 @@ public class LoginFirebasePresenter extends BasePresenter<LoginFirebaseView> imp
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    navigator.openMain();
+                if (user != null && !hasEnter) {
+                        hasEnter = true;
+                        navigator.openMain();
                     // User is signed in
                     //Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
@@ -130,7 +132,7 @@ public class LoginFirebasePresenter extends BasePresenter<LoginFirebaseView> imp
                             Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Timber.d("Hello");
+
                     final FirebaseUser currentUser = mAuth.getCurrentUser();
                     final DatabaseReference myRef = database.getReference("Users");
                     myRef.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {

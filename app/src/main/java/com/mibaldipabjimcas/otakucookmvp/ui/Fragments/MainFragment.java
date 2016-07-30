@@ -24,6 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import timber.log.Timber;
 
 public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  implements MainView{
     private MainActivityComponent component;
@@ -53,6 +54,7 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
     }
 
     public static MainFragment newInstance() {
+        Timber.d("LLEGO");
         MainFragment fragment = new MainFragment();
         return fragment;
     }
