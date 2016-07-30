@@ -54,6 +54,7 @@ public class MainActivity extends BaseMVPActivity<MainActivityPresenter,MainActi
         this.initializeInjector();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         unbind = ButterKnife.bind(this);
         if(savedInstanceState == null)
             this.initializeActivity();
@@ -107,10 +108,10 @@ public class MainActivity extends BaseMVPActivity<MainActivityPresenter,MainActi
         return new Intent(context,MainActivity.class);
     }
     private void setupViews() {
-        setSupportActionBar(toolbar);
+
+        changeSupportActionBar(toolbar);
         if (getSupportActionBar() != null){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle("");
+
             getSupportActionBar().setHomeAsUpIndicator(new DrawerArrowDrawable(toolbar.getContext()));
         }
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
