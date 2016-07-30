@@ -1,6 +1,8 @@
 package com.mibaldipabjimcas.otakucookmvp.features.MainActivity;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -56,7 +58,9 @@ public class MainActivityPresenter extends BasePresenter<MainActivityView> {
             }
         });
     }
-
+    public void suggestionDialog(Context context){
+        navigator.openSuggestionDialog(context);
+    }
 
     public void goPreferences() {
         navigator.openPreferences();

@@ -44,6 +44,9 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
     @BindView(R.id.recipePhoto)
     ImageView imageView;
 
+    @BindView(R.id.layout_time)
+    View layout_view;
+
     @BindView(R.id.image_time)
     ImageView imageTime;
 
@@ -173,9 +176,8 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
 
     @OnClick(R.id.layout_time)
     @Override
-    public void startRecipeTime(View view) {
-        int time=presenter.calculateTime();
-        view.setEnabled(false);
+    public void startRecipeTime() {
+        presenter.openTimeDialog(this);
         imageTime.setImageResource(R.drawable.timeon);
         presenter.generateAlarm(getActivity(), 30000);
     }
@@ -184,6 +186,16 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
     @Override
     public void recipeFavorite() {
        presenter.openFavoriteDialog(this);
+    }
+
+    @Override
+    public void setLayoutDisabled() {
+        layout_view.setEnabled(false);
+    }
+
+    @Override
+    public void setImageTimeStart() {
+        imageTime.setImageResource(R.drawable.congelado);
     }
 
     @OnClick(R.id.bt_tasks)

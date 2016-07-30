@@ -153,6 +153,7 @@ public class MainActivity extends BaseMVPActivity<MainActivityPresenter,MainActi
                 presenter.goPreferences();
                 return true;
             case R.id.action_suggestion:
+                presenter.suggestionDialog(this);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -20,9 +20,13 @@ public interface RecipeDescriptionView extends BaseView {
 
     void showRecipeTime(String timeString);
 
-    void startRecipeTime(View view);
+    void startRecipeTime();
 
     void recipeFavorite();
+
+    void setLayoutDisabled();
+
+    void setImageTimeStart();
 
     void showRecipeTaskList();
 
