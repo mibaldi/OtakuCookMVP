@@ -1,4 +1,4 @@
-package com.mibaldipabjimcas.otakucookmvp.Services.Preferences;
+package com.mibaldipabjimcas.otakucookmvp.features.Preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -13,15 +13,14 @@ import javax.inject.Singleton;
  * Created by mikelbalducieldiaz on 30/7/16.
  */
 
-@Singleton
 public class PreferencesManager {
 
-    private static final String SHARED_PREFS_FILE = "MimoPrefs";
-    private static final String THEME_PREF_KEY = "toolbarColor";
-    private static PreferencesManager instance;
-    private SharedPreferences sharedPreferences;
-    private Context mContext;
-    private Integer themePreference;
+    public static final String SHARED_PREFS_FILE = "MimoPrefs";
+    public static final String THEME_PREF_KEY = "toolbarColor";
+
+    public SharedPreferences sharedPreferences;
+    public Context mContext;
+    public Integer themePreference;
 
 
 
@@ -33,16 +32,14 @@ public class PreferencesManager {
     }*/
 
     @Inject
-    public PreferencesManager() {}
+    public PreferencesManager(Context context) {
+        this.mContext = context;
+        this.sharedPreferences = this.getSharedPreferences();}
 
-    public static @Nullable
-    PreferencesManager setContext(Context context) {
-        if(instance == null) {
-            return null;
-        }
-        instance.mContext = context;
-        instance.sharedPreferences = instance.getSharedPreferences();
-        return instance;
+    public  @Nullable
+    void setContext(Context context) {
+        this.mContext = context;
+
     }
 
     private SharedPreferences getSharedPreferences() {
