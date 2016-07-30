@@ -36,7 +36,6 @@ public class LoginActivity extends BaseMVPActivity<LoginFirebasePresenter,LoginF
         if(!Connectivity.isNetworkAvailable(this)){
             finish();
         }
-
         setContentView(R.layout.activity_login);
         unbind = ButterKnife.bind(this);
         presenter.init(this);
