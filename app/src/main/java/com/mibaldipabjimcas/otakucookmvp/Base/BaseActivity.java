@@ -12,6 +12,10 @@ import android.view.MenuItem;
 import com.mibaldipabjimcas.otakucookmvp.Application.OtakuCookApplication;
 import com.mibaldipabjimcas.otakucookmvp.Application.OtakuCookApplicationComponent;
 import com.mibaldipabjimcas.otakucookmvp.R;
+import com.mibaldipabjimcas.otakucookmvp.Utils.ThemeType;
+import com.mibaldipabjimcas.otakucookmvp.Utils.ThemeUtils;
+import com.mibaldipabjimcas.otakucookmvp.features.Preferences.PreferencesFragment;
+import com.mibaldipabjimcas.otakucookmvp.features.Preferences.PreferencesManager;
 import com.mibaldipabjimcas.otakucookmvp.ui.Activities.RecipeDescriptionActivity;
 
 import javax.inject.Inject;
@@ -19,20 +23,25 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class BaseActivity  extends AppCompatActivity{
+public class BaseActivity extends AppCompatActivity {
 
 
-        //@Inject
-        //Navigator navigator;
+    //@Inject
+    //Navigator navigator;
 
-       // @BindView(R.id.toolbar)
-        //Toolbar toolbar;
+    // @BindView(R.id.toolbar)
+    //Toolbar toolbar;
 
-        @Override
-        protected void onCreate(@Nullable Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            this.getInjector().inject(this);
-        }
+    @Inject
+    PreferencesManager preferencesManager;
+
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.getInjector().inject(this);
+
+    }
 
        /* protected void configSupportActionBar() {
 
@@ -41,29 +50,35 @@ public class BaseActivity  extends AppCompatActivity{
         }*/
 
 
-       public void changeSupportActionBar(Toolbar toolbar){
-           setSupportActionBar(toolbar);
+    public void changeSupportActionBar(Toolbar toolbar) {
 
-            if (getSupportActionBar() != null){
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                getSupportActionBar().setDisplayShowHomeEnabled(true);
-            }
+        setSupportActionBar(toolbar);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+    }
 
-        protected OtakuCookApplicationComponent getInjector(){
-            return ((OtakuCookApplication) getApplication()).getInjector();
-        }
+    protected OtakuCookApplicationComponent getInjector() {
+        return ((OtakuCookApplication) getApplication()).getInjector();
+    }
 
-        protected void addFragment(int containerViewId, Fragment fragment) {
-            FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(containerViewId, fragment);
-            fragmentTransaction.commit();
-        }
+    protected void addFragment(int containerViewId, Fragment fragment) {
+        FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(containerViewId, fragment);
+        fragmentTransaction.commit();
+    }
 
-        protected BaseActivityModule getActivityModule(){
-            return new BaseActivityModule(this);
-        }
+    protected BaseActivityModule getActivityModule() {
+        return new BaseActivityModule(this);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
       /*  public int getStatusBarHeight() {
             int result = 0;
             int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
@@ -73,16 +88,22 @@ public class BaseActivity  extends AppCompatActivity{
             return result;
         }*/
 
-        @Override
-        public void onBackPressed() {
-            super.onBackPressed();
-        }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 
-        public boolean onOptionsItemSelected(MenuItem item) {
-            if (item.getItemId() == android.R.id.home) {
-                finish();
-            }
-            return super.onOptionsItemSelected(item);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
         }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void applySelectedTheme(Toolbar mToolbar) {
+        ThemeType theme = preferencesManager.getSelectedTheme();
+        ThemeUtils.applyThemeIntoStatusBar(this, theme);
+        ThemeUtils.applyThemeIntoToolbar(this, theme, mToolbar);
+    }
 
 }

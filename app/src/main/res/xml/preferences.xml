@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/titleSettings">
+    <ListPreference android:title="@string/subTitleSettings"
+            android:summary="@string/textSettings"
+            android:key="toolbarColor"
+            android:defaultValue="0"
+            android:entries="@array/listArray"
+            android:entryValues="@array/listValues" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

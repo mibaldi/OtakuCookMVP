@@ -30,6 +30,10 @@
         <activity android:name=".ui.Activities.RecipeTaskListActivity"></activity>
         <activity android:name=".ui.Activities.IngredientListActivity"/>
         <receiver android:name=".Services.Broadcast.MyAlarmReceiver"/>
+        <activity
+            android:name=".features.Preferences.PreferencesActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

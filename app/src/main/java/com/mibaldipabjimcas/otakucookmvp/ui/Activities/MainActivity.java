@@ -66,7 +66,7 @@ public class MainActivity extends BaseMVPActivity<MainActivityPresenter,MainActi
     @Override
     protected void onResume() {
         super.onResume();
-
+        applySelectedTheme(toolbar);
     }
 
     @Override
@@ -149,7 +149,7 @@ public class MainActivity extends BaseMVPActivity<MainActivityPresenter,MainActi
                 presenter.signOut();
                 return true;
             case R.id.action_settings:
-                
+                presenter.goPreferences();
                 return true;
             case R.id.action_suggestion:
                 return true;

@@ -3,11 +3,9 @@ package com.mibaldipabjimcas.otakucookmvp.Application;
 
 import android.content.Context;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.mibaldipabjimcas.otakucookmvp.Navigation.Navigator;
 import com.mibaldipabjimcas.otakucookmvp.Services.Firebase.FirebaseRepository;
-import com.mibaldipabjimcas.otakucookmvp.Services.Preferences.PreferencesManager;
+import com.mibaldipabjimcas.otakucookmvp.features.Preferences.PreferencesManager;
 import com.mibaldipabjimcas.otakucookmvp.features.LoginFirebase.ApiClientRepository;
 
 import javax.inject.Named;
@@ -44,5 +42,5 @@ public class OtakuCookApplicationModule {
 
     @Provides
     @Singleton
-    PreferencesManager providedePreferencesManager(){return new PreferencesManager();}
+    PreferencesManager providedPreferencesManager(){return new PreferencesManager(context);}
 }

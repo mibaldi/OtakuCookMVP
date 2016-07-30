@@ -58,4 +58,7 @@ public class MainActivityPresenter extends BasePresenter<MainActivityView> {
     }
 
 
+    public void goPreferences() {
+        navigator.openPreferences();
+    }
 }
