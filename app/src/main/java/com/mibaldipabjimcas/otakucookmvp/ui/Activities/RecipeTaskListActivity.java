@@ -35,12 +35,15 @@ public class RecipeTaskListActivity  extends BaseActivity implements HasComponen
     private RecipeTaskListComponent recipeTaskListComponent;
     @BindView(R.id.view_pager)
     ViewPager viewPager;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_task_list);
         ButterKnife.bind(this);
+        changeSupportActionBar(toolbar);
         ArrayList<Task> taskList = getIntent().getParcelableArrayListExtra("taskList");
         this.initializeInjector();
         this.initializeActivity(taskList);

@@ -27,6 +27,7 @@ public class LoginActivity extends BaseMVPActivity<LoginFirebasePresenter,LoginF
     protected void onCreate(Bundle savedInstanceState) {
         this.initializeInjector();
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login);
         unbind = ButterKnife.bind(this);
         presenter.init(this);
