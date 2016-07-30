@@ -1,5 +1,6 @@
 package com.mibaldipabjimcas.otakucookmvp.ui.Fragments;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,6 +8,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
@@ -186,7 +188,7 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
     @OnClick(R.id.fab)
     @Override
     public void recipeFavorite() {
-        presenter.setRecipeFavorite();
+       presenter.openFavoriteDialog(this);
     }
 
     @OnClick(R.id.bt_tasks)
@@ -221,5 +223,11 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
         } else {
             progressBar.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        presenter.onActivityResult(requestCode,resultCode,data);
     }
 }

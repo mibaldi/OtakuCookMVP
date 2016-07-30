@@ -1,10 +1,12 @@
 package com.mibaldipabjimcas.otakucookmvp.features.RecipeDescription;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -50,6 +52,7 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
 
     Navigator navigator;
     private Recipe recipe;
+    private Boolean favorite;
 
     @Inject
     public RecipeDescriptionPresenter(Navigator navigator) {
@@ -61,6 +64,20 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
 
         if (!BuildConfig.SHOW_PREMIUM_ACTIONS) {
             getView().hideFavoriteIcon();
+        }
+
+        if (firebaseRepository.getAuth() != null) {
+            firebaseRepository.checkFavoriteRecipe(recipe, new DataListener<Boolean>() {
+                @Override
+                public void onSuccess(Boolean data) {
+                    favorite = data;
+                }
+
+                @Override
+                public void onError(int error) {
+                    getView().showError(error);
+                }
+            });
         }
 
         getView().showRecipeImage(recipe.photo);
@@ -97,7 +114,7 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
     public void setRecipeFavorite() {
         getView().showProgressBar(true);
         if (firebaseRepository.getAuth() != null) {
-            firebaseRepository.setFirebaseFavorite(recipe, new DataListener<Boolean>() {
+            firebaseRepository.setFirebaseFavorite(favorite,new DataListener<Boolean>() {
                 @Override
                 public void onSuccess(Boolean data) {
                     getView().showProgressBar(false);
@@ -124,5 +141,15 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
         Intent myIntent = new Intent(context, MyAlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, myIntent, 0);
         alarmManager.set(type, when, pendingIntent);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == Activity.RESULT_OK){
+            setRecipeFavorite();
+        }
+    }
+
+    public void openFavoriteDialog(Fragment fragment) {
+        navigator.openFavoriteDialog(fragment);
     }
 }

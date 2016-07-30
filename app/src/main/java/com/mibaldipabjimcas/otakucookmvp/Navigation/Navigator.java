@@ -2,6 +2,7 @@ package com.mibaldipabjimcas.otakucookmvp.Navigation;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 
 import com.mibaldipabjimcas.otakucookmvp.data.Models.Measure;
 import com.mibaldipabjimcas.otakucookmvp.data.Models.Recipe;
@@ -11,6 +12,7 @@ import com.mibaldipabjimcas.otakucookmvp.ui.Activities.LoginActivity;
 import com.mibaldipabjimcas.otakucookmvp.ui.Activities.MainActivity;
 import com.mibaldipabjimcas.otakucookmvp.ui.Activities.RecipeDescriptionActivity;
 import com.mibaldipabjimcas.otakucookmvp.ui.Activities.RecipeTaskListActivity;
+import com.mibaldipabjimcas.otakucookmvp.ui.Fragments.FavoriteDialogFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,5 +69,11 @@ public class Navigator {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         }
+    }
+
+    public void openFavoriteDialog(Fragment fragment){
+        FavoriteDialogFragment dialogFragment = FavoriteDialogFragment.newInstance();
+        dialogFragment.setTargetFragment(fragment,1);
+        dialogFragment.show(fragment.getFragmentManager(), "dialog");
     }
 }

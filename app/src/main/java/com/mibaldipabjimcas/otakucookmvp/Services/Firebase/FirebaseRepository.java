@@ -218,7 +218,7 @@ public class FirebaseRepository {
         }
     }
 
-    public void setFirebaseFavorite(Recipe recipe, DataListener<Boolean> listener){
+    public void checkFavoriteRecipe(Recipe recipe, DataListener<Boolean> listener){
         this.recipe = recipe;
         this.recipeFavoriteListener = listener;
 
@@ -229,14 +229,13 @@ public class FirebaseRepository {
 
         measures = recipe.getMeasures();
         measuresNumber = measures.size();
-
         refFavorites.child(recipeId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    deleteRecipeFavorite();
+                    recipeFavoriteListener.onSuccess(true);
                 } else {
-                    saveRecipeFavorite();
+                    recipeFavoriteListener.onSuccess(false);
                 }
             }
 
@@ -245,6 +244,15 @@ public class FirebaseRepository {
                 recipeFavoriteListener.onError(ErrorConstants.FIREBASE_ERROR);
             }
         });
+    }
+
+    public void setFirebaseFavorite(Boolean isFavorite,DataListener<Boolean> dataListener){
+        this.recipeFavoriteListener = dataListener;
+        if(isFavorite){
+            deleteRecipeFavorite();
+        }else{
+            saveRecipeFavorite();
+        }
     }
 
     public void deleteRecipeFavorite() {
