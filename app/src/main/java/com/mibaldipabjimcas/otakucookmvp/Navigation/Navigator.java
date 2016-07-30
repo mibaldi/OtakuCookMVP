@@ -16,6 +16,8 @@ import com.mibaldipabjimcas.otakucookmvp.ui.Activities.RecipeDescriptionActivity
 import com.mibaldipabjimcas.otakucookmvp.ui.Activities.RecipeTaskListActivity;
 import com.mibaldipabjimcas.otakucookmvp.ui.Fragments.FavoriteDialogFragment;
 import com.mibaldipabjimcas.otakucookmvp.ui.Fragments.SharedDialogFragment;
+import com.mibaldipabjimcas.otakucookmvp.ui.Fragments.SuggestionDialogFragment;
+import com.mibaldipabjimcas.otakucookmvp.ui.Fragments.TimeDialogFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,5 +110,15 @@ public class Navigator {
         SharedDialogFragment dialogFragment = SharedDialogFragment.newInstance();
         dialogFragment.setTargetFragment(fragment, 2);
         dialogFragment.show(fragment.getFragmentManager(), "dialog");
+    }
+    public void openTimeDialog(Fragment fragment) {
+        TimeDialogFragment dialogFragment = TimeDialogFragment.newInstance();
+        dialogFragment.setTargetFragment(fragment, 3);
+        dialogFragment.show(fragment.getFragmentManager(), "dialog");
+    }
+    public void openSuggestionDialog(Context context) {
+        android.support.v4.app.FragmentManager fm =((MainActivity) context).getSupportFragmentManager();
+        SuggestionDialogFragment dialogFragment = SuggestionDialogFragment.newInstance();
+        dialogFragment.show(fm, "dialog");
     }
 }

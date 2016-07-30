@@ -28,6 +28,7 @@ import com.mibaldipabjimcas.otakucookmvp.Base.DataListener;
 import com.mibaldipabjimcas.otakucookmvp.BuildConfig;
 import com.mibaldipabjimcas.otakucookmvp.Constants.ErrorConstants;
 import com.mibaldipabjimcas.otakucookmvp.Navigation.Navigator;
+import com.mibaldipabjimcas.otakucookmvp.R;
 import com.mibaldipabjimcas.otakucookmvp.Services.Broadcast.MyAlarmReceiver;
 import com.mibaldipabjimcas.otakucookmvp.Services.Firebase.FirebaseRepository;
 import com.mibaldipabjimcas.otakucookmvp.data.FirebaseModels.MeasureFB;
@@ -169,11 +170,26 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
                     navigator.sharedRecipe(recipe,getLocalBitmapUri());
                 }
                 break;
+            case 3:
+                if(resultCode == RecipeDescriptionActivity.SHARED_OK){
+                    setTimeChallenge();
+                }
+                break;
             default:
                 break;
         }
 
 
+    }
+
+    private void setTimeChallenge() {
+
+        getView().setLayoutDisabled();
+        getView().setImageTimeStart();
+       // view.setEnabled(false);
+
+        //imageTime.setImageResource(R.drawable.congelado);
+        generateAlarm(context, /*calculateTime()*/ 3000);
     }
 
     public void openFavoriteDialog(Fragment fragment) {
@@ -182,6 +198,9 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
 
     public void openSharedDialog(Fragment fragment){
         navigator.openSharedDialog(fragment);
+    }
+    public void openTimeDialog(Fragment fragment){
+        navigator.openTimeDialog(fragment);
     }
 
     private Uri getLocalBitmapUri() {
