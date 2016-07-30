@@ -139,6 +139,7 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
         Calendar calendar = Calendar.getInstance();
         long when = calendar.getTimeInMillis() + time;
         Intent myIntent = new Intent(context, MyAlarmReceiver.class);
+        myIntent.putExtra("recipe",recipe);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, myIntent, 0);
         alarmManager.set(type, when, pendingIntent);
     }

@@ -182,7 +182,7 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
         int time=presenter.calculateTime();
         view.setEnabled(false);
         imageTime.setImageResource(R.drawable.congelado);
-        presenter.generateAlarm(getActivity(), time);
+        presenter.generateAlarm(getActivity(), 30000);
     }
 
     @OnClick(R.id.fab)
