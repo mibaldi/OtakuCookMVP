@@ -44,6 +44,8 @@ public class RecipeTaskListActivity  extends BaseActivity implements HasComponen
         setContentView(R.layout.activity_recipe_task_list);
         ButterKnife.bind(this);
         changeSupportActionBar(toolbar);
+        applySelectedTheme(toolbar);
+        setTitle("Tasks");
         ArrayList<Task> taskList = getIntent().getParcelableArrayListExtra("taskList");
         this.initializeInjector();
         this.initializeActivity(taskList);

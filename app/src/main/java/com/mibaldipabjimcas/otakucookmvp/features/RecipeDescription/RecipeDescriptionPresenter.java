@@ -5,8 +5,14 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -33,6 +39,9 @@ import com.mibaldipabjimcas.otakucookmvp.di.PerActivity;
 import com.mibaldipabjimcas.otakucookmvp.ui.Activities.RecipeDescriptionActivity;
 import com.mibaldipabjimcas.otakucookmvp.ui.Views.RecipeDescriptionView;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -53,14 +62,16 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
     Navigator navigator;
     private Recipe recipe;
     private Boolean favorite;
+    private Context context;
 
     @Inject
     public RecipeDescriptionPresenter(Navigator navigator) {
         this.navigator = navigator;
     }
 
-    public void init(Recipe recipe) {
+    public void init(Recipe recipe,Context context) {
         this.recipe = recipe;
+        this.context = context;
 
         if (!BuildConfig.SHOW_PREMIUM_ACTIONS) {
             getView().hideFavoriteIcon();
@@ -146,12 +157,51 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == Activity.RESULT_OK){
-            setRecipeFavorite();
+        switch (requestCode){
+            case 1:
+                if(resultCode == RecipeDescriptionActivity.FAVORITE_OK){
+                    setRecipeFavorite();
+                }
+                break;
+            case 2:
+                if(resultCode == RecipeDescriptionActivity.SHARED_OK){
+                    navigator.sharedRecipe(recipe,getLocalBitmapUri());
+                }
+                break;
+            default:
+                break;
         }
+
+
     }
 
     public void openFavoriteDialog(Fragment fragment) {
         navigator.openFavoriteDialog(fragment,favorite);
+    }
+
+    public void openSharedDialog(Fragment fragment){
+        navigator.openSharedDialog(fragment);
+    }
+
+    private Uri getLocalBitmapUri() {
+
+        Drawable drawable = getView().getDrawableImage();
+        Bitmap bmp = null;
+        if (drawable instanceof BitmapDrawable){
+            bmp = ((BitmapDrawable) drawable).getBitmap();
+        } else {
+            return null;
+        }
+        Uri bmpUri = null;
+        try {
+            File file =  new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "share_image_" + System.currentTimeMillis() + ".png");
+            FileOutputStream out = new FileOutputStream(file);
+            bmp.compress(Bitmap.CompressFormat.PNG, 90, out);
+            out.close();
+            bmpUri = Uri.fromFile(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bmpUri;
     }
 }

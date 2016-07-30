@@ -2,6 +2,7 @@ package com.mibaldipabjimcas.otakucookmvp.ui.Fragments;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -13,6 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +29,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.mibaldipabjimcas.otakucookmvp.Base.BaseMVPFragment;
+import com.mibaldipabjimcas.otakucookmvp.BuildConfig;
 import com.mibaldipabjimcas.otakucookmvp.R;
 import com.mibaldipabjimcas.otakucookmvp.data.Models.Recipe;
 import com.mibaldipabjimcas.otakucookmvp.features.RecipeDescription.RecipeDescriptionComponent;
@@ -104,7 +108,7 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Recipe recipe = getArguments().getParcelable("recipe");
-        presenter.init(recipe);
+        presenter.init(recipe,getActivity());
         setSizeAppBarLayout();
 
         ((RecipeDescriptionActivity)getActivity()).changeSupportActionBar(toolbar);
@@ -120,6 +124,7 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
         component.inject(this);
         View view = inflater.inflate(R.layout.fragment_recipe_description, container, false);
         unbind = ButterKnife.bind(this, view);
+        setHasOptionsMenu(true);
         return view;
     }
 
@@ -217,6 +222,11 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
     }
 
     @Override
+    public Drawable getDrawableImage() {
+        return imageView.getDrawable();
+    }
+
+    @Override
     public void showProgressBar(Boolean b) {
         if (b) {
             progressBar.setVisibility(View.VISIBLE);
@@ -234,5 +244,19 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         presenter.onActivityResult(requestCode,resultCode,data);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.action_share){
+            presenter.openSharedDialog(this);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

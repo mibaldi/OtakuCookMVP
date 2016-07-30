@@ -125,10 +125,11 @@ public class MainPresenter extends BasePresenter<MainView> {
     }
 
     public void openRecipeDescription(){
-
+        getView().showProgressBar(true);
         firebaseRepository.getRecipeComplete(previousRecipe, new DataListener<Recipe>() {
             @Override
             public void onSuccess(Recipe data) {
+                getView().showProgressBar(false);
                 navigator.openRecipeDescription(data);
             }
 
