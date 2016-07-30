@@ -37,4 +37,6 @@ public interface RecipeDescriptionView extends BaseView {
     void hideFavoriteIcon();
 
     Drawable getDrawableImage();
+
+    void setFavorite(Boolean b);
 }
