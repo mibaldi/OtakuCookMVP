@@ -36,6 +36,7 @@ public class IngredientListActivity extends BaseActivity implements HasComponent
         setContentView(R.layout.activity_ingredient_list);
         ButterKnife.bind(this);
         changeSupportActionBar(toolbar);
+        applySelectedTheme(toolbar);
         ArrayList<Measure> ingredients = getIntent().getParcelableArrayListExtra("measures");
         this.initializeInjector();
         this.initializeActivity(ingredients);

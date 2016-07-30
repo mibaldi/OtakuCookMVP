@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -42,6 +43,9 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
 
     @BindView(R.id.random)
     Button randomButton;
+
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
 
     @Inject
     public MainFragment() {
@@ -129,6 +133,15 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
 
     @Override
     public void showProgressBar(Boolean b) {
+        if(b){
+            progressBar.setVisibility(View.VISIBLE);
+        }else{
+            progressBar.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void showNoConnectivity() {
 
     }
 }

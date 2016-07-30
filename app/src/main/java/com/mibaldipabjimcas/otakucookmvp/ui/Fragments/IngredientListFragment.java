@@ -112,6 +112,11 @@ public class IngredientListFragment extends BaseMVPFragment<IngredientListPresen
         }
     }
 
+    @Override
+    public void showNoConnectivity() {
+
+    }
+
     public static IngredientListFragment newInstance(ArrayList<Measure> measures) {
         IngredientListFragment fragment = new IngredientListFragment();
         Bundle args = new Bundle();

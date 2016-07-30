@@ -75,7 +75,7 @@ public class LoginFirebasePresenter extends BasePresenter<LoginFirebaseView> imp
         database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
-       apiClientRepository.init(fragment,this);
+        apiClientRepository.init(fragment,this);
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override

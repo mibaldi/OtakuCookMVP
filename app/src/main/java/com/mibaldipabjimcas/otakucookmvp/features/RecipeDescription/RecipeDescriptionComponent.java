@@ -2,6 +2,7 @@ package com.mibaldipabjimcas.otakucookmvp.features.RecipeDescription;
 
 import com.mibaldipabjimcas.otakucookmvp.Application.OtakuCookApplicationComponent;
 import com.mibaldipabjimcas.otakucookmvp.di.PerActivity;
+import com.mibaldipabjimcas.otakucookmvp.ui.Activities.RecipeDescriptionActivity;
 import com.mibaldipabjimcas.otakucookmvp.ui.Fragments.MainFragment;
 import com.mibaldipabjimcas.otakucookmvp.ui.Fragments.RecipeDescriptionFragment;
 
@@ -12,6 +13,7 @@ import dagger.Component;
 public interface RecipeDescriptionComponent {
 
     void inject(RecipeDescriptionFragment recipeDescriptionFragment);
+    void inject(RecipeDescriptionActivity recipeDescriptionActivity);
 
     RecipeDescriptionPresenter presenter();
 }

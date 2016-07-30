@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.crashlytics.android.Crashlytics;
 import com.mibaldipabjimcas.otakucookmvp.BuildConfig;
+import com.mibaldipabjimcas.otakucookmvp.Services.Connectivity.Connectivity;
 
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
@@ -14,6 +15,7 @@ public class OtakuCookApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
         Fabric.with(this, new Crashlytics());
         initDebugTools();
         otakuCookComponent=DaggerOtakuCookApplicationComponent.builder()
