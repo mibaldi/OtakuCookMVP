@@ -10,6 +10,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
@@ -151,7 +152,7 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
 
     @Override
     public void showRecipeImage(String photo) {
-        Glide.with(getActivity()).load(photo).placeholder(R.mipmap.ic_launcher).into(imageView);
+        Glide.with(getActivity()).load(photo).into(imageView);
     }
 
     @Override
@@ -223,7 +224,9 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
 
     @Override
     public Drawable getDrawableImage() {
-        return imageView.getDrawable();
+
+        Drawable drawable=imageView.getDrawable();
+        return drawable;
     }
 
     @Override

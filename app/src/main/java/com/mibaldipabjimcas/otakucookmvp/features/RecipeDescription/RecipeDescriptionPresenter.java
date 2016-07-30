@@ -14,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.widget.ImageView;
 
+import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -187,8 +188,9 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
 
         Drawable drawable = getView().getDrawableImage();
         Bitmap bmp = null;
-        if (drawable instanceof BitmapDrawable){
-            bmp = ((BitmapDrawable) drawable).getBitmap();
+        if (drawable instanceof GlideBitmapDrawable){
+
+            bmp = ((GlideBitmapDrawable) drawable).getBitmap();
         } else {
             return null;
         }

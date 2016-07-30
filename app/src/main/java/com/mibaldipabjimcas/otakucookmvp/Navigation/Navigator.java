@@ -92,14 +92,16 @@ public class Navigator {
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.putExtra(Intent.EXTRA_TEXT, recipe.name);
-        shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
         shareIntent.setType("text/plain");
 
         if (bmpUri != null) {
             shareIntent.putExtra(Intent.EXTRA_STREAM, bmpUri);
             shareIntent.setType("image/*");
         }
-        context.startActivity(Intent.createChooser(shareIntent, "send"));
+        Intent send=Intent.createChooser(shareIntent, "send");
+        send.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(send);
     }
 
     public void openSharedDialog(Fragment fragment) {
