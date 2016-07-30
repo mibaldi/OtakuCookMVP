@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.mibaldipabjimcas.otakucookmvp.Base.BaseMVPFragment;
 import com.mibaldipabjimcas.otakucookmvp.R;
@@ -149,16 +150,16 @@ public class RecipeListFragment extends BaseMVPFragment<RecipeListPresenter, Rec
         RecipeListFragment fragment = new RecipeListFragment();
         return fragment;
     }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-
-
-        inflater.inflate(R.menu.menu_search, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+        getActivity().getMenuInflater().inflate(R.menu.menu_search, menu);
 
         myActionMenuItem = menu.findItem(R.id.action_search);
         searchView = (SearchView) myActionMenuItem.getActionView();
+
         searchView.setOnQueryTextListener(this);
-        //searchView.setBackgroundColor(Color.WHITE);
 
         MenuItemCompat.setOnActionExpandListener(myActionMenuItem, new MenuItemCompat.OnActionExpandListener() {
             @Override
@@ -171,7 +172,6 @@ public class RecipeListFragment extends BaseMVPFragment<RecipeListPresenter, Rec
                 return true;
             }
         });
-        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
