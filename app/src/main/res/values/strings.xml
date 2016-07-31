@@ -63,7 +63,6 @@
     <string name="preferences">Preferences</string>
     <string name="toolbar_color">toolbarColor</string>
     <string name="ingredients">Ingredients</string>
-    <string name="not_connectivity">No tienes conexión</string>
     <string name="want_delete_favorite_recipe">Do you want to delete the recipe from favorites?</string>
     <string name="want_save_favorite_recipe">Do you want to save the recipe as favorite</string>
     <string name="saved_favorite_recipe">Recipe saved as favorite</string>
@@ -78,8 +77,9 @@
     <string name="want_start_challenge">Do you want to start the recipe challenge?</string>
     <string name="no_favorites">Don\'t have any recipe in your favorites</string>
     <string name="recipe_finished">Recipe finished</string>
-    <string name="loading_recipes">Cargando recetas ...</string>
-    <string name="loading_recipe">Cargando receta...</string>
-    <string name="loading">Cargando...</string>
-    <string name="ver_receta">VER RECETA</string>
+    <string name="loading">Loading...</string>
+    <string name="loading_recipe">Loading recipe...</string>
+    <string name="loading_recipes">Loading recipes...</string>
+    <string name="not_connectivity">Don\'t have connectivity</string>
+    <string name="ver_pasos">Show tasks</string>
 </resources>

@@ -15,4 +15,9 @@
     <string name="want_share_recipe">¿Quieres compartir la receta por redes sociales?</string>
     <string name="want_start_challenge">¿Quieres empezar el reto de la receta?</string>
     <string name="recipe_finished">Receta finalizada</string>
+    <string name="loading">Cargando...</string>
+    <string name="loading_recipe">Cargando receta...</string>
+    <string name="loading_recipes">Cargando recetas ...</string>
+    <string name="not_connectivity">No tienes conexión</string>
+    <string name="ver_receta">VER RECETA</string>
 </resources>
