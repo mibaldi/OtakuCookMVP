@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/recipeItem"
     android:layout_width="match_parent"
-    android:layout_height="@dimens/item_recipe_list_height">
-    <android.support.v7.widget.CardView
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/card_view_ingredient_margin">
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/card_view_ingredient_margin">
-    <TextView
-        android:id="@+id/recipeItemName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textAlignment="center"
-        />
-    </android.support.v7.widget.CardView>
-</RelativeLayout>
+        android:layout_height="@dimen/item_recipe_list_height">
+        <TextView
+            android:id="@+id/recipeItemName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textAlignment="center"
+            android:textSize="@dimen/recipe_item_size"/>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
+

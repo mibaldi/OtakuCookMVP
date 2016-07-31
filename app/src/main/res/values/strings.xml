@@ -76,4 +76,6 @@
     <string name="favoritas">Favorites</string>
     <string name="ingredients_drawer"></string>
     <string name="want_start_challenge">Do you want to start the recipe challenge?</string>
+    <string name="no_favorites">Don\'t have any recipe in your favorites</string>
+    <string name="recipe_finished">Recipe finished</string>
 </resources>

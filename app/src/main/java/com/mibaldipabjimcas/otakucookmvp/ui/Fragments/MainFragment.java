@@ -66,7 +66,7 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter.init();
+        presenter.init(getActivity());
     }
 
     @Nullable

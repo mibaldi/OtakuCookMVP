@@ -14,4 +14,5 @@
     <string name="want_save_favorite_recipe">¿Quieres guardar la receta como favorita?</string>
     <string name="want_share_recipe">¿Quieres compartir la receta por redes sociales?</string>
     <string name="want_start_challenge">¿Quieres empezar el reto de la receta?</string>
+    <string name="recipe_finished">Receta finalizada</string>
 </resources>

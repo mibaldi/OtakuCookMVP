@@ -16,6 +16,7 @@
     <string name="btalarmWait">Esperar</string>
     <string name="cocinar">Cocinar</string>
     <string name="favoritas">Favoritas</string>
+    <string name="no_favorites">No tienes recetas guardadas en favoritos</string>
     <string name="ingredients_drawer">Mis ingredientes</string>
     <string name="main_drawer">Principal</string>
     <string name="posibles">Posibles</string>

@@ -1,5 +1,6 @@
 package com.mibaldipabjimcas.otakucookmvp.features.Main;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
@@ -11,6 +12,7 @@ import com.mibaldipabjimcas.otakucookmvp.Base.DataListener;
 import com.mibaldipabjimcas.otakucookmvp.BuildConfig;
 import com.mibaldipabjimcas.otakucookmvp.Constants.ErrorConstants;
 import com.mibaldipabjimcas.otakucookmvp.Navigation.Navigator;
+import com.mibaldipabjimcas.otakucookmvp.R;
 import com.mibaldipabjimcas.otakucookmvp.Services.Firebase.FirebaseRepository;
 import com.mibaldipabjimcas.otakucookmvp.data.FirebaseModels.RecipeFB;
 import com.mibaldipabjimcas.otakucookmvp.data.Models.Recipe;
@@ -33,14 +35,16 @@ public class MainPresenter extends BasePresenter<MainView> {
     private Iterable<DataSnapshot> recipes;
     private int numberRecipes;
     private boolean existRandomButtom;
+    private Context context;
 
     @Inject
     public MainPresenter(Navigator navigator) {
         this.navigator = navigator;
     }
 
-    public void init(){
+    public void init(Context context){
 
+        this.context = context;
         if (firebaseRepository.getAuth() != null) {
 
             if(BuildConfig.SHOW_PREMIUM_ACTIONS){
@@ -68,6 +72,8 @@ public class MainPresenter extends BasePresenter<MainView> {
                         existRandomButtom = true;
                     }
                     randomRecipe();
+                }else{
+                    printNoFavorites();
                 }
             }
 
@@ -76,6 +82,11 @@ public class MainPresenter extends BasePresenter<MainView> {
                 getView().showError(ErrorConstants.RECIPE_LIST_FAVORITE_ERROR);
             }
         });
+    }
+
+    private void printNoFavorites() {
+        getView().showRecipeName(context.getString(R.string.free_main_fragment));
+        getView().showDefaultImage();
     }
 
     public void randomRecipe(){
@@ -123,7 +134,7 @@ public class MainPresenter extends BasePresenter<MainView> {
     }
 
     public void noPremium(){
-        getView().showRecipeName("No premium");
+        getView().showRecipeName(context.getString(R.string.free_main_fragment));
         getView().showDefaultImage();
     }
 
