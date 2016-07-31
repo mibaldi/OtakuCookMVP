@@ -12,16 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         >
-        <activity android:name=".ui.Activities.SplashActivity" android:screenOrientation="portrait">
+        <activity android:name=".ui.Activities.SplashActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.Activities.LoginActivity" android:screenOrientation="portrait">
+        <activity android:name=".ui.Activities.LoginActivity">
         </activity>
-        <activity android:name=".ui.Activities.MainActivity" android:screenOrientation="portrait">
+        <activity android:name=".ui.Activities.MainActivity">
 
         </activity>
 
@@ -29,9 +29,9 @@
             android:name="io.fabric.ApiKey"
             android:value="ff1c2189b92aa493cd60d97569bcd6baf9715047" />
 
-        <activity android:name=".ui.Activities.RecipeDescriptionActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.Activities.RecipeTaskListActivity" android:screenOrientation="portrait"></activity>
-        <activity android:name=".ui.Activities.IngredientListActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.Activities.RecipeDescriptionActivity" />
+        <activity android:name=".ui.Activities.RecipeTaskListActivity"></activity>
+        <activity android:name=".ui.Activities.IngredientListActivity"/>
         <receiver android:name=".Services.Broadcast.MyAlarmReceiver"/>
         <activity
             android:name=".features.Preferences.PreferencesActivity"
