@@ -8,6 +8,7 @@ import com.mibaldipabjimcas.otakucookmvp.Services.Firebase.FirebaseRepository;
 import com.mibaldipabjimcas.otakucookmvp.features.Preferences.PreferencesFragment;
 import com.mibaldipabjimcas.otakucookmvp.features.Preferences.PreferencesManager;
 import com.mibaldipabjimcas.otakucookmvp.features.LoginFirebase.ApiClientRepository;
+import com.mibaldipabjimcas.otakucookmvp.ui.Activities.SplashActivity;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -22,6 +23,7 @@ public interface OtakuCookApplicationComponent {
 
     void inject (BaseActivity baseActivity);
     void inject (PreferencesFragment preferencesFragment);
+    void inject (SplashActivity splashActivity);
 
     Navigator getNavigator();
     ApiClientRepository apiClientRepository();
