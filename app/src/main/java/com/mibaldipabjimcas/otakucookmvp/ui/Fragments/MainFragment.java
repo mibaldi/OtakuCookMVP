@@ -1,7 +1,10 @@
 package com.mibaldipabjimcas.otakucookmvp.ui.Fragments;
 
+import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,8 +48,7 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
     @BindView(R.id.random)
     Button randomButton;
 
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
+    private ProgressDialog progressDialog;
 
     @Inject
     public MainFragment() {
@@ -66,7 +68,9 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter.init();
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setCancelable(false);
+        presenter.init(getActivity());
     }
 
     @Nullable
@@ -104,12 +108,12 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
 
     @Override
     public void showDefaultImage() {
-        Glide.with(getActivity()).load(R.mipmap.ic_launcher).into(mainImage);
+        Glide.with(getActivity()).load(R.drawable.default_recipe).into(mainImage);
     }
 
     @OnClick(R.id.random)
     public void randomRecipe(){
-        presenter.randomRecipe();
+        presenter.getRandomRecipe();
     }
 
     @Override
@@ -124,22 +128,34 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
 
     @Override
     public void showRecipeAuthor(String author) {
-        mainRecipeAuthor.setText(author);
+        if(!author.isEmpty())
+            mainRecipeAuthor.setText(getString(R.string.por,author));
     }
 
     @Override
-    public void showRandomButton(int visible) {
-        randomButton.setVisibility(visible);
-    }
-
-    @Override
-    public void showProgressBar(Boolean b) {
+    public void showRandomButton(Boolean b) {
+        randomButton.setEnabled(b);
         if(b){
-            progressBar.setVisibility(View.VISIBLE);
+            randomButton.setBackground(ResourcesCompat.getDrawable(getResources(),R.drawable.buy_button,null));
+            randomButton.setTextColor(Color.WHITE);
         }else{
-            progressBar.setVisibility(View.GONE);
+            randomButton.setBackground(ResourcesCompat.getDrawable(getResources(),R.drawable.round_button,null));
         }
+
     }
+
+    @Override
+    public void showProgressDialog(int message) {
+        progressDialog.setMessage(getString(message));
+        progressDialog.show();
+    }
+
+    @Override
+    public void cancelProgressDialog() {
+        progressDialog.setCancelable(true);
+        progressDialog.cancel();
+    }
+
 
     @Override
     public void showNoConnectivity() {

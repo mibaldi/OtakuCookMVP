@@ -8,6 +8,20 @@
         android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
+    <RelativeLayout
+        android:id="@+id/noRecipes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_favorites"
+            android:textAlignment="center"
+            android:textSize="@dimen/recipe_title_size"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_centerInParent="true"

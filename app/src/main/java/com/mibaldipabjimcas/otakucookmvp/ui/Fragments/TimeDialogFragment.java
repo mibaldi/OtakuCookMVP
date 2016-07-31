@@ -23,7 +23,7 @@ public class TimeDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         return  new AlertDialog.Builder(getActivity()).setIcon(R.mipmap.ic_launcher)
-                .setTitle("¿Quieres empezar el reto de la receta?")
+                .setTitle(R.string.want_start_challenge)
                 .setNegativeButton(android.R.string.no, null)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     @Override

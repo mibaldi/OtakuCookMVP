@@ -27,7 +27,7 @@ public class SharedDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         return  new AlertDialog.Builder(getActivity()).setIcon(R.mipmap.ic_launcher)
-                .setTitle("¿Quieres compartir tu receta por redes sociales?")
+                .setTitle(R.string.want_share_recipe)
                 .setNegativeButton(android.R.string.no, null)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     @Override

@@ -128,7 +128,7 @@ public class LoginFirebasePresenter extends BasePresenter<LoginFirebaseView> imp
                 // signed in user can be handled in the listener.
                 if (!task.isSuccessful()) {
 
-                    Toast.makeText(fragmentActivity, "Authentication failed.",
+                    Toast.makeText(fragmentActivity, R.string.authentication_failed,
                             Toast.LENGTH_SHORT).show();
                 }
                 else {

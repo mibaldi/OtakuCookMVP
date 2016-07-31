@@ -39,7 +39,7 @@ public class SuggestionDialogFragment extends DialogFragment {
                             email.setAction(Intent.ACTION_SEND);
                             email.putExtra(Intent.EXTRA_TEXT, text.getText());
                             email.setType("message/rfc822");
-                            email.putExtra(Intent.EXTRA_EMAIL,new String[]{"otakucook.sugerencias@gmail.com"});
+                            email.putExtra(Intent.EXTRA_EMAIL,new String[]{getString(R.string.email_suggestions)});
                             email.putExtra(Intent.EXTRA_SUBJECT,getResources().getString(R.string.suggestion));
                             email.putExtra(Intent.EXTRA_TEXT,text.getText());
 

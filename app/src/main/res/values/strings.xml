@@ -5,7 +5,6 @@
     <string name="firebase_url">https://otakucook.firebaseio.com/</string>
     <string name="title_activity_recipes">RecipesActivity</string>
     <string name="action_settings">Settings</string>
-    <string name="historical">Histórico de Ingredientes</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 
@@ -24,9 +23,6 @@
     <string name="Paso">Step %s</string>
     <string name="por">by %s</string>
     <string name="title_RecipeTaskList">Steps of recipe</string>
-    <string name="title_Categories">Categories</string>
-    <string name="title_RecipeFinal">End of recipe</string>
-    <string name="title_progressDialog">Loading</string>
     <string name="title_alertDialogError">Error</string>
     <string name="title_RecipeTaskViewPage">Steps of recipe</string>
     <string name="title_dialogExit">Do you want to exit from app?</string>
@@ -41,7 +37,6 @@
     <string name="bt_borrar">Delete</string>
     <string name="bt_finalizar">Finish</string>
     <string name="compartir">Share</string>
-    <string name="ingredientes_necesarios">Ingredient required</string>
     <string name="tarea">task %s</string>
     <string name="logged">Logged in as</string>
     <string name="free_main_fragment">Download Premium version for save favorites, share recipes and receive news</string>
@@ -64,4 +59,26 @@
     <string name="dialog_suggestion_question">Do you want to send us any suggestion?</string>
     <string name="placeholder_suggestion">Suggestion</string>
     <string name="select_email">Select an email client</string>
+    <string name="authentication_failed">Authentication failed.</string>
+    <string name="preferences">Preferences</string>
+    <string name="toolbar_color">toolbarColor</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="not_connectivity">No tienes conexión</string>
+    <string name="want_delete_favorite_recipe">Do you want to delete the recipe from favorites?</string>
+    <string name="want_save_favorite_recipe">Do you want to save the recipe as favorite</string>
+    <string name="saved_favorite_recipe">Recipe saved as favorite</string>
+    <string name="want_share_recipe">Do you want to share the recipe in social media?</string>
+    <string name="email_suggestions">otakucook.sugerencias@gmail.com</string>
+    <string name="show_tasks">show tasks</string>
+    <string name="cargando_recetas_del_servidor">"Loading recipes ... "</string>
+    <string name="cocinar">Cook</string>
+    <string name="deleted_favorite_recipe">Recipe deleted from favorites</string>
+    <string name="favoritas">Favorites</string>
+    <string name="ingredients_drawer"></string>
+    <string name="want_start_challenge">Do you want to start the recipe challenge?</string>
+    <string name="no_favorites">Don\'t have any recipe in your favorites</string>
+    <string name="recipe_finished">Recipe finished</string>
+    <string name="loading_recipes">Cargando recetas ...</string>
+    <string name="loading_recipe">Cargando receta...</string>
+    <string name="loading">Cargando...</string>
 </resources>

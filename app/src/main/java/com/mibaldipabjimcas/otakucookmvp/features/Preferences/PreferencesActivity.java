@@ -30,7 +30,7 @@ public class PreferencesActivity extends BaseActivity{
         ButterKnife.bind(this);
         changeSupportActionBar(toolbar);
 
-        toolbar.setTitle("Preferences");
+        toolbar.setTitle(R.string.preferences);
         PreferencesFragment preferencesFragment = new PreferencesFragment();
         preferencesFragment.setToolbar(toolbar);
         getFragmentManager().beginTransaction().

@@ -1,5 +1,6 @@
 package com.mibaldipabjimcas.otakucookmvp.ui.Fragments;
 
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mibaldipabjimcas.otakucookmvp.Base.BaseMVPFragment;
@@ -46,9 +48,6 @@ public class RecipeListFragment extends BaseMVPFragment<RecipeListPresenter, Rec
     @BindView(R.id.recipe_recyclerView)
     RecyclerView recipe_recyclerView;
 
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
-
     @BindView(R.id.activity_main_swipe_refresh_layout)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
@@ -56,6 +55,7 @@ public class RecipeListFragment extends BaseMVPFragment<RecipeListPresenter, Rec
     RecipesListAdapter recipesListAdapter;
     private MenuItem myActionMenuItem;
     private SearchView searchView;
+    private ProgressDialog progressDialog;
 
     @Inject
     public RecipeListFragment() {
@@ -71,6 +71,8 @@ public class RecipeListFragment extends BaseMVPFragment<RecipeListPresenter, Rec
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
+        progressDialog =  new ProgressDialog(getActivity());
+        progressDialog.setCancelable(false);
         presenter.init(getActivity());
     }
 
@@ -133,17 +135,20 @@ public class RecipeListFragment extends BaseMVPFragment<RecipeListPresenter, Rec
     }
 
     @Override
-    public void showProgressBar(Boolean b) {
-        if(b){
-            progressBar.setVisibility(View.VISIBLE);
-        }else{
-            progressBar.setVisibility(View.GONE);
-        }
+    public void showProgressDialog(int message) {
+            progressDialog.setMessage(getString(message));
+            progressDialog.show();
+    }
+
+    @Override
+    public void cancelProgressDialog() {
+        progressDialog.setCancelable(true);
+        progressDialog.cancel();
     }
 
     @Override
     public void showNoConnectivity() {
-        Snackbar.make(getView(), "No tienes conexión", Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(getView(), R.string.no_connectivity, Snackbar.LENGTH_SHORT).show();
     }
 
     public static RecipeListFragment newInstance() {

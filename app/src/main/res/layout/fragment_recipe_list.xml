@@ -13,6 +13,7 @@
 
     </android.support.v7.widget.RecyclerView>
     </android.support.v4.widget.SwipeRefreshLayout>
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_centerInParent="true"

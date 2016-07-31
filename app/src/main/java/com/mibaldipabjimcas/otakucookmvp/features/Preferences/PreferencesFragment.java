@@ -36,7 +36,7 @@ public class PreferencesFragment extends PreferenceFragment{
         this.getInjector().inject(this);
         addPreferencesFromResource(R.xml.preferences);
        // mToolbar=((PreferencesActivity)getActivity()).toolbar;
-        final ListPreference listPreference = (ListPreference) findPreference("toolbarColor");
+        final ListPreference listPreference = (ListPreference) findPreference(getString(R.string.toolbar_color));
        listPreference.setValueIndex(preferenceManager.getSelectedTheme().ordinal());
         listPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override

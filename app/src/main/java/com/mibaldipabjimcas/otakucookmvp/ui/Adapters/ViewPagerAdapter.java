@@ -34,7 +34,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return "Paso "+taskList.get(position).name;
+        return taskList.get(position).name;
     }
 
     @Override

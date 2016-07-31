@@ -1,5 +1,6 @@
 package com.mibaldipabjimcas.otakucookmvp.ui.Fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -41,11 +44,12 @@ public class RecipeListFavoritesFragment  extends BaseMVPFragment<RecipeListFavo
     @BindView(R.id.recipe_recyclerView)
     RecyclerView recipe_recyclerView;
 
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
+    @BindView(R.id.noRecipes)
+    RelativeLayout noRecipes;
 
     @Inject
     RecipesListAdapter recipesListAdapter;
+    private ProgressDialog progressDialog;
 
     @Inject
     public RecipeListFavoritesFragment() {
@@ -58,17 +62,10 @@ public class RecipeListFavoritesFragment  extends BaseMVPFragment<RecipeListFavo
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-
-        myRef.setValue("Hello, World!");
-    }
-
-    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setCancelable(false);
         presenter.init(getActivity());
     }
 
@@ -108,16 +105,25 @@ public class RecipeListFavoritesFragment  extends BaseMVPFragment<RecipeListFavo
     }
 
     @Override
-    public void showProgressBar(Boolean b) {
-        if(b){
-            progressBar.setVisibility(View.VISIBLE);
-        }else{
-            progressBar.setVisibility(View.GONE);
-        }
+    public void showNoRecipes() {
+        noRecipes.setVisibility(View.VISIBLE);
     }
 
     @Override
+    public void showProgressDialog(int message) {
+        progressDialog.setMessage(getString(message));
+        progressDialog.show();
+    }
+
+    @Override
+    public void cancelProgressDialog() {
+        progressDialog.setCancelable(true);
+        progressDialog.cancel();
+    }
+
+
+    @Override
     public void showNoConnectivity() {
-        Snackbar.make(getView(), "No tienes conexión", Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(getView(), R.string.no_connectivity, Snackbar.LENGTH_SHORT).show();
     }
 }

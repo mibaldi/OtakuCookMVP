@@ -90,7 +90,7 @@ public class RecipeTaskListFragment extends BaseMVPFragment<RecipeTaskListPresen
 
     @Override
     public void showTaskImage(String photo) {
-        Glide.with(getActivity()).load(photo).placeholder(R.mipmap.ic_launcher).into(taskImage);
+        Glide.with(getActivity()).load(photo).placeholder(R.drawable.default_recipe).into(taskImage);
     }
 
     @Override
@@ -111,11 +111,6 @@ public class RecipeTaskListFragment extends BaseMVPFragment<RecipeTaskListPresen
     @Override
     public void hideTime() {
         layoutTime.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void showProgressBar(Boolean b) {
-
     }
 
     @Override
