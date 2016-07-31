@@ -182,10 +182,10 @@ public class FirebaseRepository {
 
     public void getRecipeFavorites(DataListener<List<Recipe>> listener){
         this.favoritesListener = listener;
-        favoriteList = new ArrayList<>();
         refFavorites.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                favoriteList = new ArrayList<>();
                 loadFavoriteRecipe(dataSnapshot.getChildren().iterator());
             }
 

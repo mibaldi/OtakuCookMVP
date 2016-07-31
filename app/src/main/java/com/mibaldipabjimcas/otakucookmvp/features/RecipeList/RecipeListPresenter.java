@@ -39,14 +39,14 @@ public class RecipeListPresenter extends BasePresenter<RecipeListView> {
 
     public void loadServerService(){
         if(Connectivity.isNetworkAvailable(context)) {
-            getView().showNoRecipes(true);
+            getView().loadingRecipes(true);
             service = ApiClient.createService(ApiEndPointInterface.class);
             getView().swipeRefresh(true);
             Call<List<Recipe>> recipeList = service.recipes();
             recipeList.enqueue(new Callback<List<Recipe>>() {
                 @Override
                 public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
-                    getView().showNoRecipes(false);
+                    getView().loadingRecipes(false);
                     getView().showRecipeList(response.body());
                     getView().swipeRefresh(false);
                 }

@@ -159,7 +159,7 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
 
     @Override
     public void showRecipeAuthor(String author) {
-        recipeAuthor.setText(author);
+        recipeAuthor.setText(getString(R.string.por,author));
     }
 
     @OnClick(R.id.bt_ingredients)

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -36,6 +37,7 @@ import butterknife.Unbinder;
  * Created by mikelbalducieldiaz on 17/7/16.
  */
 public class RecipeListFavoritesFragment  extends BaseMVPFragment<RecipeListFavoritesPresenter,RecipeListFavoritesView> implements RecipeListFavoritesView{
+    public static final int NO_RECIPES = 1;
     private MainActivityComponent component;
     private Unbinder unbind;
 
@@ -47,6 +49,9 @@ public class RecipeListFavoritesFragment  extends BaseMVPFragment<RecipeListFavo
 
     @BindView(R.id.noRecipes)
     RelativeLayout noRecipes;
+
+    @BindView(R.id.message)
+    TextView message;
 
     @Inject
     RecipesListAdapter recipesListAdapter;
@@ -103,13 +108,21 @@ public class RecipeListFavoritesFragment  extends BaseMVPFragment<RecipeListFavo
     }
 
     @Override
-    public void showNoRecipes(Boolean b) {
+    public void showNoRecipes() {
+        noRecipes.setVisibility(View.VISIBLE);
+        message.setText(getString(R.string.no_favorites));
+    }
+
+    @Override
+    public void loadingRecipes(boolean b) {
         if(b){
             noRecipes.setVisibility(View.VISIBLE);
+            message.setText(getString(R.string.cargando_recetas_del_servidor));
         }else{
             noRecipes.setVisibility(View.GONE);
         }
     }
+
 
     @Override
     public void showProgressBar(Boolean b) {

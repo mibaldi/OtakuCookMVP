@@ -1,5 +1,6 @@
 package com.mibaldipabjimcas.otakucookmvp.ui.Fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -104,12 +105,12 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
 
     @Override
     public void showDefaultImage() {
-        Glide.with(getActivity()).load(R.mipmap.ic_launcher).into(mainImage);
+        Glide.with(getActivity()).load(R.drawable.default_recipe).into(mainImage);
     }
 
     @OnClick(R.id.random)
     public void randomRecipe(){
-        presenter.randomRecipe();
+        presenter.getRandomRecipe();
     }
 
     @Override
@@ -124,12 +125,18 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
 
     @Override
     public void showRecipeAuthor(String author) {
-        mainRecipeAuthor.setText(author);
+        mainRecipeAuthor.setText(getString(R.string.por,author));
     }
 
     @Override
     public void showRandomButton(Boolean b) {
         randomButton.setEnabled(b);
+        if(b){
+            randomButton.setTextColor(Color.BLUE);
+        }else{
+            randomButton.setTextColor(Color.GRAY);
+        }
+
     }
 
     @Override

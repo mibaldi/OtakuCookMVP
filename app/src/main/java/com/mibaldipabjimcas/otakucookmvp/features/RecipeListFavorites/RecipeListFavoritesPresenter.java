@@ -68,11 +68,14 @@ public class RecipeListFavoritesPresenter extends BasePresenter<RecipeListFavori
         }else {
             recipes.clear();
             getView().showProgressBar(true);
-            getView().showNoRecipes(true);
+            getView().loadingRecipes(true);
             firebaseRepository.getRecipeFavorites(new DataListener<List<Recipe>>() {
                 @Override
                 public void onSuccess(List<Recipe> data) {
-                    getView().showNoRecipes(false);
+                    if(data.isEmpty()) {
+                        getView().showNoRecipes();
+                    }
+                    getView().loadingRecipes(false);
                     getView().showRecipeFavoriteList(data);
                     getView().showProgressBar(false);
                 }

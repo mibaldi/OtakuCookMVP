@@ -132,18 +132,17 @@ public class RecipeListFragment extends BaseMVPFragment<RecipeListPresenter, Rec
     }
 
     @Override
-    public void showNoRecipes(Boolean b) {
+    public void swipeRefresh(Boolean b) {
+        mSwipeRefreshLayout.setRefreshing(b);
+    }
+
+    @Override
+    public void loadingRecipes(boolean b) {
         if(b){
             noRecipes.setVisibility(View.VISIBLE);
         }else{
             noRecipes.setVisibility(View.GONE);
         }
-
-    }
-
-    @Override
-    public void swipeRefresh(Boolean b) {
-        mSwipeRefreshLayout.setRefreshing(b);
     }
 
     @Override

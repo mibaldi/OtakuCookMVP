@@ -85,7 +85,7 @@ public class MainPresenter extends BasePresenter<MainView> {
     }
 
     private void printNoFavorites() {
-        getView().showRecipeName(context.getString(R.string.free_main_fragment));
+        getView().showRecipeName(context.getString(R.string.no_favorites));
         getView().showDefaultImage();
     }
 

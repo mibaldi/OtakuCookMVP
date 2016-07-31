@@ -10,6 +10,7 @@ import java.util.List;
  */
 public interface RecipeListView extends BaseView {
     void showRecipeList(List<Recipe> recipeList);
-    void showNoRecipes(Boolean b);
     void  swipeRefresh(Boolean b);
+
+    void loadingRecipes(boolean b);
 }
