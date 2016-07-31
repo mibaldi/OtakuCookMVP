@@ -144,7 +144,7 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
 
     @Override
     public void showRecipeImage(String photo) {
-        Glide.with(getActivity()).load(photo).placeholder(R.drawable.default_recipe).into(imageView);
+        Glide.with(getActivity()).load(photo).into(imageView);
     }
 
     @Override

@@ -172,7 +172,7 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
                 }
                 break;
             case 3:
-                if(resultCode == RecipeDescriptionActivity.SHARED_OK){
+                if(resultCode == RecipeDescriptionActivity.TIME_OK){
                     setTimeChallenge();
                 }
                 break;

@@ -28,7 +28,7 @@ public class TimeDialogFragment extends DialogFragment {
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        getTargetFragment().onActivityResult(getTargetRequestCode(), RecipeDescriptionActivity.SHARED_OK,getActivity().getIntent());
+                        getTargetFragment().onActivityResult(getTargetRequestCode(), RecipeDescriptionActivity.TIME_OK,getActivity().getIntent());
                         dismiss();
                     }
                 }).setIcon(android.R.drawable.ic_dialog_alert)

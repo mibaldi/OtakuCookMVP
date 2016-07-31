@@ -19,6 +19,7 @@ public class RecipeDescriptionActivity extends BaseActivity implements HasCompon
 
     public static int FAVORITE_OK = 1;
     public static int SHARED_OK = 2;
+    public static int TIME_OK = 3;
 
     private RecipeDescriptionComponent recipeDescriptionComponent;
 
