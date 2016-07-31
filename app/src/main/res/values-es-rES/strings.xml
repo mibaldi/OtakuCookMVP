@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="authentication_failed">Fallo en autenticación</string>
+    <string name="cargando_recetas_del_servidor">Cargando recetas …</string>
+    <string name="deleted_favorite_recipe">Receta eliminada de favoritos</string>
+    <string name="email_suggestions">otakucook.sugerencias@gmail.com</string>
+    <string name="ingredients">Ingredientes</string>
+    <string name="minutesInTask">%1$d minutos</string>
+    <string name="preferences">Preferences</string>
+    <string name="saved_favorite_recipe">Receta guardada como favorita</string>
+    <string name="show_tasks">ver pasos</string>
+    <string name="taskName">Paso %1$s</string>
+    <string name="want_delete_favorite_recipe">¿Quieres eliminar la receta de favoritas?</string>
+    <string name="want_save_favorite_recipe">¿Quieres guardar la receta como favorita?</string>
+    <string name="want_share_recipe">¿Quieres compartir la receta por redes sociales?</string>
+    <string name="want_start_challenge">¿Quieres empezar el reto de la receta?</string>
+</resources>

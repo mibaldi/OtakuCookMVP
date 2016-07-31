@@ -62,15 +62,6 @@ public class RecipeListFavoritesFragment  extends BaseMVPFragment<RecipeListFavo
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-
-        myRef.setValue("Hello, World!");
-    }
-
-    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         presenter.init(getActivity());
@@ -131,6 +122,6 @@ public class RecipeListFavoritesFragment  extends BaseMVPFragment<RecipeListFavo
 
     @Override
     public void showNoConnectivity() {
-        Snackbar.make(getView(), "No tienes conexión", Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(getView(), R.string.no_connectivity, Snackbar.LENGTH_SHORT).show();
     }
 }

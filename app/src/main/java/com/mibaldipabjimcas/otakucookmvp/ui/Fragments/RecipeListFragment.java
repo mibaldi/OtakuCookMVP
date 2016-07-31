@@ -157,7 +157,7 @@ public class RecipeListFragment extends BaseMVPFragment<RecipeListPresenter, Rec
 
     @Override
     public void showNoConnectivity() {
-        Snackbar.make(getView(), "No tienes conexión", Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(getView(), R.string.no_connectivity, Snackbar.LENGTH_SHORT).show();
     }
 
     public static RecipeListFragment newInstance() {

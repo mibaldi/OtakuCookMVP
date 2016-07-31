@@ -26,7 +26,7 @@ public class MyAlarmReceiver extends BroadcastReceiver {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         notification = builder.setSmallIcon(R.mipmap.ic_launcher)
                 .setWhen(System.currentTimeMillis())
-                .setContentTitle("Prueba finalizada")
+                .setContentTitle(context.getString(R.string.recipe_finished))
                 .setContentText(recipe.name)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)

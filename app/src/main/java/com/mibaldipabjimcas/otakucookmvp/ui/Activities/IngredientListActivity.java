@@ -43,7 +43,7 @@ public class IngredientListActivity extends BaseActivity implements HasComponent
     }
 
     private void initializeActivity(ArrayList<Measure> ingredients) {
-        setTitle("Ingredients");
+        setTitle(getString(R.string.ingredients));
        addFragment(R.id.content, IngredientListFragment.newInstance(ingredients));
     }
 

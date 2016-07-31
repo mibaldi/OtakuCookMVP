@@ -13,12 +13,6 @@ import retrofit2.http.Query;
 
 public interface ApiEndPointInterface  {
 
-    /*@GET("videos/{title}")
-    Call<MainActivity.Respuesta> getNews(@Path("title") String title);
-
-    @GET("news")
-    Call<MainActivity.ListRespuesta> groupList();*/
-
     @GET("/recipes")
     Call<List<Recipe>> recipes();
     @GET("recipes/{id}")

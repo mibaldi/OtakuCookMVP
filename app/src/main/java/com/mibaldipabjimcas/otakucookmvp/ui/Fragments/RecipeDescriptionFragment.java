@@ -233,9 +233,9 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
     public void setFavorite(Boolean b) {
         changeFavoriteIcon(b);
         if(b){
-            Snackbar.make(getView(), "Receta guardada como favorita", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(getView(), R.string.saved_favorite_recipe, Snackbar.LENGTH_SHORT).show();
         }else{
-            Snackbar.make(getView(), "Receta eliminada de favoritos", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(getView(), R.string.deleted_favorite_recipe, Snackbar.LENGTH_SHORT).show();
         }
     }
 

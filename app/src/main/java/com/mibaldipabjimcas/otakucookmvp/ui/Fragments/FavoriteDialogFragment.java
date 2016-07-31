@@ -47,9 +47,9 @@ public class FavoriteDialogFragment extends DialogFragment {
 
     public String getTitle(){
         if(getArguments().getBoolean("favorite")){
-            return "¿Quieres eliminar la receta de favoritas?";
+            return getString(R.string.want_delete_favorite_recipe);
         }
-        return "¿Quieres guardar la receta como favorita?";
+        return getString(R.string.want_save_favorite_recipe);
     }
 }
 
