@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.mibaldipabjimcas.otakucookmvp.Base.BaseMVPActivity;
 import com.mibaldipabjimcas.otakucookmvp.BuildConfig;
 import com.mibaldipabjimcas.otakucookmvp.R;
+import com.mibaldipabjimcas.otakucookmvp.Utils.CircleTransform;
 import com.mibaldipabjimcas.otakucookmvp.di.HasComponent;
 import com.mibaldipabjimcas.otakucookmvp.features.MainActivity.DaggerMainActivityComponent;
 import com.mibaldipabjimcas.otakucookmvp.features.MainActivity.MainActivityComponent;
@@ -176,7 +177,8 @@ public class MainActivity extends BaseMVPActivity<MainActivityPresenter,MainActi
     @Override
     public void showUserAvatar(String photo) {
         ImageView imageView=(ImageView) navigationViewHeaderView.findViewById(R.id.user_image);
-        Glide.with(this).load(photo).placeholder(R.mipmap.ic_launcher).into(imageView);
+        CircleTransform circle = new CircleTransform(this);
+        Glide.with(this).load(photo).bitmapTransform(circle).placeholder(R.mipmap.ic_launcher).into(imageView);
     }
 
     @Override
