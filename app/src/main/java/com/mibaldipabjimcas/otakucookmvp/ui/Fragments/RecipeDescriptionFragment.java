@@ -178,8 +178,6 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
     @Override
     public void startRecipeTime() {
         presenter.openTimeDialog(this);
-        imageTime.setImageResource(R.drawable.timeon);
-        presenter.generateAlarm(getActivity(), 30000);
     }
 
     @OnClick(R.id.fab)
@@ -195,7 +193,7 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
 
     @Override
     public void setImageTimeStart() {
-        imageTime.setImageResource(R.drawable.congelado);
+        imageTime.setImageResource(R.drawable.timeon);
     }
 
     @OnClick(R.id.bt_tasks)

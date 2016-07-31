@@ -16,5 +16,5 @@ public interface MainView extends BaseView {
     
     void showRecipeAuthor(String author);
 
-    void showRandomButton(int visible);
+    void showRandomButton(Boolean b);
 }

@@ -64,4 +64,5 @@
     <string name="dialog_suggestion_question">Do you want to send us any suggestion?</string>
     <string name="placeholder_suggestion">Suggestion</string>
     <string name="select_email">Select an email client</string>
+    <string name="cargando_recetas_del_servidor">Cargando recetas …</string>
 </resources>

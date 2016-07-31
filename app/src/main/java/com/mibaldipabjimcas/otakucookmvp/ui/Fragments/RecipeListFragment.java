@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mibaldipabjimcas.otakucookmvp.Base.BaseMVPFragment;
@@ -51,6 +52,9 @@ public class RecipeListFragment extends BaseMVPFragment<RecipeListPresenter, Rec
 
     @BindView(R.id.activity_main_swipe_refresh_layout)
     SwipeRefreshLayout mSwipeRefreshLayout;
+
+    @BindView(R.id.noRecipes)
+    RelativeLayout noRecipes;
 
     @Inject
     RecipesListAdapter recipesListAdapter;
@@ -124,6 +128,16 @@ public class RecipeListFragment extends BaseMVPFragment<RecipeListPresenter, Rec
             }
         });
         recipe_recyclerView.setAdapter(recipesListAdapter);
+
+    }
+
+    @Override
+    public void showNoRecipes(Boolean b) {
+        if(b){
+            noRecipes.setVisibility(View.VISIBLE);
+        }else{
+            noRecipes.setVisibility(View.GONE);
+        }
 
     }
 

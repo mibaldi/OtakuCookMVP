@@ -10,4 +10,5 @@ import java.util.List;
  */
 public interface RecipeListFavoritesView  extends BaseView {
     void showRecipeFavoriteList(List<Recipe> recipes);
+    void showNoRecipes(Boolean b);
 }

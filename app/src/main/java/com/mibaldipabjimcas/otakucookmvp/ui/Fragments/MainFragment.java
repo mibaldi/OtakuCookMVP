@@ -128,8 +128,8 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
     }
 
     @Override
-    public void showRandomButton(int visible) {
-        randomButton.setVisibility(visible);
+    public void showRandomButton(Boolean b) {
+        randomButton.setEnabled(b);
     }
 
     @Override

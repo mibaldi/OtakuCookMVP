@@ -79,14 +79,16 @@ public class MainPresenter extends BasePresenter<MainView> {
     }
 
     public void randomRecipe(){
-        Timber.d("Random");
-        //TODO
+        Timber.d(previousRecipe);
+
         int x = (int) (Math.random() * numberRecipes);
         int count = 0;
 
         for (DataSnapshot child : recipes) {
+
             if (x == count) {
                 currentRecipe = child.getKey();
+
                 if (currentRecipe.equals(previousRecipe)){
                     randomRecipe();
                 }else {
@@ -110,7 +112,7 @@ public class MainPresenter extends BasePresenter<MainView> {
                 getView().showRatingBar(r.score);
                 getView().showRecipeAuthor(r.author);
                 if(existRandomButtom)
-                    getView().showRandomButton(View.VISIBLE);
+                    getView().showRandomButton(true);
             }
 
             @Override
