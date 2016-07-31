@@ -8,7 +8,10 @@ import android.support.design.widget.Snackbar;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.mibaldipabjimcas.otakucookmvp.Base.BaseMVPActivity;
 import com.mibaldipabjimcas.otakucookmvp.R;
 import com.mibaldipabjimcas.otakucookmvp.Services.Connectivity.Connectivity;
@@ -18,6 +21,7 @@ import com.mibaldipabjimcas.otakucookmvp.features.LoginFirebase.LoginFirebaseCom
 import com.mibaldipabjimcas.otakucookmvp.features.LoginFirebase.LoginFirebasePresenter;
 import com.mibaldipabjimcas.otakucookmvp.ui.Views.LoginFirebaseView;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
@@ -28,14 +32,14 @@ public class LoginActivity extends BaseMVPActivity<LoginFirebasePresenter,LoginF
 
     private Unbinder unbind;
 
+    @BindView(R.id.logo)
+    ImageView imageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         this.initializeInjector();
         super.onCreate(savedInstanceState);
 
-        if(!Connectivity.isNetworkAvailable(this)){
-            finish();
-        }
         setContentView(R.layout.activity_login);
         unbind = ButterKnife.bind(this);
         presenter.init(this);
@@ -72,19 +76,13 @@ public class LoginActivity extends BaseMVPActivity<LoginFirebasePresenter,LoginF
         return component.presenter();
     }
 
-    @OnClick(R.id.sign_in_button)
+    @OnClick(R.id.login_with_google)
     public void sign_in(){
-        presenter.signIn();
-    }
-
-    @OnClick(R.id.sign_out_button)
-    public void sign_out(){
-        presenter.signOut();
-    }
-
-    @OnClick(R.id.disconnect_button)
-    public void disconnect(){
-        presenter.disconnect();
+        if(!Connectivity.isNetworkAvailable(this)){
+            Toast.makeText(this,R.string.no_connectivity,Toast.LENGTH_SHORT).show();
+        }else {
+            presenter.signIn();
+        }
     }
 
     private void initializeInjector() {
@@ -109,5 +107,11 @@ public class LoginActivity extends BaseMVPActivity<LoginFirebasePresenter,LoginF
         params.gravity = Gravity.TOP;
         view.setLayoutParams(params);
         snack.show();
+    }
+
+
+    @Override
+    public void showLogo() {
+        Glide.with(this).load(R.drawable.splash_image).into(imageView);
     }
 }

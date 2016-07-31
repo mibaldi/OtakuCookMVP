@@ -67,6 +67,7 @@ public class LoginFirebasePresenter extends BasePresenter<LoginFirebaseView> imp
     public void init(FragmentActivity fragmentActivity) {
 
         this.fragmentActivity = fragmentActivity;
+        getView().showLogo();
         initGoogle(fragmentActivity);
     }
 

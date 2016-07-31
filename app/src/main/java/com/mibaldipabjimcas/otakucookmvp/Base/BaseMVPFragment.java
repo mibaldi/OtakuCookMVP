@@ -20,7 +20,7 @@ public abstract class BaseMVPFragment<P extends BasePresenter<V>, V extends Base
     }
 
     public void showError(int error) {
-        Toast.makeText(getActivity(), "Error: " + error, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "Error: " + error, Toast.LENGTH_SHORT).show();
     }
 
 }

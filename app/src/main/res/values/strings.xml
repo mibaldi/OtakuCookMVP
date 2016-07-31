@@ -81,4 +81,5 @@
     <string name="loading_recipes">Cargando recetas ...</string>
     <string name="loading_recipe">Cargando receta...</string>
     <string name="loading">Cargando...</string>
+    <string name="ver_receta">VER RECETA</string>
 </resources>

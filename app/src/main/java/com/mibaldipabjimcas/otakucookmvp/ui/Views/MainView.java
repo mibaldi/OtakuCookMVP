@@ -20,4 +20,6 @@ public interface MainView extends BaseView {
 
     void showProgressDialog(int message);
     void cancelProgressDialog();
+
+    void showRecipeButton(int visibility);
 }

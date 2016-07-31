@@ -44,7 +44,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"
-            android:id="@+id/mainLinearLayout"
             android:background="@drawable/divider">
             <TextView
                 android:layout_height="wrap_content"
@@ -62,10 +61,16 @@
         </LinearLayout>
 
     </LinearLayout>
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_centerInParent="true"
+    <Button
+        android:id="@+id/mainLinearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/ver_receta"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/round_button"
+        android:padding="10dp"
+        android:layout_margin="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:visibility="gone"/>
 </RelativeLayout>

@@ -48,6 +48,9 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
     @BindView(R.id.random)
     Button randomButton;
 
+    @BindView(R.id.mainLinearLayout)
+    Button recipeButton;
+
     private ProgressDialog progressDialog;
 
     @Inject
@@ -154,6 +157,11 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
     public void cancelProgressDialog() {
         progressDialog.setCancelable(true);
         progressDialog.cancel();
+    }
+
+    @Override
+    public void showRecipeButton(int visibility) {
+        recipeButton.setVisibility(visibility);
     }
 
 

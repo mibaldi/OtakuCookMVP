@@ -3,6 +3,7 @@ package com.mibaldipabjimcas.otakucookmvp.features.Main;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,6 +37,7 @@ public class MainPresenter extends BasePresenter<MainView> {
     private int numberRecipes;
     private boolean existRandomButtom;
     private Context context;
+    private boolean existFavorites;
 
     @Inject
     public MainPresenter(Navigator navigator) {
@@ -69,11 +71,14 @@ public class MainPresenter extends BasePresenter<MainView> {
                 recipes = dataSnapshot.getChildren();
                 numberRecipes = (int) dataSnapshot.getChildrenCount();
                 if (numberRecipes != 0) {
+                    existFavorites = true;
                     if (numberRecipes > 1) {
                         existRandomButtom = true;
                     }
                     randomRecipe();
                 }else{
+                    existFavorites = false;
+                    getView().showRecipeButton(View.GONE);
                     printNoFavorites();
                 }
             }
@@ -119,18 +124,23 @@ public class MainPresenter extends BasePresenter<MainView> {
 
     private void printRecipe(final String key) {
         previousRecipe = key;
-
         firebaseRepository.getRecipeBasic(key, new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                getView().cancelProgressDialog();
-                RecipeFB r = dataSnapshot.getValue(RecipeFB.class);
-                getView().showRecipeName(r.name);
-                getView().showRecipeImage(r.photo);
-                getView().showRatingBar(r.score);
-                getView().showRecipeAuthor(r.author);
-                if(existRandomButtom)
-                    getView().showRandomButton(true);
+                if(existFavorites) {
+                    getView().showRecipeButton(View.VISIBLE);
+                    getView().cancelProgressDialog();
+                    RecipeFB r = dataSnapshot.getValue(RecipeFB.class);
+                    getView().showRecipeName(r.name);
+                    getView().showRecipeImage(r.photo);
+                    getView().showRatingBar(r.score);
+                    getView().showRecipeAuthor(r.author);
+                    if (existRandomButtom)
+                        getView().showRandomButton(true);
+                }else{
+                    printNoFavorites();
+                    getView().showRecipeButton(View.GONE);
+                }
             }
 
             @Override

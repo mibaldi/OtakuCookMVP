@@ -127,7 +127,7 @@ public abstract class BaseMVPActivity <P extends BasePresenter<V>,V extends Base
     }
 
     public void showError(int error) {
-        Toast.makeText(this,"Error: "+error, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"Error: "+error, Toast.LENGTH_SHORT).show();
     }
 
 }
