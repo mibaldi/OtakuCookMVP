@@ -1,5 +1,6 @@
 package com.mibaldipabjimcas.otakucookmvp.ui.Fragments;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
@@ -74,10 +75,8 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
     @BindView(R.id.fab)
     FloatingActionButton favorite;
 
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
-
     private Unbinder unbind;
+    private ProgressDialog progressDialog;
 
     @Inject
     public RecipeDescriptionFragment() {
@@ -101,6 +100,8 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Recipe recipe = getArguments().getParcelable("recipe");
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setCancelable(false);
         presenter.init(recipe,getActivity());
         setSizeAppBarLayout();
 
@@ -240,13 +241,17 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
     }
 
     @Override
-    public void showProgressBar(Boolean b) {
-        if (b) {
-            progressBar.setVisibility(View.VISIBLE);
-        } else {
-            progressBar.setVisibility(View.GONE);
-        }
+    public void showProgressDialog(int message) {
+        progressDialog.setMessage(getString(message));
+        progressDialog.show();
     }
+
+    @Override
+    public void cancelProgressDialog() {
+        progressDialog.setCancelable(true);
+        progressDialog.cancel();
+    }
+
 
     @Override
     public void showNoConnectivity() {

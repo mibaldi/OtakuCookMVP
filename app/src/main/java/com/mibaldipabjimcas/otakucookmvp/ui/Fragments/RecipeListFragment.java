@@ -1,5 +1,6 @@
 package com.mibaldipabjimcas.otakucookmvp.ui.Fragments;
 
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -47,19 +48,14 @@ public class RecipeListFragment extends BaseMVPFragment<RecipeListPresenter, Rec
     @BindView(R.id.recipe_recyclerView)
     RecyclerView recipe_recyclerView;
 
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
-
     @BindView(R.id.activity_main_swipe_refresh_layout)
     SwipeRefreshLayout mSwipeRefreshLayout;
-
-    @BindView(R.id.noRecipes)
-    RelativeLayout noRecipes;
 
     @Inject
     RecipesListAdapter recipesListAdapter;
     private MenuItem myActionMenuItem;
     private SearchView searchView;
+    private ProgressDialog progressDialog;
 
     @Inject
     public RecipeListFragment() {
@@ -75,6 +71,8 @@ public class RecipeListFragment extends BaseMVPFragment<RecipeListPresenter, Rec
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
+        progressDialog =  new ProgressDialog(getActivity());
+        progressDialog.setCancelable(false);
         presenter.init(getActivity());
     }
 
@@ -137,21 +135,15 @@ public class RecipeListFragment extends BaseMVPFragment<RecipeListPresenter, Rec
     }
 
     @Override
-    public void loadingRecipes(boolean b) {
-        if(b){
-            noRecipes.setVisibility(View.VISIBLE);
-        }else{
-            noRecipes.setVisibility(View.GONE);
-        }
+    public void showProgressDialog(int message) {
+            progressDialog.setMessage(getString(message));
+            progressDialog.show();
     }
 
     @Override
-    public void showProgressBar(Boolean b) {
-        if(b){
-            progressBar.setVisibility(View.VISIBLE);
-        }else{
-            progressBar.setVisibility(View.GONE);
-        }
+    public void cancelProgressDialog() {
+        progressDialog.setCancelable(true);
+        progressDialog.cancel();
     }
 
     @Override

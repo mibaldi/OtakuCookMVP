@@ -1,10 +1,12 @@
 package com.mibaldipabjimcas.otakucookmvp.features.RecipeList;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 
 import com.mibaldipabjimcas.otakucookmvp.Base.BasePresenter;
 import com.mibaldipabjimcas.otakucookmvp.Constants.ErrorConstants;
 import com.mibaldipabjimcas.otakucookmvp.Navigation.Navigator;
+import com.mibaldipabjimcas.otakucookmvp.R;
 import com.mibaldipabjimcas.otakucookmvp.Services.Connectivity.Connectivity;
 import com.mibaldipabjimcas.otakucookmvp.Services.Retrofit2.ApiClient;
 import com.mibaldipabjimcas.otakucookmvp.Services.Retrofit2.ApiEndPointInterface;
@@ -39,14 +41,15 @@ public class RecipeListPresenter extends BasePresenter<RecipeListView> {
 
     public void loadServerService(){
         if(Connectivity.isNetworkAvailable(context)) {
-            getView().loadingRecipes(true);
+            getView().showProgressDialog(R.string.loading_recipes);
+            //getView().loadingRecipes(true);
             service = ApiClient.createService(ApiEndPointInterface.class);
             getView().swipeRefresh(true);
             Call<List<Recipe>> recipeList = service.recipes();
             recipeList.enqueue(new Callback<List<Recipe>>() {
                 @Override
                 public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
-                    getView().loadingRecipes(false);
+                    getView().cancelProgressDialog();
                     getView().showRecipeList(response.body());
                     getView().swipeRefresh(false);
                 }
@@ -64,13 +67,14 @@ public class RecipeListPresenter extends BasePresenter<RecipeListView> {
 
     public void loadRecipe(Recipe recipe){
         if(Connectivity.isNetworkAvailable(context)) {
-            getView().showProgressBar(true);
+
+            getView().showProgressDialog(R.string.loading_recipe);
             Call<Recipe> recipeList = service.getRecipe(recipe.id);
             recipeList.enqueue(new Callback<Recipe>() {
 
                 @Override
                 public void onResponse(Call<Recipe> call, Response<Recipe> response) {
-                    getView().showProgressBar(false);
+                    getView().cancelProgressDialog();
                     navigator.openRecipeDescription(response.body());
                 }
 

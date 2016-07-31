@@ -102,11 +102,6 @@ public class LoginActivity extends BaseMVPActivity<LoginFirebasePresenter,LoginF
     }
 
     @Override
-    public void showProgressBar(Boolean b) {
-
-    }
-
-    @Override
     public void showNoConnectivity() {
         Snackbar snack = Snackbar.make(getCurrentFocus(), R.string.not_connectivity, Snackbar.LENGTH_LONG);
         View view = snack.getView();

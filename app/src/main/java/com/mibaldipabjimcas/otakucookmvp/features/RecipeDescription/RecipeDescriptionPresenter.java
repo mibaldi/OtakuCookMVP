@@ -126,19 +126,19 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
 
 
     public void setRecipeFavorite() {
-        getView().showProgressBar(true);
+        getView().showProgressDialog(R.string.loading);
         if (firebaseRepository.getAuth() != null) {
             firebaseRepository.setFirebaseFavorite(favorite,new DataListener<Boolean>() {
                 @Override
                 public void onSuccess(Boolean data) {
                     favorite = data;
-                    getView().showProgressBar(false);
+                    getView().cancelProgressDialog();
                     getView().setFavorite(data);
                 }
 
                 @Override
                 public void onError(int error) {
-                    getView().showProgressBar(false);
+                    getView().cancelProgressDialog();
                     getView().showError(error);
                 }
             });

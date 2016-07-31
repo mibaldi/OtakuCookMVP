@@ -104,15 +104,6 @@ public class IngredientListFragment extends BaseMVPFragment<IngredientListPresen
     }
 
     @Override
-    public void showProgressBar(Boolean b) {
-        if(b){
-            progressBar.setVisibility(View.VISIBLE);
-        }else{
-            progressBar.setVisibility(View.GONE);
-        }
-    }
-
-    @Override
     public void showNoConnectivity() {
 
     }

@@ -13,20 +13,7 @@
 
     </android.support.v7.widget.RecyclerView>
     </android.support.v4.widget.SwipeRefreshLayout>
-    <RelativeLayout
-        android:id="@+id/noRecipes"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/cargando_recetas_del_servidor"
-            android:textAlignment="center"
-            android:textSize="@dimen/recipe_title_size"
-            android:layout_centerInParent="true"
-            />
-    </RelativeLayout>
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_centerInParent="true"

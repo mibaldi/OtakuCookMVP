@@ -1,5 +1,6 @@
 package com.mibaldipabjimcas.otakucookmvp.ui.Fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
@@ -37,24 +38,18 @@ import butterknife.Unbinder;
  * Created by mikelbalducieldiaz on 17/7/16.
  */
 public class RecipeListFavoritesFragment  extends BaseMVPFragment<RecipeListFavoritesPresenter,RecipeListFavoritesView> implements RecipeListFavoritesView{
-    public static final int NO_RECIPES = 1;
     private MainActivityComponent component;
     private Unbinder unbind;
 
     @BindView(R.id.recipe_recyclerView)
     RecyclerView recipe_recyclerView;
 
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
-
     @BindView(R.id.noRecipes)
     RelativeLayout noRecipes;
 
-    @BindView(R.id.message)
-    TextView message;
-
     @Inject
     RecipesListAdapter recipesListAdapter;
+    private ProgressDialog progressDialog;
 
     @Inject
     public RecipeListFavoritesFragment() {
@@ -69,6 +64,8 @@ public class RecipeListFavoritesFragment  extends BaseMVPFragment<RecipeListFavo
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setCancelable(false);
         presenter.init(getActivity());
     }
 
@@ -110,28 +107,20 @@ public class RecipeListFavoritesFragment  extends BaseMVPFragment<RecipeListFavo
     @Override
     public void showNoRecipes() {
         noRecipes.setVisibility(View.VISIBLE);
-        message.setText(getString(R.string.no_favorites));
     }
 
     @Override
-    public void loadingRecipes(boolean b) {
-        if(b){
-            noRecipes.setVisibility(View.VISIBLE);
-            message.setText(getString(R.string.cargando_recetas_del_servidor));
-        }else{
-            noRecipes.setVisibility(View.GONE);
-        }
+    public void showProgressDialog(int message) {
+        progressDialog.setMessage(getString(message));
+        progressDialog.show();
     }
-
 
     @Override
-    public void showProgressBar(Boolean b) {
-        if(b){
-            progressBar.setVisibility(View.VISIBLE);
-        }else{
-            progressBar.setVisibility(View.GONE);
-        }
+    public void cancelProgressDialog() {
+        progressDialog.setCancelable(true);
+        progressDialog.cancel();
     }
+
 
     @Override
     public void showNoConnectivity() {

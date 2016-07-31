@@ -17,4 +17,7 @@ public interface MainView extends BaseView {
     void showRecipeAuthor(String author);
 
     void showRandomButton(Boolean b);
+
+    void showProgressDialog(int message);
+    void cancelProgressDialog();
 }

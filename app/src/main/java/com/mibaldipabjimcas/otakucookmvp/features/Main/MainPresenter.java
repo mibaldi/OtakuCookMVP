@@ -52,6 +52,7 @@ public class MainPresenter extends BasePresenter<MainView> {
                 if(previousRecipe != null){
                     printRecipe(previousRecipe);
                 }else{
+                    getView().showProgressDialog(R.string.loading_recipe);
                     getRandomRecipe();
                 }
 
@@ -79,14 +80,19 @@ public class MainPresenter extends BasePresenter<MainView> {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                getView().cancelProgressDialog();
                 getView().showError(ErrorConstants.RECIPE_LIST_FAVORITE_ERROR);
             }
         });
     }
 
     private void printNoFavorites() {
+        getView().cancelProgressDialog();
         getView().showRecipeName(context.getString(R.string.no_favorites));
         getView().showDefaultImage();
+        getView().showRandomButton(false);
+        getView().showRecipeAuthor("");
+        getView().showRatingBar(0);
     }
 
     public void randomRecipe(){
@@ -117,6 +123,7 @@ public class MainPresenter extends BasePresenter<MainView> {
         firebaseRepository.getRecipeBasic(key, new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                getView().cancelProgressDialog();
                 RecipeFB r = dataSnapshot.getValue(RecipeFB.class);
                 getView().showRecipeName(r.name);
                 getView().showRecipeImage(r.photo);
@@ -128,6 +135,7 @@ public class MainPresenter extends BasePresenter<MainView> {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                getView().cancelProgressDialog();
                 getView().showError(ErrorConstants.FIREBASE_ERROR);
             }
         });
@@ -139,17 +147,18 @@ public class MainPresenter extends BasePresenter<MainView> {
     }
 
     public void openRecipeDescription(){
-        getView().showProgressBar(true);
+        getView().showProgressDialog(R.string.loading_recipe);
         firebaseRepository.getRecipeComplete(previousRecipe, new DataListener<Recipe>() {
             @Override
             public void onSuccess(Recipe data) {
-                getView().showProgressBar(false);
+                getView().cancelProgressDialog();
                 navigator.openRecipeDescription(data);
             }
 
             @Override
             public void onError(int error) {
                 getView().showError(error);
+                getView().cancelProgressDialog();
             }
         });
     }

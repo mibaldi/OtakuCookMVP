@@ -12,5 +12,6 @@ public interface RecipeListFavoritesView  extends BaseView {
     void showRecipeFavoriteList(List<Recipe> recipes);
     void showNoRecipes();
 
-    void loadingRecipes(boolean b);
+    void showProgressDialog(int message);
+    void cancelProgressDialog();
 }

@@ -39,4 +39,7 @@ public interface RecipeDescriptionView extends BaseView {
     Drawable getDrawableImage();
 
     void setFavorite(Boolean b);
+
+    void showProgressDialog(int message);
+    void cancelProgressDialog();
 }

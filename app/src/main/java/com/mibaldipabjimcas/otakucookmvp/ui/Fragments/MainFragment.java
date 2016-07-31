@@ -1,8 +1,10 @@
 package com.mibaldipabjimcas.otakucookmvp.ui.Fragments;
 
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,8 +48,7 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
     @BindView(R.id.random)
     Button randomButton;
 
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
+    private ProgressDialog progressDialog;
 
     @Inject
     public MainFragment() {
@@ -67,6 +68,8 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setCancelable(false);
         presenter.init(getActivity());
     }
 
@@ -125,28 +128,34 @@ public class MainFragment extends BaseMVPFragment<MainPresenter,MainView>  imple
 
     @Override
     public void showRecipeAuthor(String author) {
-        mainRecipeAuthor.setText(getString(R.string.por,author));
+        if(!author.isEmpty())
+            mainRecipeAuthor.setText(getString(R.string.por,author));
     }
 
     @Override
     public void showRandomButton(Boolean b) {
         randomButton.setEnabled(b);
         if(b){
-            randomButton.setTextColor(Color.BLUE);
+            randomButton.setBackground(ResourcesCompat.getDrawable(getResources(),R.drawable.buy_button,null));
+            randomButton.setTextColor(Color.WHITE);
         }else{
-            randomButton.setTextColor(Color.GRAY);
+            randomButton.setBackground(ResourcesCompat.getDrawable(getResources(),R.drawable.round_button,null));
         }
 
     }
 
     @Override
-    public void showProgressBar(Boolean b) {
-        if(b){
-            progressBar.setVisibility(View.VISIBLE);
-        }else{
-            progressBar.setVisibility(View.GONE);
-        }
+    public void showProgressDialog(int message) {
+        progressDialog.setMessage(getString(message));
+        progressDialog.show();
     }
+
+    @Override
+    public void cancelProgressDialog() {
+        progressDialog.setCancelable(true);
+        progressDialog.cancel();
+    }
+
 
     @Override
     public void showNoConnectivity() {

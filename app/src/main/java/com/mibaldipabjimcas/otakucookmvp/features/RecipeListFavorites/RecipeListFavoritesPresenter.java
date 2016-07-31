@@ -13,6 +13,7 @@ import com.mibaldipabjimcas.otakucookmvp.Base.BasePresenter;
 import com.mibaldipabjimcas.otakucookmvp.Base.DataListener;
 import com.mibaldipabjimcas.otakucookmvp.Constants.ErrorConstants;
 import com.mibaldipabjimcas.otakucookmvp.Navigation.Navigator;
+import com.mibaldipabjimcas.otakucookmvp.R;
 import com.mibaldipabjimcas.otakucookmvp.Services.Connectivity.Connectivity;
 import com.mibaldipabjimcas.otakucookmvp.Services.Firebase.FirebaseRepository;
 import com.mibaldipabjimcas.otakucookmvp.data.FirebaseModels.RecipeFB;
@@ -67,23 +68,21 @@ public class RecipeListFavoritesPresenter extends BasePresenter<RecipeListFavori
             getView().showRecipeFavoriteList(recipes);
         }else {
             recipes.clear();
-            getView().showProgressBar(true);
-            getView().loadingRecipes(true);
+            getView().showProgressDialog(R.string.loading_recipes);
             firebaseRepository.getRecipeFavorites(new DataListener<List<Recipe>>() {
                 @Override
                 public void onSuccess(List<Recipe> data) {
                     if(data.isEmpty()) {
                         getView().showNoRecipes();
                     }
-                    getView().loadingRecipes(false);
+                    getView().cancelProgressDialog();
                     getView().showRecipeFavoriteList(data);
-                    getView().showProgressBar(false);
                 }
 
                 @Override
                 public void onError(int error) {
                     getView().showError(error);
-                    getView().showProgressBar(false);
+                    getView().cancelProgressDialog();
                 }
             });
         }
@@ -91,17 +90,18 @@ public class RecipeListFavoritesPresenter extends BasePresenter<RecipeListFavori
 
     public void loadRecipe(final Recipe recipe) {
         if (Connectivity.isNetworkAvailable(context)) {
-            getView().showProgressBar(true);
+            getView().showProgressDialog(R.string.loading_recipe);
             firebaseRepository.getRecipeComplete(String.valueOf(recipe.id), new DataListener<Recipe>() {
                 @Override
                 public void onSuccess(Recipe data) {
-                    getView().showProgressBar(false);
+                    getView().cancelProgressDialog();
                     navigator.openRecipeDescription(data);
                 }
 
                 @Override
                 public void onError(int error) {
                     getView().showError(error);
+                    getView().cancelProgressDialog();
                 }
             });
         } else {

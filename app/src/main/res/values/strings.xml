@@ -78,4 +78,7 @@
     <string name="want_start_challenge">Do you want to start the recipe challenge?</string>
     <string name="no_favorites">Don\'t have any recipe in your favorites</string>
     <string name="recipe_finished">Recipe finished</string>
+    <string name="loading_recipes">Cargando recetas ...</string>
+    <string name="loading_recipe">Cargando receta...</string>
+    <string name="loading">Cargando...</string>
 </resources>
