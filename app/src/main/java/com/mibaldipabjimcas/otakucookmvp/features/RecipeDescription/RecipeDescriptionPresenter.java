@@ -190,7 +190,7 @@ public class RecipeDescriptionPresenter extends BasePresenter<RecipeDescriptionV
        // view.setEnabled(false);
 
         //imageTime.setImageResource(R.drawable.congelado);
-        generateAlarm(context, /*calculateTime()*/ 3000);
+        generateAlarm(context, calculateTime());
     }
 
     public void openFavoriteDialog(Fragment fragment) {

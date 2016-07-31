@@ -178,7 +178,7 @@
                 android:background="@drawable/buy_button"/>
         </RelativeLayout>
 
-        
+
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_centerInParent="true"
@@ -187,7 +187,6 @@
             android:visibility="gone"/>
 
     </RelativeLayout>
-
 
 
 </android.support.design.widget.CoordinatorLayout>
