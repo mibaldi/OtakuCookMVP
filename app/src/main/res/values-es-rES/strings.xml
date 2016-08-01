@@ -20,4 +20,7 @@
     <string name="loading_recipes">Cargando recetas ...</string>
     <string name="not_connectivity">No tienes conexión</string>
     <string name="ver_receta">VER RECETA</string>
+    <string name="principal">Principal</string>
+    <string name="lista_de_recetas">Lista de recetas</string>
+    <string name="lista_de_favoritos">Lista de favoritos</string>
 </resources>

@@ -82,4 +82,8 @@
     <string name="loading_recipes">Loading recipes...</string>
     <string name="not_connectivity">Don\'t have connectivity</string>
     <string name="ver_pasos">Show tasks</string>
+    <string name="ver_receta">SHOW RECIPE</string>
+    <string name="principal">Main</string>
+    <string name="lista_de_recetas">List of recipes</string>
+    <string name="lista_de_favoritos">List of favorites</string>
 </resources>
