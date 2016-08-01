@@ -14,6 +14,7 @@ import com.mibaldipabjimcas.otakucookmvp.BuildConfig;
 import com.mibaldipabjimcas.otakucookmvp.Constants.ErrorConstants;
 import com.mibaldipabjimcas.otakucookmvp.Navigation.Navigator;
 import com.mibaldipabjimcas.otakucookmvp.R;
+import com.mibaldipabjimcas.otakucookmvp.Services.Connectivity.Connectivity;
 import com.mibaldipabjimcas.otakucookmvp.Services.Firebase.FirebaseRepository;
 import com.mibaldipabjimcas.otakucookmvp.data.FirebaseModels.RecipeFB;
 import com.mibaldipabjimcas.otakucookmvp.data.Models.Recipe;
@@ -48,14 +49,15 @@ public class MainPresenter extends BasePresenter<MainView> {
 
         this.context = context;
         if (firebaseRepository.getAuth() != null) {
-
             if(BuildConfig.SHOW_PREMIUM_ACTIONS){
 
                 if(previousRecipe != null){
                     printRecipe(previousRecipe);
                 }else{
-                    getView().showProgressDialog(R.string.loading_recipe);
-                    getRandomRecipe();
+                    if(Connectivity.isNetworkAvailable(context)) {
+                        getView().showProgressDialog(R.string.loading_recipe);
+                        getRandomRecipe();
+                    }
                 }
 
         }else{
