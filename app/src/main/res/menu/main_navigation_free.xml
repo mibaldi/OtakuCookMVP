@@ -4,11 +4,11 @@
         <item
             android:id="@+id/item1"
             android:icon="@android:drawable/ic_dialog_dialer"
-            android:title="Principal"/>
+            android:title="@string/principal"/>
         <item
             android:id="@+id/item2"
-            android:icon="@android:drawable/ic_dialog_dialer"
-            android:title="Lista de recetas"/>
+            android:icon="@drawable/icon_small_2"
+            android:title="@string/lista_de_recetas"/>
 
     </group>
 
