@@ -39,12 +39,11 @@
             android:orientation="vertical"
             android:background="@drawable/divider">
             <LinearLayout
-                android:layout_centerInParent="true"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:text="Tortilla de patatas"
+                    android:layout_margin="10dp"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:id="@+id/mainRecipeName"

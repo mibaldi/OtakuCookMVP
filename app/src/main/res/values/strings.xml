@@ -12,46 +12,22 @@
     <string name="taskName">Task %1$s</string>
 
     <string name="_00_00_00">00:00:00</string>
-    <string name="comprar">Buy</string>
-    <string name="eliminar">Delete</string>
-    <string name="btalarmInit">Start</string>
-    <string name="btalarmWait">Wait</string>
-    <string name="mensajeFinalRecipe">Select the ingredients you have finished during the preparation of the recipe</string>
-    <string name="shoping_cart_drawer">Shopping cart</string>
-    <string name="pendiente">pending purchase</string>
-    <string name="disponible">available</string>
     <string name="Paso">Step %s</string>
     <string name="por">by %s</string>
-    <string name="title_RecipeTaskList">Steps of recipe</string>
     <string name="title_alertDialogError">Error</string>
-    <string name="title_RecipeTaskViewPage">Steps of recipe</string>
     <string name="title_dialogExit">Do you want to exit from app?</string>
-    <string name="title_dialogFinishRecipe">Do you want to finish the recipe?</string>
-    <string name="title_favoritesFragment">Favorites recipes</string>
-    <string name="title_mainFragment">All recipes</string>
-    <string name="title_posiblesFragment">Possibles recipes</string>
     <string name="progressDialogMessage">Loading...</string>
-    <string name="authenticatedFB">Authenticating with Firebase...</string>
-    <string name="fab_ingredienteHistorico">Historical ingredients</string>
-    <string name="fab_ingredienteServer">New ingredients</string>
-    <string name="bt_borrar">Delete</string>
-    <string name="bt_finalizar">Finish</string>
     <string name="compartir">Share</string>
     <string name="tarea">task %s</string>
     <string name="logged">Logged in as</string>
     <string name="free_main_fragment">Download Premium version for save favorites, share recipes and receive news</string>
-    <string name="no_ingredients">There are no more ingredients for this category</string>
+
     <string name="textSettings">Option to change color theme. Two possibilites</string>
     <string name="titleSettings">UPDATE SETTINGS</string>
     <string name="subTitleSettings">Theme color</string>
     <string name="random">Random</string>
     <string name="no_connectivity">You haven\'t connection</string>
-    <string name="ingredient_in_cart">Ingredient in cart</string>
     <string name="title_alarm_receiver">Task %s</string>
-    <string name="toasr_delete_ingredient">Ingredient removed</string>
-    <string name="toast_add_ingredient">Ingredient added</string>
-    <string name="toast_add_shopping_cart">Ingredient added to shopping cart</string>
-    <string name="toast_buy_ingredient">Purchased ingredient</string>
     <string name="toast_delete_favorite">Recipe removed from favorites</string>
     <string name="toast_final" translatable="false">Final</string>
     <string name="toast_save_favorite">Recipe saved in favorites</string>
@@ -70,13 +46,11 @@
     <string name="email_suggestions">otakucook.sugerencias@gmail.com</string>
     <string name="show_tasks">show tasks</string>
     <string name="cargando_recetas_del_servidor">"Loading recipes ... "</string>
-    <string name="cocinar">Cook</string>
     <string name="deleted_favorite_recipe">Recipe deleted from favorites</string>
     <string name="favoritas">Favorites</string>
     <string name="ingredients_drawer"></string>
     <string name="want_start_challenge">Do you want to start the recipe challenge?</string>
     <string name="no_favorites">Don\'t have any recipe in your favorites</string>
-    <string name="recipe_finished">Recipe finished</string>
     <string name="loading">Loading...</string>
     <string name="loading_recipe">Loading recipe...</string>
     <string name="loading_recipes">Loading recipes...</string>
@@ -86,4 +60,5 @@
     <string name="principal">Main</string>
     <string name="lista_de_recetas">List of recipes</string>
     <string name="lista_de_favoritos">List of favorites</string>
+    <string name="recipe_for">Recipe for %d diners</string>
 </resources>

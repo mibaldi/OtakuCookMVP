@@ -215,7 +215,7 @@ public class RecipeDescriptionFragment extends BaseMVPFragment<RecipeDescription
 
     @Override
     public void showRecipePortions(int number) {
-        portions.setText(String.format("Receta para %d personas",number));
+        portions.setText(String.format(getString(R.string.recipe_for),number));
     }
 
     @Override
