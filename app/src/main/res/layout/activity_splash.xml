@@ -15,6 +15,7 @@
         android:layout_height="@dimen/image_height"
         android:id="@+id/imageView"
         android:layout_above="@+id/progressBar"
+        android:src="@drawable/splash_image"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 

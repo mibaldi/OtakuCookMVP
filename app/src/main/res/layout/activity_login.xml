@@ -12,6 +12,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="@dimen/image_height"
+        android:src="@drawable/splash_image"
         android:id="@+id/logo"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"

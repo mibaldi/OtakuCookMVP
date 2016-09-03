@@ -9,7 +9,6 @@ import android.widget.ProgressBar;
 
 
 import com.bumptech.glide.Glide;
-import com.mibaldipabjimcas.otakucookmvp.BuildConfig;
 import com.mibaldipabjimcas.otakucookmvp.R;
 
 import butterknife.BindView;
@@ -32,11 +31,11 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
-        if (BuildConfig.SHOW_PREMIUM_ACTIONS){
+       /* if (BuildConfig.SHOW_PREMIUM_ACTIONS){
             Glide.with(this).load(R.drawable.splash_image).into(imageView);
         }else{
             Glide.with(this).load(R.drawable.splash_image).into(imageView);
-        }
+        }*/
 
         progressBar.setMax(max_progress());
         startAnimation();

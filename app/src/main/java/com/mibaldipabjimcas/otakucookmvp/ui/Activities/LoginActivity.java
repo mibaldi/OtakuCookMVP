@@ -112,6 +112,6 @@ public class LoginActivity extends BaseMVPActivity<LoginFirebasePresenter,LoginF
 
     @Override
     public void showLogo() {
-        Glide.with(this).load(R.drawable.splash_image).into(imageView);
+        //Glide.with(this).load(R.drawable.splash_image).into(imageView);
     }
 }
